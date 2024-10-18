@@ -1,6 +1,5 @@
 package by.duzh.jse;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 public class DeclareVarsTests {
