@@ -5,31 +5,18 @@ import org.junit.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class StringTest {
     @Test
     public void testCreate() throws Exception{
         String s = "Hello World!";
-        System.out.println("create: " + s);
     }
 
     @Test
     public void testSpecialSymbols() throws Exception{
         String s = "a\n";
         s = "a\"";
-        System.out.println(s);
-    }
-
-    @Test
-    public void testConcat() throws Exception{
-        Assert.assertEquals("test world", "test " + "world");
-        Assert.assertEquals("test1", "test" + 1);
-    }
-
-    @Test
-    public void testJDK11IsBlank() {
-        Assert.assertTrue("".isBlank());
-        Assert.assertTrue("  ".isBlank());
     }
 
     @Test
@@ -49,8 +36,16 @@ public class StringTest {
     }
 
     @Test
-    public void testToSharArray() {
-        Assert.assertEquals("Hello", String.valueOf("Hello".toCharArray()));
+    public void testConcat() throws Exception{
+        Assert.assertEquals("test world", "test " + "world");
+        Assert.assertEquals("test1", "test" + 1);
+    }
+
+    @Test
+    public void testToCharArray() {
+        char[] chars = "ab".toCharArray();
+        Assert.assertEquals('a', chars[0]);
+        Assert.assertEquals('b', chars[1]);
     }
 
     @Test
@@ -81,8 +76,17 @@ public class StringTest {
     }
 
     @Test
+    public void testCompare() throws Exception {
+        String one = "test";
+        String two = "test";
+        System.out.println(one.equals(two));
+    }
+
+    @Test
     public void testCompareTo() {
         Assert.assertTrue("aaa".compareTo("bb") < 0);
+        Assert.assertEquals(0, "aa".compareTo("aa"));
+        Assert.assertTrue("bb".compareTo("aa") > 0);
     }
 
     @Test
@@ -92,24 +96,34 @@ public class StringTest {
 
     @Test
     public void testReplaceCharSequence() {
-        Assert.assertEquals("abcdefj".replace("cde", "kk"), "abkkfj");
+        Assert.assertEquals("abcdef".replace("cde", "kk"), "abkkf");
     }
 
     @Test
-    public void testJDK8Join() {
-        Assert.assertEquals(String.join("-", "one", "two", "ten"), "one-two-ten");
+    public void testJoin() {
+        Assert.assertEquals("one-two-ten", String.join("-", "one", "two", "ten"));
     }
 
     @Test
-    public void testJDK8JoinIterable() {
+    public void testJoinIterable() {
         var strings = Arrays.asList("one", "two", "ten");
-        Assert.assertEquals(String.join("-", strings), "one-two-ten");
+        Assert.assertEquals("one-two-ten", String.join("-", strings));
     }
 
     @Test
-    public void testJDK11Lines() {
+    public void testIsBlank() {
+        // for empty string
+        Assert.assertTrue("".isBlank());
+        // for the string full of spaces
+        Assert.assertTrue("  ".isBlank());
+    }
+
+    @Test
+    public void testLines() {
         var s = new Formatter().format("Hello%nWorld!").toString();
-        var list = s.lines().collect(Collectors.toList());
+
+        Stream<String> stringStream = s.lines();
+        var list = stringStream.toList();
 
         Assert.assertEquals(2, list.size());
         Assert.assertEquals("Hello", list.get(0));
@@ -117,41 +131,41 @@ public class StringTest {
     }
 
     @Test
-    public void testJDK11Repeat() {
+    public void testRepeat() {
         var s = "foo".repeat(3);
         Assert.assertEquals("foofoofoo", s);
     }
 
     @Test
-    public void testJDK11Strip() {
+    public void testStrip() {
         var s = "   Hello World!  ".strip();
         Assert.assertEquals("Hello World!", s);
     }
 
     @Test
-    public void testJDK11StripLeading() {
+    public void testStripLeading() {
         var s = "  Hello World!  ".stripLeading();
         Assert.assertEquals("Hello World!  ", s);
     }
 
     @Test
-    public void testJDK11StripTrailing() {
+    public void testStripTrailing() {
         var s = "  Hello World!  ".stripTrailing();
         Assert.assertEquals("  Hello World!", s);
     }
 
     @Test
-    public void testJDK15Formatted() throws Exception {
-        Assert.assertEquals("Hello John!", "Hello %s!".formatted("John"));
-    }
-
-    @Test
-    public void testJDK15StripIndent() throws Exception {
+    public void testStripIndent() throws Exception {
         var s = """
                 Hello
                 World!
                 """;
 
         Assert.assertEquals("Hello\nWorld!\n", s.stripIndent());
+    }
+
+    @Test
+    public void testFormatted() throws Exception {
+        Assert.assertEquals("Hello John!", "Hello %s!".formatted("John"));
     }
 }
