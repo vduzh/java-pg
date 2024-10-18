@@ -1,4 +1,4 @@
-package by.duzh.jse.oop;
+package by.duzh.jse;
 
 import org.junit.Test;
 
