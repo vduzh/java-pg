@@ -7,6 +7,24 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class StringTest {
+    @Test
+    public void testCreate() throws Exception{
+        String s = "Hello World!";
+        System.out.println("create: " + s);
+    }
+
+    @Test
+    public void testSpecialSymbols() throws Exception{
+        String s = "a\n";
+        s = "a\"";
+        System.out.println(s);
+    }
+
+    @Test
+    public void testConcat() throws Exception{
+        Assert.assertEquals("test world", "test " + "world");
+        Assert.assertEquals("test1", "test" + 1);
+    }
 
     @Test
     public void testJDK11IsBlank() {
