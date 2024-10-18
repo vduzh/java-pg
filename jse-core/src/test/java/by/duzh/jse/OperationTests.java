@@ -7,5 +7,6 @@ public class OperationTests {
     @Test
     public void testIntegerDivision() throws Exception {
         Assert.assertEquals(1, 5 / 3);
+        Assert.assertEquals(2, 5 % 3);
     }
 }
