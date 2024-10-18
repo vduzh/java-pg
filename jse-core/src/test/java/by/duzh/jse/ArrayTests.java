@@ -26,14 +26,17 @@ public class ArrayTests {
         numbers[0] = 1;
         Assert.assertEquals(1, numbers[0]);
 
-        // init while creating
         numbers = new int[] {10};
         Assert.assertEquals(10, numbers[0]);
+
+        // init while creating
+        int[] second = {100};
+        Assert.assertEquals(100, second[0]);
     }
 
     @Test
     public void testMembers() throws Exception {
-        int[] numbers = new int[] {1, 2, 3, 4, 5};
+        int[] numbers = {1, 2, 3, 4, 5};
 
         Assert.assertEquals(5, numbers.length);
    }
