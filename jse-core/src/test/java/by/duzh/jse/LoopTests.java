@@ -16,6 +16,21 @@ public class LoopTests {
             System.out.println("while with break");
             break;
         }
+    }
 
+    @Test
+    public void testDoWhile() throws Exception {
+        int i = 2;
+        do {
+            System.out.println("do while: " + i);
+            i--;
+        } while (i > 0);
+    }
+
+    @Test
+    public void testFor() throws Exception {
+        for (int i = 0; i < 3; i++) {
+            System.out.println("for: " + i);
+        }
     }
 }
