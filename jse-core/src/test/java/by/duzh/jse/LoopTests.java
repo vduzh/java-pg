@@ -1,5 +1,6 @@
 package by.duzh.jse;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class LoopTests {
@@ -31,6 +32,13 @@ public class LoopTests {
     public void testFor() throws Exception {
         for (int i = 0; i < 3; i++) {
             System.out.println("for: " + i);
+        }
+    }
+
+    @Test
+    public void testForEach() throws Exception {
+        for (Object obj: new Object[2]) {
+            System.out.println("for each");
         }
     }
 }
