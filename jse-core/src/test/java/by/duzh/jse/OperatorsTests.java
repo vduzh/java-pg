@@ -2,6 +2,8 @@ package by.duzh.jse;
 
 import org.junit.Test;
 
+import java.util.Random;
+
 public class OperatorsTests {
     @Test
     public void testIf() throws Exception {
@@ -15,6 +17,21 @@ public class OperatorsTests {
             } else {
                 System.out.println(data[i] + ": " + "It's too hoot!");
             }
+        }
+    }
+
+    @Test
+    public void testSwitch() throws Exception {
+        int i = new Random().nextInt();
+        switch (i) {
+            case 0:
+                System.out.println("Switch: Zero");
+                break;
+            case 1:
+                System.out.println("Switch: One");
+                break;
+            default:
+                System.out.println("Switch: Other");
         }
     }
 }
