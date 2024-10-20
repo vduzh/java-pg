@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-class TestClassWithStaticMembers {
+class StaticTestClass {
     // called first
     static int a = 10;
     // called afterwords
@@ -25,8 +25,8 @@ class TestClassWithStaticMembers {
 public class StaticTests {
     @Test
     public void testMembers() {
-        assertEquals(10, TestClassWithStaticMembers.a);
-        assertEquals(100, TestClassWithStaticMembers.b);
-        assertEquals(2_000, TestClassWithStaticMembers.multiply(2));
+        assertEquals(10, StaticTestClass.a);
+        assertEquals(100, StaticTestClass.b);
+        assertEquals(2_000, StaticTestClass.multiply(2));
     }
 }
