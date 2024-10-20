@@ -6,11 +6,6 @@ import org.junit.Test;
 public class ArrayTests {
     @Test
     public void testCreate() throws Exception {
-        Object[] objects = new Object[2];
-    }
-
-    @Test
-    public void testInit() throws Exception {
         // init with default values
         // for classes
         Object[] objects = new Object[1];
@@ -26,7 +21,7 @@ public class ArrayTests {
         numbers[0] = 1;
         Assert.assertEquals(1, numbers[0]);
 
-        numbers = new int[] {10};
+        numbers = new int[]{10};
         Assert.assertEquals(10, numbers[0]);
 
         // init while creating
@@ -38,7 +33,7 @@ public class ArrayTests {
     public void testMembers() throws Exception {
         int[] numbers = {1, 2, 3, 4, 5};
         Assert.assertEquals(5, numbers.length);
-   }
+    }
 
     @Test
     public void testArrayIndexOutOfBoundsException() throws Exception {
