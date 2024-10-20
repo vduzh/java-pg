@@ -110,7 +110,7 @@ class Box {
 
 }
 
-public class OopBasicTests {
+public class BasicTests {
     @Test
     public void testCreate() {
         // declare var
