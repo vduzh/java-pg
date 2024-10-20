@@ -37,7 +37,6 @@ public class ArrayTests {
     @Test
     public void testMembers() throws Exception {
         int[] numbers = {1, 2, 3, 4, 5};
-
         Assert.assertEquals(5, numbers.length);
    }
 
