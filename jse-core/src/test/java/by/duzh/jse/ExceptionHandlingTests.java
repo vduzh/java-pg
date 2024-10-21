@@ -10,8 +10,8 @@ public class ExceptionHandlingTests {
         int i = new Random().nextInt();
 
         try {
-            if (i % 2 == 0) {
-                throw new IllegalArgumentException();
+            if ((i % 2) == 0) {
+                throw new ArithmeticException();
             } else {
                 throw new IllegalArgumentException();
             }
@@ -21,6 +21,21 @@ public class ExceptionHandlingTests {
             // handle superclass
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCatchMultipleExceptions() throws Exception {
+        int i = new Random().nextInt();
+
+        try {
+            if ((i % 2) == 0) {
+                throw new IllegalArgumentException();
+            } else {
+                throw new ArithmeticException();
+            }
+        } catch (ArithmeticException | IllegalArgumentException e) {
+            System.out.println("First:" + e);
         }
     }
 
