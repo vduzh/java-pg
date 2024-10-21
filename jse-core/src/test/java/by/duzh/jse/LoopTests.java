@@ -1,12 +1,11 @@
 package by.duzh.jse;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 public class LoopTests {
     @Test
     public void testWhile() throws Exception {
-        int i =0;
+        int i = 0;
         while (i < 2) {
             System.out.println("while: " + i);
             i++;
@@ -37,7 +36,7 @@ public class LoopTests {
 
     @Test
     public void testForEach() throws Exception {
-        for (Object obj: new Object[2]) {
+        for (Object obj : new Object[2]) {
             System.out.println("for each");
         }
     }
