@@ -2,6 +2,8 @@ package by.duzh.jse.oop;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.assertEquals;
 
 
@@ -65,6 +67,11 @@ class Box {
         return 7;
     }
 
+    // a variable-length argument
+    int sum(int... nums) {
+        return Arrays.stream(nums).sum();
+    }
+
     static int staticMethod() {
         return 6;
     }
@@ -81,6 +88,17 @@ class Box {
      */
     static int staticMethod(int value) {
         return value;
+    }
+
+    /**
+     * Overloading a variable-length argument method
+     */
+    long sum(long... nums) {
+        return Arrays.stream(nums).sum();
+    }
+
+    long sum(long start, int... nums) {
+        return start + Arrays.stream(nums).sum();
     }
 
     /**
@@ -188,6 +206,11 @@ public class BasicTests {
 
         // static methods
         assertEquals(100, Box.staticMethod(100));
+
+        // a variable-length argument method
+        assertEquals(3, box.sum(1, 2));
+        assertEquals(30, box.sum(10L, 20L));
+        assertEquals(300, box.sum(100L, 200));
     }
 
     @Test
