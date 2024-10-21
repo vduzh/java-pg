@@ -9,5 +9,7 @@ public class VarTests {
         long a = 1;
         // with var keyword
         var b = 1L;
+        // with an object
+        var s = "Hello";
     }
 }
