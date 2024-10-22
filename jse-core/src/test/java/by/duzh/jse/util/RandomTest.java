@@ -25,20 +25,26 @@ public class RandomTest {
 
     @Test
     public void testNext() {
-        random.nextBoolean();
+        boolean b = random.nextBoolean();
+        System.out.println("testNext: boolean = " + b);
+
+        double d = random.nextDouble();
+        System.out.println("testNext: double = " + d);
+        double f = random.nextFloat();
+        System.out.println("testNext: float = " + f);
+        double g = random.nextGaussian();
+        System.out.println("testNext: gaussian = " + g);
+
+        int i = random.nextInt();
+        System.out.println("testNext: int = " + i);
+        i = random.nextInt(100);
+        System.out.println("testNext: int = " + i);
+
+        long l = random.nextLong();
+        System.out.println("testNext: long = " + l);
 
         byte[] bytes = new byte[16];
         random.nextBytes(bytes);
-
-        double d = random.nextDouble();
-        double f = random.nextFloat();
-        double g = random.nextGaussian();
-
-        int i = random.nextInt();
-        i = random.nextInt(100);
-
-        long l = random.nextLong();
-        System.out.println(l);
     }
 
     @Test
