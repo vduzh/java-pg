@@ -34,4 +34,19 @@ public class OperatorsTests {
                 System.out.println("Switch: Other");
         }
     }
+
+    @Test
+    public void testSwitchWithAutoBoxing() throws Exception {
+        Integer ibtObj = new Random().nextInt(3);
+        switch (ibtObj) {
+            case 0:
+                System.out.println("Switch: Zero");
+                break;
+            case 1:
+                System.out.println("Switch: One");
+                break;
+            default:
+                System.out.println("Switch: Other");
+        }
+    }
 }
