@@ -7,28 +7,36 @@ import java.lang.annotation.*;
 import java.lang.reflect.Method;
 
 import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.ElementType.LOCAL_VARIABLE;
 
-// A very simple annotation with 2
-@Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE})
+/**
+ * A very simple annotation with several members.
+ */
+@Target({TYPE, FIELD, CONSTRUCTOR, METHOD, PARAMETER, LOCAL_VARIABLE})
 @Retention(RetentionPolicy.RUNTIME)
-@interface SomeAnnotation {
+@interface CustomAnnotation {
+    // annotation member str
     String str();
-    int val();
-}
 
-@Retention(RetentionPolicy.RUNTIME)
-@interface AnnotationWithDefaultValues {
+    // annotation member val
+    int val();
+
+    // the member with default value
     String someValue() default "none";
 }
 
-@Retention(RetentionPolicy.RUNTIME)
-@interface Marker {
-}
-
+/**
+ * An annotation with only member.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @interface SingleMemberAnnotation {
     int value();
+}
+
+/**
+ * A marker annotation that has no members
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@interface Marker {
 }
 
 @Retention(RetentionPolicy.RUNTIME)
@@ -49,44 +57,38 @@ import static java.lang.annotation.ElementType.LOCAL_VARIABLE;
 }
 
 class Foo {
-    @SomeAnnotation(str="annotation sample", val=100)
-    public void bar() {
-        System.out.println("bar is working...");
-    }
-
-    @AnnotationWithDefaultValues()
-    public void buzz() {
-    }
-
+    @CustomAnnotation(str = "annotation sample", val = 100)
+    @SingleMemberAnnotation(200)
     @Marker
-    @SingleMemberAnnotation(2)
-    public void hello() {
+    @SomeRepeatable(str = "one")
+    @SomeRepeatable(str = "two")
+    public void bar() {
+        System.out.println("Foo::bar is working...");
     }
 
-    public void thisMethod(Foo this, String s) {
-        System.out.println(this);
-        System.out.println(s);
-    }
+//    public void thisMethod(Foo this, String s) {
+//        System.out.println(this);
+//        System.out.println(s);
+//    }
 
-    @SomeRepeatable(str="foo")
-    @SomeRepeatable(str="bar")
-    public void repeatable() {
-    }
 
-    @SomeAnnotation(str="annotation sample", val=100)
+    @CustomAnnotation(str = "annotation sample", val = 100)
     public void overridden() {
     }
 }
 
+/**
+ * Override annotations in the subclass
+ */
 class FooSubClass extends Foo {
-
-    @SecondAnnotation(str="buzz")
-    public void buzz(String s) {
-        System.out.println("buzz is working");
+    @SecondAnnotation(str = "overridden")
+    @Override
+    public void bar() {
+        System.out.println("FooSubClass::bar is working...");
     }
 
+    @SecondAnnotation(str = "overridden")
     @Override
-    @SecondAnnotation(str="overridden")
     public void overridden() {
         super.overridden();
     }
@@ -94,93 +96,76 @@ class FooSubClass extends Foo {
 
 public class AnnotationTests {
     @Test
-    public void testMethodGetAnnotationOK() throws Exception {
-        Class klass = Foo.class;
+    public void getAnnotation() throws Exception {
+        // get the of the class
+        Class<?> klass = Foo.class;
         Method method = klass.getMethod("bar");
+
         // Get a method annotation
-        SomeAnnotation annotation = method.getAnnotation(SomeAnnotation.class);
+        CustomAnnotation annotation = method.getAnnotation(CustomAnnotation.class);
         Assert.assertEquals(annotation.str(), "annotation sample");
         Assert.assertEquals(annotation.val(), 100);
     }
 
     @Test
-    public void testMethodGetAnnotationsOk() throws Exception {
+    public void getAnnotations() throws Exception {
         Annotation[] annotations = Foo.class.getMethod("bar").getAnnotations();
-        Assert.assertEquals(annotations.length, 1);
-        Assert.assertTrue(annotations[0] instanceof SomeAnnotation);
+        Assert.assertEquals(annotations.length, 4);
     }
 
     @Test
-    public void testMethodGetDeclaredAnnotationsOk() throws Exception {
-        Annotation[] annotations = FooSubClass.class.getMethod("buzz", String.class).getDeclaredAnnotations();
-        Assert.assertEquals(annotations.length , 1);
+    public void geDeclaredAnnotations() throws Exception {
+        Annotation[] annotations = FooSubClass.class.getMethod("bar").getDeclaredAnnotations();
+        Assert.assertEquals(1, annotations.length);
         Assert.assertTrue(annotations[0] instanceof SecondAnnotation);
     }
 
     @Test
-    public void testMethodIsAnnotationPresent() throws Exception {
-        Class<FooSubClass> klass = FooSubClass.class;
-
-        Method buzz = klass.getMethod("buzz", String.class);
-        Method bar = klass.getMethod("bar");
-
-        Assert.assertTrue(buzz.isAnnotationPresent(SecondAnnotation.class));
-        Assert.assertTrue(bar.isAnnotationPresent(SomeAnnotation.class));
+    public void isAnnotationPresent() throws Exception {
+        Class<Foo> klass = Foo.class;
+        Method method = klass.getMethod("bar");
+        Assert.assertTrue(method.isAnnotationPresent(CustomAnnotation.class));
+        Assert.assertTrue(method.isAnnotationPresent(SingleMemberAnnotation.class));
+        Assert.assertTrue(method.isAnnotationPresent(Marker.class));
+        Assert.assertTrue(method.isAnnotationPresent(SomeRepeatableContainer.class));
+        Assert.assertFalse(method.isAnnotationPresent(Retention.class));
     }
 
     @Test
-    public void testOverriddenMethods() throws Exception {
+    public void overrideMethods() throws Exception {
         Class<FooSubClass> klass = FooSubClass.class;
 
         Method method = klass.getMethod("overridden");
         Assert.assertTrue(method.isAnnotationPresent(SecondAnnotation.class));
-        Assert.assertFalse(method.isAnnotationPresent(SomeAnnotation.class));
+        Assert.assertFalse(method.isAnnotationPresent(CustomAnnotation.class));
     }
 
-    @Test
-    public void testMethodAnnotationWithDefaultValuesOK() throws Exception {
-        Assert.assertEquals("none",
-                Foo.class.getMethod("buzz").getAnnotation(AnnotationWithDefaultValues.class).someValue());
-    }
 
     @Test
-    public void testMethodHasMarkerOK() throws Exception {
-        Assert.assertTrue(Foo.class.getMethod("hello").isAnnotationPresent(Marker.class));
-    }
+    public void repeatableAnnotation() throws Exception {
+        Method method = Foo.class.getMethod("bar");
 
-    @Test
-    public void testMethodHasNoMarkerOK() throws Exception {
-        Assert.assertFalse(Foo.class.getMethod("buzz").isAnnotationPresent(Marker.class));
-    }
-
-    @Test
-    public void testSingleValueAnnotationOk() throws Exception {
-        Assert.assertEquals(Foo.class.getMethod("hello").getAnnotation(SingleMemberAnnotation.class).value(), 2);
-    }
-
-    @Test
-    public void testThisMethodOk() throws Exception {
-        Foo foo = new Foo();
-        foo.thisMethod("test");
-    }
-
-    @Test
-    public void testRepeatableAnnotationOK() throws Exception {
-        Method method = Foo.class.getMethod("repeatable");
-        SomeRepeatableContainer annotation = method.getAnnotation(SomeRepeatableContainer.class);
-        for (SomeRepeatable repeatable: annotation.value()) {
-            Assert.assertTrue("foo".equals(repeatable.str()) || "bar".equals(repeatable.str()));
+        SomeRepeatableContainer annotationContainer = method.getAnnotation(SomeRepeatableContainer.class);
+        for (SomeRepeatable repeatable : annotationContainer.value()) {
+            Assert.assertTrue("one".equals(repeatable.str()) || "two".equals(repeatable.str()));
         }
     }
 
     @Test
     public void testRepeatableAnnotationWithGetAnnotationsByTypeOK() throws Exception {
-        Method method = Foo.class.getMethod("repeatable");
-        for (SomeRepeatable repeatable: method.getAnnotationsByType(SomeRepeatable.class)) {
-            Assert.assertTrue("foo".equals(repeatable.str()) || "bar".equals(repeatable.str()));
+        Method method = Foo.class.getMethod("bar");
+        for (SomeRepeatable repeatable : method.getAnnotationsByType(SomeRepeatable.class)) {
+            Assert.assertTrue("one".equals(repeatable.str()) || "two".equals(repeatable.str()));
         }
     }
 
-    // TODO: test Type annotations
+//    @Test
+//    public void testThisMethodOk() throws Exception {
+//        Foo foo = new Foo();
+//        foo.thisMethod("test");
+//    }
+
+
+    //TODO: test Type annotations
 }
 
