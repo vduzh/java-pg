@@ -19,6 +19,7 @@ public class GenericMethodTest {
         double result;
         result = GenMethodDemo.<Integer, Integer>foo(10, new Integer[]{1, 2, 3});
         Assert.assertEquals(16.0, result, 0);
+
     }
 
     @Test
@@ -31,5 +32,13 @@ public class GenericMethodTest {
     public void testGenericMethodWithIntegerAndDouble() {
         double result = GenMethodDemo.<Integer, Double>foo(10, new Double[]{1.0, 2.0, 3.0});
         Assert.assertEquals(16.0, result, 0);
+    }
+
+    @Test
+    public void testShortForm() {
+        // full form
+        GenMethodDemo.<Integer, Integer>foo(10, new Integer[]{1, 2, 3});
+        // short form
+        GenMethodDemo.foo(10, new Integer[]{1, 2, 3});
     }
 }

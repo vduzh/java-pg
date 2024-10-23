@@ -1,16 +1,20 @@
 package by.duzh.jse.generics;
 
 import org.junit.Test;
-import org.w3c.dom.CDATASection;
 
-class WAClass {}
+import java.lang.reflect.Array;
 
-class WBClass extends WAClass {}
+class WAClass {
+}
 
-class WCClass extends WBClass {}
+class WBClass extends WAClass {
+}
+
+class WCClass extends WBClass {
+}
 
 class WContainer<T extends WAClass> {
-    private final T[] objects;
+    private T[] objects;
 
     public WContainer(T[] objects) {
         this.objects = objects;
@@ -20,11 +24,18 @@ class WContainer<T extends WAClass> {
         return objects;
     }
 
+//    @SuppressWarnings("unchecked")
     public void addA(WContainer<?> objects) {
-        //this.objects.
+//        T[] res = (T[]) Array.newInstance(
+//                this.objects.getClass().getComponentType(),
+//                this.objects.length + objects.getObjects().length);
+//        System.arraycopy(res, 0, this.objects, 0, this.objects.length);
+//        System.arraycopy(res, this.objects.length, objects.getObjects(), 0, objects.getObjects().length);
+//
+//        this.objects = res;
     }
 
-    public void addB(WContainer <? extends WBClass> objects) {
+    public void addB(WContainer<? extends WBClass> objects) {
 
     }
 

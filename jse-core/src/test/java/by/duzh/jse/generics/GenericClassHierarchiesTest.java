@@ -1,42 +1,121 @@
 package by.duzh.jse.generics;
 
-import by.duzh.jse.generics.etc.Gen;
-import by.duzh.jse.generics.etc.NonGenericSuperClass;
-import by.duzh.jse.generics.etc.SubСlassGen;
-import by.duzh.jse.generics.etc.TwoTypesGen;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class GenericClassHierarchiesTest {
     @Test
     public void testSubclassWithSimpleType() {
-        SubСlassGen<String> obj = new SubСlassGen<String>("test");
+        class SubSimpleGeneric<T> extends SimpleGeneric<T> {
+            SubSimpleGeneric(T value) {
+                super(value);
+            }
+        }
+
+        SubSimpleGeneric<String> obj = new SubSimpleGeneric<String>("test");
         Assert.assertEquals("test", obj.getValue());
     }
 
     @Test
     public void testSubclassWithSubclassOfTAndItsOwnGenericType() {
-        TwoTypesGen<Integer, String> obj = new TwoTypesGen<Integer, String>(123, "test");
-        Assert.assertEquals(123, obj.getValue().intValue());
-        Assert.assertEquals("test", obj.getData());
+        class TwoTypesGeneric<V extends Number, T> extends SimpleGeneric<T> {
+            private final V data;
+
+            TwoTypesGeneric(V data, T value) {
+                super(value);
+                this.data = data;
+            }
+
+            public V getData() {
+                return data;
+            }
+        }
+
+        TwoTypesGeneric<Integer, String> obj = new TwoTypesGeneric<Integer, String>(123, "test");
+        Assert.assertEquals(123, obj.getData().intValue());
+        Assert.assertEquals("test", obj.getValue());
     }
 
     @Test
     public void testNonGenericSuperClass() {
-        NonGenericSuperClass<String> obj = new NonGenericSuperClass<String>("test", 123);
-        Assert.assertEquals(123, obj.getValue());
+        class NonGen {
+        }
+
+        class NonGenericSuperClass<T> extends NonGen {
+
+            private final T data;
+
+            NonGenericSuperClass(T data) {
+                this.data = data;
+            }
+
+            public T getData() {
+                return data;
+            }
+        }
+
+        NonGenericSuperClass<String> obj = new NonGenericSuperClass<String>("test");
         Assert.assertEquals("test", obj.getData());
     }
 
     @Test
     public void testInstanceOf() {
-        Gen<Integer> obj = new Gen<Integer>(123);
-        SubСlassGen<Integer> obj2 = new SubСlassGen<Integer>(345);
+        class Gen<T> {
+        }
+        class SubGen<T> extends Gen<T> {
+        }
 
-        Assert.assertTrue(obj instanceof Gen<?>);
-        Assert.assertFalse(obj instanceof SubСlassGen<?>);
+        Gen<Integer> obj1 = new Gen<Integer>();
+        SubGen<Integer> obj2 = new SubGen<Integer>();
+
+        Assert.assertTrue(obj1 instanceof Gen<?>);
+        Assert.assertFalse(obj1 instanceof SubGen<?>);
 
         Assert.assertTrue(obj2 instanceof Gen<?>);
-        Assert.assertTrue(obj2 instanceof SubСlassGen<?>);
+        Assert.assertTrue(obj2 instanceof SubGen<?>);
+    }
+
+    @Test
+    public void testCast() {
+        class Gen<T> {
+        }
+        class SubGen<T> extends Gen<T> {
+        }
+
+        Gen<Integer> obj1 = new Gen<Integer>();
+        SubGen<Integer> obj2 = new SubGen<Integer>();
+
+        // OK!
+        Gen<Integer> res = (Gen<Integer>) obj2;
+        // Not Ok!
+        //var res2 = (Gen<Long>) obj2;
+    }
+
+    @Test
+    public void testOverride() {
+        class Gen<T> {
+            String foo(T value) {
+                return value.toString().toUpperCase();
+            }
+        }
+        class SubGen<T> extends Gen<T> {
+            @Override
+            String foo(T value) {
+                return super.foo(value) + " and " + value.toString().toLowerCase();
+            }
+        }
+
+        SubGen<Integer> obj = new SubGen<Integer>();
+        Assert.assertEquals("1 and 1", obj.foo(1));
+    }
+
+    @Test
+    public void testShort() {
+        SimpleGeneric<String> obj = new SimpleGeneric<>("test");
+    }
+
+    @Test
+    public void testVar() {
+        var obj = new SimpleGeneric<String>("test");
     }
 }
