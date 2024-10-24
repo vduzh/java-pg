@@ -122,7 +122,7 @@ public class ListTest {
     @Test
     public void testJDK10CopyOf () {
         Collection<Integer> src = Collections.nCopies(3, 10);
-        var integers = List.copyOf(src);
+        List<Integer> integers = List.copyOf(src);
         Assert.assertArrayEquals(src.toArray(), integers.toArray());
     }
 }

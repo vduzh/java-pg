@@ -29,7 +29,6 @@ public class SortedSetTest {
         Assert.assertEquals(set.first(), Integer.valueOf(4));
     }
 
-
     @Test
     public void testLast() {
         set.addAll(Arrays.asList(3, 4, 1));  // --> 4, 3, 1
@@ -57,7 +56,6 @@ public class SortedSetTest {
         Assert.assertEquals(0, integers.size());
     }
 
-
     @Test
     public void testTailSet() {
         set.addAll(Arrays.asList(3, 4, 1));  // --> 4, 3, 1
@@ -79,5 +77,4 @@ public class SortedSetTest {
         Assert.assertEquals(3, integers.first().intValue());
         Assert.assertEquals(1, integers.last().intValue());
     }
-
 }
