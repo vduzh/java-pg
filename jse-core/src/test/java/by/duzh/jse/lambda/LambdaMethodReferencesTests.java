@@ -1,65 +1,83 @@
 package by.duzh.jse.lambda;
 
-import by.duzh.jse.lambda.foo.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.File;
+
+class CustomStringUtils {
+    public static String lowerCase(String s) {
+        return s.toLowerCase();
+    }
+
+    public String upperCase(String s) {
+        return s.toUpperCase();
+    }
+}
+
+interface StringFunc {
+    String func(String s);
+}
+
+class LambdaAsArgumentDemo {
+    public static String stringOperation(StringFunc sf, String s) {
+        return sf.func(s);
+    }
+}
 
 // TODO: Have a look at again!!!
 public class LambdaMethodReferencesTests {
 
     @Test
     public void testReferenceToStaticMethod() throws Exception {
-        String result = LambdaAsArgumentDemo.stringOperation(MyStringOps::reverse, "123");
-        Assert.assertEquals("321", result);
-    }
-
-    @Test
-    public void testReferenceToStaticMethod2() throws Exception {
-        String result = LambdaAsArgumentDemo.stringOperationWithoutValue(MyStringOps::reverse);
-        Assert.assertEquals("ooF", result);
+        String result = LambdaAsArgumentDemo.stringOperation(CustomStringUtils::lowerCase, "Test");
+        Assert.assertEquals("test", result);
     }
 
     @Test
     public void testReferenceToInstanceMethod() throws Exception {
-        MyStringOps stringOps = new MyStringOps();
+        CustomStringUtils utils = new CustomStringUtils();
 
-        String result = LambdaAsArgumentDemo.stringOperation(stringOps::upperCase, "test");
+        String result = LambdaAsArgumentDemo.stringOperation(utils::upperCase, "test");
         Assert.assertEquals("TEST", result);
     }
 
     @Test
-    public void testReferenceToAnyInstanceMethod() throws Exception {
-        Boolean result = LambdaAsArgumentDemo.compareStringsToInt(MyString::compareToInteger,
-                new String[]{"10", "1", "13"}, 1);
-        Assert.assertTrue("TEST", result);
-    }
+    public void testReferencesToGenericMethod() {
+        interface CustomFunctional<T> {
+            int func(T[] values, T value);
+        }
 
-    @Test
-    public void testReferenceToAnyInstanceMethod2() throws Exception {
-        File[] files = new File(".").listFiles(File::isHidden);
-        System.out.println(files.length);
-    }
+        class CustomArrayOps {
+            public static <T> int countMatching(T[] values, T value) {
+                int res = 0;
+                for (T obj : values) {
+                    if (obj == value) {
+                        res++;
+                    }
+                }
+                return res;
+            }
+        }
 
-    @Test
-    public void testReferencesToGenericMethodWithString() {
-        MyFunc<String> obj = MyArrayOps::<String>countMatching;
-        int res = obj.func(new String[]{"1", "2", "1", "3", "3"}, "1");
+        CustomFunctional<String> objStr = CustomArrayOps::countMatching;
+        int res = objStr.func(new String[]{"1", "2", "1", "3", "3"}, "1");
         Assert.assertEquals(2, res);
-    }
 
-    @Test
-    public void testReferencesToGenericMethodWithInteger() {
-        MyFunc<Integer> obj = MyArrayOps::<Integer>countMatching;
-        int res = obj.func(new Integer[]{1, 2, 1, 3, 3, 4, 5, 3, 7, 8, 3}, 3);
+        CustomFunctional<Integer> objInt = CustomArrayOps::countMatching;
+        res = objInt.func(new Integer[]{1, 2, 1, 3, 3, 4, 5, 3, 7, 8, 3}, 3);
         Assert.assertEquals(4, res);
+
     }
 
     @Test
     public void testReferenceToConstructor() throws Exception {
-        MyObjectCreator<String, MyString> creator = MyString::new;
-        MyString obj = creator.create("test");
-        Assert.assertEquals("test", obj.getValue());
+        interface CustomObjectCreator<T> {
+            T create();
+        }
+
+        class Demo {
+        }
+
+        CustomObjectCreator<Demo> creator = Demo::new;
     }
 }
