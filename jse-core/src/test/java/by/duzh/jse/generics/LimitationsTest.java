@@ -25,6 +25,7 @@ public class LimitationsTest {
 //        }
     }
 
+    @Test
     public void canNotCreateArrayWithTypeElements() {
 //        class Foo<T extends Number> {
 //            T value;
