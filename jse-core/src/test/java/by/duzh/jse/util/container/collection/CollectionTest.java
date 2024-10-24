@@ -16,6 +16,12 @@ public class CollectionTest {
     }
 
     @Test
+    public void testIsEmpty() {
+        Assert.assertTrue(collection.isEmpty());
+        Assert.assertFalse(Arrays.asList(1).isEmpty());
+    }
+
+    @Test
     public void testAddTrue() {
         boolean res = collection.add(1);
         Assert.assertTrue(res);
@@ -33,11 +39,9 @@ public class CollectionTest {
     }
 
     @Test
-    public void testClear() {
-        collection.add(1);
-        collection.clear();
-
-        Assert.assertEquals(collection.size(), 0);
+    public void testSize() {
+        collection.addAll(Arrays.asList(1, 2));
+        Assert.assertEquals(collection.size(), 2);
     }
 
     @Test
@@ -57,21 +61,11 @@ public class CollectionTest {
     }
 
     @Test
-    public void testIsEmpty() {
+    public void testClear() {
+        collection.add(1);
+        collection.clear();
+
         Assert.assertTrue(collection.isEmpty());
-        Assert.assertFalse(Arrays.asList(1).isEmpty());
-    }
-
-    @Test
-    public void testIterator() {
-        collection.addAll(Arrays.asList(1, 2));
-        Iterator<Integer> iterator = collection.iterator();
-    }
-
-    @Test
-    public void testParallelStream() {
-        collection.addAll(Arrays.asList(1, 2));
-        Stream<Integer> stream = collection.parallelStream();
     }
 
     @Test
@@ -86,7 +80,7 @@ public class CollectionTest {
     public void testRemoveIf() {
         collection.addAll(Arrays.asList(1, 2, 6, 7, 10, 11, 12));
 
-        boolean result = collection.removeIf((value) -> value >=5 && value <= 10);
+        boolean result = collection.removeIf(value -> value >= 5 && value <= 10);
         Assert.assertTrue(result);
         Assert.assertEquals(collection.size(), 4);
 
@@ -100,26 +94,32 @@ public class CollectionTest {
 
         boolean changed = collection.retainAll(Arrays.asList(1, 6, 7));
         Assert.assertTrue(changed);
-        Assert.assertEquals(collection.size(),3);
+        Assert.assertEquals(collection.size(), 3);
         Assert.assertTrue(Arrays.asList(1, 6, 7).containsAll(collection));
     }
 
     @Test
-    public void testSize() {
+    public void testIterator() {
         collection.addAll(Arrays.asList(1, 2));
-        Assert.assertEquals(collection.size(),2);
-    }
-
-    @Test
-    public void testSpliterator() {
-        collection.addAll(Arrays.asList(1, 2));
-        Spliterator<Integer> spliterator = collection.spliterator();
+        Iterator<Integer> iterator = collection.iterator();
     }
 
     @Test
     public void testStream() {
         collection.addAll(Arrays.asList(1, 2));
         Stream<Integer> stream = collection.stream();
+    }
+
+    @Test
+    public void testParallelStream() {
+        collection.addAll(Arrays.asList(1, 2));
+        Stream<Integer> stream = collection.parallelStream();
+    }
+
+    @Test
+    public void testSpliterator() {
+        collection.addAll(Arrays.asList(1, 2));
+        Spliterator<Integer> spliterator = collection.spliterator();
     }
 
     @Test
@@ -131,7 +131,7 @@ public class CollectionTest {
         Assert.assertEquals(objects[1], 2);
 
         // JDK11
-        Integer[] integers = collection.toArray(Integer[]::new); // Integer[]::new = i -> new Integer[i]
+        Integer[] integers = collection.toArray(Integer[]::new); // Integer[]::new is: i -> new Integer[i]
         Assert.assertArrayEquals(collection.toArray(), integers);
     }
 
@@ -162,9 +162,8 @@ public class CollectionTest {
     public void testForEach() {
         collection.addAll(Arrays.asList(1, 2, 3));
 
-        for (int i: collection) {
+        for (int i : collection) {
             Assert.assertTrue(i > 0 && i < 4);
         }
     }
-
 }
