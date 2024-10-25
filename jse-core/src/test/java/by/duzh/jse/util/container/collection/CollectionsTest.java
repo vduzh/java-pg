@@ -8,7 +8,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Stream;
 
-//TODO: Have a look into the csource code of the Collections class
+//TODO: Have a look into the source code of the Collections class
 public class CollectionsTest {
     private Collection<Integer> collection;
 
