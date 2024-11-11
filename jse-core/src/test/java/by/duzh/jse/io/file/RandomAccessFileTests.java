@@ -33,7 +33,7 @@ public class RandomAccessFileTests {
         try (RandomAccessFile ras = new RandomAccessFile(file, "rws")) {
             ras.writeInt(1);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new  RuntimeException(e);
         }
     }
 

@@ -44,12 +44,14 @@ public class BaseStreamTests {
 
     @Test
     public void testParallel() {
-        Assert.assertTrue(stream.parallel().isParallel());
+        Stream<Integer> parallel = stream.parallel();
+        Assert.assertTrue(parallel.isParallel());
     }
 
     @Test
     public void testSequential() {
-        Assert.assertFalse(stream.parallel().sequential().isParallel());
+        Stream<Integer> sequential = stream.parallel().sequential();
+        Assert.assertFalse(sequential.isParallel());
     }
 
     @Test
