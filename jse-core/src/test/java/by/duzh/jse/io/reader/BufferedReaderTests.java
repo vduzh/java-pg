@@ -17,7 +17,7 @@ public class BufferedReaderTests {
     @Test
     public void testCreate() {
         try (BufferedReader is = new BufferedReader(new CharArrayReader(chars))) {
-            is.readLine()
+            is.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
