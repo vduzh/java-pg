@@ -1,0 +1,3 @@
+# Run Listeners
+org.springframework.context.ApplicationListener=\
+by.duzh.springframework.springboot.context.ApplicationListenerTest.MyApplicationListener

@@ -1,0 +1,20 @@
+spring:
+  application:
+    admin:
+      enabled: true
+  profiles:
+    #active: prod
+    group:
+      prod:
+        - oracle
+        - jdbc
+      dev:
+        - hsql
+        - jpa
+  messages: # Internationalization
+    basename: messages # messages,config.i18n.messages
+    #fallback-to-system-locale: faltase
+
+acme:
+  name: Learning Spring Boot
+  size: 10000

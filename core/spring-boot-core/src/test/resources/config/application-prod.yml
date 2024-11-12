@@ -1,0 +1,10 @@
+#spring:
+#  datasource:
+#    platform: postgressql
+#    # add dependency on the JDBC Driver
+#    url: jbc....
+#    #driver-class-name: explicitly if it is necessary
+#    username: user1
+#    password: pswd1
+#    #to init db via data.sql and schema.sql
+#    initialization-mode: always
