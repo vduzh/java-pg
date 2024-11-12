@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-init-method="initialize">
+
+    <!-- Init method -->
+    <bean id="initMethodSuccess" class="by.duzh.springframework.context.beans.InitMethodCallbackBean"
+          init-method="init" destroy-method="destroy"
+          p:name="1" p:value="11"/>
+
+    <bean id="initMethodDefault" class="by.duzh.springframework.context.beans.InitMethodCallbackBean"
+          init-method="init" destroy-method="destroy"
+          p:name="1"/>
+
+    <bean id="initMethodFailure" class="by.duzh.springframework.context.beans.InitMethodCallbackBean" lazy-init="true"
+          init-method="init"/>
+
+    <!-- InitializingBean -->
+    <bean id="initializingBeanSuccess" class="by.duzh.springframework.context.beans.InitializingBeanCallbackBean"
+          p:name="2" p:value="22"/>
+
+    <bean id="initializingBeanDefault" class="by.duzh.springframework.context.beans.InitializingBeanCallbackBean"
+          p:name="2"/>
+
+    <bean id="initializingBeanFailure" class="by.duzh.springframework.context.beans.InitializingBeanCallbackBean"
+          lazy-init="true"/>
+
+    <!-- @PostContract -->
+    <context:annotation-config/>
+
+    <bean id="postContractSuccess" class="by.duzh.springframework.context.beans.AnnotatedInitMethodCallbackBean"
+          p:name="3" p:value="33"/>
+
+    <bean id="postContractDefault" class="by.duzh.springframework.context.beans.AnnotatedInitMethodCallbackBean"
+          p:name="3"/>
+
+    <bean id="postContractFailure" class="by.duzh.springframework.context.beans.AnnotatedInitMethodCallbackBean"
+          lazy-init="true"/>
+
+    <!-- Multiple Init methods -->
+    <bean id="multipleInitMethodsSuccess" class="by.duzh.springframework.context.beans.MultipleInitMethodsCallbackBean"
+          p:value="" lazy-init="true" init-method="initMethod" destroy-method="destroy" />
+
+</beans>

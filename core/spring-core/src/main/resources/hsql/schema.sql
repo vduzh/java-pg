@@ -1,0 +1,5 @@
+CREATE TABLE t_foo (
+    id INTEGER IDENTITY PRIMARY KEY,
+    name VARCHAR(255),
+    size INTEGER
+);

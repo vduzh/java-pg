@@ -1,0 +1,40 @@
+CREATE TABLE t_foo (
+    id INTEGER IDENTITY PRIMARY KEY,
+    name VARCHAR(255),
+    size INTEGER
+);
+
+CREATE TABLE t_bar (
+    id INTEGER IDENTITY NOT NULL ,
+    name VARCHAR(255) NOT NULL,
+    size INTEGER NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE t_baz (
+    id INTEGER IDENTITY NOT NULL ,
+    name VARCHAR(255) NOT NULL,
+    size INTEGER NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE t_batch (
+    id INTEGER IDENTITY NOT NULL ,
+    name VARCHAR(255) NOT NULL,
+    size INTEGER NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE t_actor (
+    id INTEGER IDENTITY NOT NULL ,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE t_lob (
+    id INTEGER IDENTITY NOT NULL ,
+    a_clob CLOB,
+    a_blob BLOB,
+    PRIMARY KEY(id)
+);

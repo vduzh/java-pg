@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd
+        ">
+
+    <import resource="app-context-basic.xml"/>
+
+    <!-- Literal values -->
+    <bean id="constructorIntValue" class="java.lang.Integer" c:value="100"/>
+
+    <bean id="male" class="java.lang.String" c:value="MALE"/>
+    <bean id="female" class="java.lang.String" c:value="FEMALE"/>
+
+    <bean id="injectSimpleConfig" class="by.duzh.springframework.beans.factory.annotation.InjectSimpleConfig"
+          p:name="Test"
+          p:age="18"
+    />
+
+    <!-- Use just one bean -->
+    <context:component-scan base-package="by.duzh.springframework.beans.factory.annotation.beans.autowired"
+                            use-default-filters="false">
+        <context:include-filter type="assignable"
+                                expression="by.duzh.springframework.beans.factory.annotation.AutowiredTest.AutowiredTestBean"/>
+    </context:component-scan>
+</beans>

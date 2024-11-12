@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd
+        ">
+
+    <import resource="app-context-legacy.xml"/>
+
+    <!--It would be better to use annotations for components below -->
+    <bean id="bar" class="by.duzh.springframework.beans.factory.beans.Bar" scope="prototype"/>
+
+    <bean id="injectSimpleConfig" class="by.duzh.springframework.beans.factory.annotation.InjectSimpleConfig"
+          p:name="Test"
+          p:age="18"
+    />
+
+    <!--Using tags-->
+    <bean id="injectionsSample" class="by.duzh.springframework.beans.factory.beans.InjectionsSample">
+        <!--inject via a constructor-->
+        <constructor-arg index="0" ref="foo"/>
+        <constructor-arg index="1" value="123"/>
+
+        <!--inject via properties-->
+        <property name="propertyValue" ref="foo"/>
+        <property name="propertyStringValue" value="test"/>
+        <property name="spelString" value="#{injectSimpleConfig.name}"/>
+
+        <!--inject via class method-->
+        <lookup-method name="getBar" bean="bar"/>
+
+        <!--replaced method-->
+        <replaced-method name="getReplacedValue" replacer="methodReplacer"/>
+    </bean>
+
+    <!--Using attributes-->
+    <bean id="injectionsSample2" class="by.duzh.springframework.beans.factory.beans.InjectionsSample"
+          c:_0-ref="foo" c:_1="456"
+          p:propertyValue-ref="foo"
+          p:propertyStringValue="TEST"
+          p:spelString="#{injectSimpleConfig.name + 2}">
+
+        <!--inject via class method-->
+        <lookup-method name="getBar" bean="bar"/>
+
+        <!--replaced method-->
+        <replaced-method name="getReplacedValue" replacer="methodReplacer"/>
+    </bean>
+
+    <!--  -->
+    <context:component-scan base-package="by.duzh.springframework.beans.factory"
+                            use-default-filters="false">
+
+        <context:exclude-filter type="assignable"
+                                expression="by.duzh.springframework.beans.factory.BeanFactoryTest$PrototypeBeanSample"/>
+    </context:component-scan>
+
+</beans>

@@ -1,0 +1,12 @@
+CREATE TABLE t_foo (
+    id INTEGER IDENTITY PRIMARY KEY,
+    name VARCHAR(255),
+    size INTEGER
+);
+
+CREATE TABLE t_bar (
+    id INTEGER IDENTITY NOT NULL ,
+    name VARCHAR(255) NOT NULL,
+    size INTEGER NOT NULL,
+    PRIMARY KEY(id)
+);
