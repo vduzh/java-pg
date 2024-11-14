@@ -1,6 +1,7 @@
 plugins {
-    id 'java'
+    id "io.freefair.lombok" version "8.10.2"
     id 'org.springframework.boot' version '3.3.5'
+    id 'java'
 }
 
 apply plugin: 'io.spring.dependency-management'
