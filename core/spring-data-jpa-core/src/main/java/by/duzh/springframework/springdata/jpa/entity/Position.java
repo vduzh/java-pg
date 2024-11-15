@@ -1,12 +1,12 @@
 package by.duzh.springframework.springdata.jpa.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
+@ToString
+//@ToString(exclude = "userChats")
+@EqualsAndHashCode(of = "name")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

@@ -6,6 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// NOTE: NamedQuery queries must be inside an entity
+@NamedQuery(
+        // use Entity class name
+        name = "Role.findAllIgnoreCase",
+        // use HQL
+        query = "select r from Role r where lower(r.name) = lower(:name)"
+)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
