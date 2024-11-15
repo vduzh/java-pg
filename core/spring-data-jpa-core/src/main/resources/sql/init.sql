@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS office
 (
     id         SERIAL PRIMARY KEY,
     name       VARCHAR(50) NOT NULL,
-    parent_id  INTEGER     NOT NULL,
-    manager_id INTEGER     NOT NULL
+    parent_id  INTEGER     NULL,
+    manager_id INTEGER     NULL
 );
 
 CREATE TABLE IF NOT EXISTS employee

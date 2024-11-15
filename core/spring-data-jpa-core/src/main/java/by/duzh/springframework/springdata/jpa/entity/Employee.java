@@ -27,11 +27,8 @@ public class Employee implements BaseEntity<Integer> {
     @Column(unique = true, nullable = false)
     private String login;
 
-    @Column(nullable = false)
-    private String firstName;
-
-    @Column(nullable = false)
-    private String lastName;
+    @Embedded // not required
+    private PersonalInfo personalInfo;
 
     @Column(nullable = false)
     private String email;

@@ -21,3 +21,8 @@ INSERT INTO position (name)
 VALUES ('Software Engineer');
 INSERT INTO position (name)
 VALUES ('QA Engineer');
+
+INSERT INTO office (name)
+VALUES ('Minsk');
+INSERT INTO office (name, parent_id)
+VALUES ('Vitebsk', 1);
