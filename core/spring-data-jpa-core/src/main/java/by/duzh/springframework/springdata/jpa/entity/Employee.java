@@ -1,24 +1,22 @@
 package by.duzh.springframework.springdata.jpa.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"office", "position", "manager"})
 @Builder
 @Entity
 @Table(name = "employee")
-public class Employee implements BaseEntity<Integer> {
+public class Employee implements BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -30,17 +28,18 @@ public class Employee implements BaseEntity<Integer> {
     @Embedded // not required
     private PersonalInfo personalInfo;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)
     private LocalDate startDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    // optional = false -> inner join will be used that is faster than left outer
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id")
     private Office office;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "position_id")
     private Position position;
 

@@ -20,4 +20,7 @@ public class Position implements BaseEntity<Integer> {
 
     @Column(unique = true, nullable = false)
     private String name;
+
+    @Column(unique = true, nullable = false)
+    private String code;
 }

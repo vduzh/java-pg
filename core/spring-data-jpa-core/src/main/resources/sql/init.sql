@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS position
 (
     id   SERIAL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL
+    name VARCHAR(50)       NOT NULL,
+    code VARCHAR(4) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS role
@@ -20,25 +21,27 @@ CREATE TABLE IF NOT EXISTS office
 
 CREATE TABLE IF NOT EXISTS employee
 (
-    id          SERIAL PRIMARY KEY,
-    status      CHAR(1)      not null,
-    login       VARCHAR(50)  NOT NULL,
-    first_name  VARCHAR(50)  NOT NULL,
-    last_name   VARCHAR(50)  NOT NULL,
-    email       VARCHAR(255) NOT NULL,
-    start_date  DATE         NOT NULL,
-    office_id   INTEGER      NOT NULL,
-    position_id INTEGER      NOT NULL,
-    manager_id  INTEGER      NOT NULL
+    id          BIGSERIAL PRIMARY KEY,
+    status      CHAR(1)             not null,
+    login       VARCHAR(50) UNIQUE  NOT NULL,
+    first_name  VARCHAR(50)         NOT NULL,
+    last_name   VARCHAR(50)         NOT NULL,
+    birth_date  DATE                NOT NULL,
+    email       VARCHAR(255) UNIQUE NOT NULL,
+    start_date  DATE                NOT NULL,
+    office_id   INTEGER             NOT NULL,
+    position_id INTEGER             NOT NULL,
+    manager_id  INTEGER             NULL
 );
 
 CREATE TABLE IF NOT EXISTS project
 (
     id         SERIAL PRIMARY KEY,
-    name       VARCHAR(50) NOT NULL,
-    start_date DATE        NOT NULL,
-    end_date   DATE        NULL,
-    manager_id INTEGER     NOT NULL
+    name       VARCHAR(50)       NOT NULL,
+    code       VARCHAR(4) UNIQUE NOT NULL,
+    start_date DATE              NOT NULL,
+    end_date   DATE              NULL,
+    manager_id INTEGER           NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS project_employee

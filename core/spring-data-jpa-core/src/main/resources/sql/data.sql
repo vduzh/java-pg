@@ -15,12 +15,12 @@ VALUES ('Product Owner');
 INSERT INTO role (name)
 VALUES ('Scrum Master');
 
-INSERT INTO position (name)
-VALUES ('Project Manager');
-INSERT INTO position (name)
-VALUES ('Software Engineer');
-INSERT INTO position (name)
-VALUES ('QA Engineer');
+INSERT INTO position (name, code)
+VALUES ('Project Manager', 'PM');
+INSERT INTO position (name, code)
+VALUES ('Software Engineer', 'SE');
+INSERT INTO position (name, code)
+VALUES ('QA Engineer', 'QA');
 
 INSERT INTO office (name)
 VALUES ('Minsk');

@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -17,6 +18,10 @@ import java.time.LocalDate;
 @Table(name = "project_employee")
 public class ProjectEmployee implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    // composite key - better use a simple synthetic id
     @EmbeddedId
     private ProjectEmployeeId id;
 

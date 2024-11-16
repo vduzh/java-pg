@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,4 +20,7 @@ public class PersonalInfo {
 
     @Column(nullable = false)
     private String lastName;
+
+    @Column(nullable = false)
+    private LocalDate birthDate;
 }
