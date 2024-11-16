@@ -34,7 +34,7 @@ public class OfficeRepositoryTest {
     }
 
     @Test
-    void add() {
+    void addCompany() {
         var office = Office.builder()
                 .name("Test")
                 .build();
