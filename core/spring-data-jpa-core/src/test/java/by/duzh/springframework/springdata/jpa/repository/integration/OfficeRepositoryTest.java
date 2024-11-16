@@ -43,4 +43,9 @@ public class OfficeRepositoryTest {
         System.out.println(office);
         assertNotNull(office.getId());
     }
+
+    @Test
+    void deleteEmployee() {
+        // np to call save on the office!!! check it!!!
+    }
 }
