@@ -1,3 +1,16 @@
+-- many to one association
+INSERT INTO school (name)
+VALUES ('Public');
+INSERT INTO school (name)
+VALUES ('Private');
+
+INSERT INTO student (name, school_id)
+VALUES ('John Smith', 1);
+INSERT INTO student (name, school_id)
+VALUES ('James Brown', 1);
+INSERT INTO student (name, school_id)
+VALUES ('Mike Holmes', 2);
+
 INSERT INTO role (name)
 VALUES ('PM');
 INSERT INTO role (name)

@@ -1,3 +1,17 @@
+CREATE TABLE IF NOT EXISTS school
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS student
+(
+    id        SERIAL PRIMARY KEY,
+    name      VARCHAR(50) NOT NULL,
+    school_id INTEGER     NOT NULL,
+    FOREIGN KEY (school_id) REFERENCES school (id)
+);
+
 CREATE TABLE IF NOT EXISTS position
 (
     id   SERIAL PRIMARY KEY,
