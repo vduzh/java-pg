@@ -1,3 +1,4 @@
+-- Many-To-One Relationship: many students to one school
 CREATE TABLE IF NOT EXISTS school
 (
     id   SERIAL PRIMARY KEY,
@@ -10,6 +11,29 @@ CREATE TABLE IF NOT EXISTS student
     name      VARCHAR(50) NOT NULL,
     school_id INTEGER     NOT NULL,
     FOREIGN KEY (school_id) REFERENCES school (id)
+);
+
+-- Many-To-Many Relationship
+-- Each Book can have multiple Authors, and each Author can write multiple Books
+CREATE TABLE IF NOT EXISTS book
+(
+    id    SERIAL PRIMARY KEY,
+    title VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS author
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS book_author
+(
+    book_id   INTEGER NOT NULL,
+    author_id INTEGER NOT NULL,
+    CONSTRAINT pk_book_author PRIMARY KEY (book_id, author_id),
+    FOREIGN KEY (book_id) REFERENCES book (id),
+    FOREIGN KEY (author_id) REFERENCES author (id)
 );
 
 CREATE TABLE IF NOT EXISTS position
