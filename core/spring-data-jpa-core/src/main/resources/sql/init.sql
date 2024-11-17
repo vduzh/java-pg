@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS student
     FOREIGN KEY (school_id) REFERENCES school (id)
 );
 
--- Many-To-Many Relationship
+-- Many-To-Many both unidirectional and bidirectional association
 -- Each Book can have multiple Authors, and each Author can write multiple Books
 CREATE TABLE IF NOT EXISTS book
 (
