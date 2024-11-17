@@ -11,7 +11,7 @@ VALUES ('James Brown', 1);
 INSERT INTO student (name, school_id)
 VALUES ('Mike Holmes', 2);
 
--- many-to-many unidirectional association
+-- many-to-many both unidirectional and bidirectional association
 INSERT INTO book (title)
 VALUES ('History of Arts');
 INSERT INTO book (title)
