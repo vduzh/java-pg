@@ -1,39 +1,38 @@
--- Many-To-One Relationship: many students to one school
-CREATE TABLE IF NOT EXISTS school
+-- master-detail relationship
+CREATE TABLE IF NOT EXISTS master
 (
     id   SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS student
+CREATE TABLE IF NOT EXISTS detail
 (
     id        SERIAL PRIMARY KEY,
     name      VARCHAR(50) NOT NULL,
-    school_id INTEGER     NOT NULL,
-    FOREIGN KEY (school_id) REFERENCES school (id)
+    master_id INTEGER     NOT NULL,
+    FOREIGN KEY (master_id) REFERENCES master (id)
 );
 
--- Many-To-Many both unidirectional and bidirectional association
--- Each Book can have multiple Authors, and each Author can write multiple Books
-CREATE TABLE IF NOT EXISTS book
+-- many-to-many relationship
+CREATE TABLE IF NOT EXISTS foo
 (
     id    SERIAL PRIMARY KEY,
-    title VARCHAR(50) NOT NULL
+    name VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS author
+CREATE TABLE IF NOT EXISTS bar
 (
     id   SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS book_author
+CREATE TABLE IF NOT EXISTS foo_bar
 (
-    book_id   INTEGER NOT NULL,
-    author_id INTEGER NOT NULL,
-    CONSTRAINT pk_book_author PRIMARY KEY (book_id, author_id),
-    FOREIGN KEY (book_id) REFERENCES book (id),
-    FOREIGN KEY (author_id) REFERENCES author (id)
+    foo_id   INTEGER NOT NULL,
+    bar_id INTEGER NOT NULL,
+    CONSTRAINT pk_foo_bar PRIMARY KEY (foo_id, bar_id),
+    FOREIGN KEY (foo_id) REFERENCES foo (id),
+    FOREIGN KEY (bar_id) REFERENCES bar (id)
 );
 
 CREATE TABLE IF NOT EXISTS position
@@ -44,6 +43,12 @@ CREATE TABLE IF NOT EXISTS position
 );
 
 CREATE TABLE IF NOT EXISTS role
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS country
 (
     id   SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL
@@ -72,6 +77,19 @@ CREATE TABLE IF NOT EXISTS employee
     manager_id  INTEGER             NULL
 );
 
+CREATE TABLE IF NOT EXISTS profile
+(
+    id          BIGSERIAL PRIMARY KEY,
+    employee_id BIGINT UNIQUE,
+    language    VARCHAR(50)
+);
+
+CREATE TABLE IF NOT EXISTS employee_team
+(
+    employee_id BIGINT UNIQUE,
+    team_id     INT UNIQUE
+);
+
 CREATE TABLE IF NOT EXISTS project
 (
     id         SERIAL PRIMARY KEY,
@@ -85,7 +103,7 @@ CREATE TABLE IF NOT EXISTS project
 CREATE TABLE IF NOT EXISTS project_employee
 (
     project_id  INTEGER NOT NULL,
-    employee_id INTEGER NOT NULL,
+    employee_id BIGINT  NOT NULL,
     role_id     INTEGER NOT NULL,
     start_date  DATE    NOT NULL,
     end_date    DATE    NULL,
@@ -107,6 +125,18 @@ ALTER TABLE employee
         FOREIGN KEY (position_id) REFERENCES position (id),
     ADD CONSTRAINT fk_manager_id
         FOREIGN KEY (manager_id) REFERENCES employee (id);
+
+-- alter profile
+ALTER TABLE profile
+    ADD CONSTRAINT fk_employee_id
+        FOREIGN KEY (employee_id) REFERENCES employee (id);
+
+-- alter employee_team
+ALTER TABLE employee_team
+    ADD CONSTRAINT fk_employee_id
+        FOREIGN KEY (employee_id) REFERENCES employee (id),
+    ADD CONSTRAINT fk_skill_id
+        FOREIGN KEY (team_id) REFERENCES country (id);
 
 -- alter project
 ALTER TABLE project

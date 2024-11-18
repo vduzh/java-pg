@@ -12,9 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 @Transactional
 @Rollback
 @SpringBootTest(classes = ApplicationRunner.class)
@@ -38,6 +35,7 @@ public class EmployeeRepositoryTest {
     }
 
     @Test
+    @Commit
     void add() {
         var employee = Employee.builder()
                 .status(Status.A)
@@ -52,6 +50,12 @@ public class EmployeeRepositoryTest {
                 .office(Office.builder().id(1).build())
                 .position(Position.builder().id(1).build())
                 .build();
+
+        var profile = Profile.builder()
+                .language("english")
+                .build();
+
+        profile.setEmployee(employee);
 
         employee = repository.saveAndFlush(employee);
         System.out.println(employee);

@@ -14,28 +14,28 @@ import java.util.Set;
  * Book and Author. Each Book can have multiple Authors, and each Author can write multiple Books.
  */
 @Data
-@ToString(exclude = "authors")
-@EqualsAndHashCode(of = "title")
+@ToString(exclude = "writers")
+@EqualsAndHashCode(of = "name")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "book")
-public class BookBi implements BaseEntity<Integer> {
+@Table(name = "foo")
+public class Work implements BaseEntity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
-    private String title;
+    private String name;
 
     @Builder.Default
-    @ManyToMany(mappedBy = "books")
-    private Set<AuthorBi> authors = new HashSet<>();
+    @ManyToMany(mappedBy = "works")
+    private Set<Writer> writers = new HashSet<>();
 
-    public void addAuthor(AuthorBi author) {
-        authors.add(author);
-        author.getBooks().add(this);
+    public void addWriter(Writer author) {
+        writers.add(author);
+        author.getWorks().add(this);
     }
 }

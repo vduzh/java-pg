@@ -20,7 +20,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "book")
+@Table(name = "foo")
 public class Book implements BaseEntity<Integer> {
 
     @Id
@@ -28,14 +28,14 @@ public class Book implements BaseEntity<Integer> {
     private Integer id;
 
     @Column(nullable = false)
-    private String title;
+    private String name;
 
     @Builder.Default
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "book_author",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id")
+            name = "foo_bar",
+            joinColumns = @JoinColumn(name = "foo_id"),
+            inverseJoinColumns = @JoinColumn(name = "bar_id")
     )
     private Set<Author> authors = new HashSet<>();
 

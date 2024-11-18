@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Transactional
 @Rollback
 @SpringBootTest(classes = ApplicationRunner.class)
-public class BookRepositoryTest {
+public class ManyToManyUniTest {
     @Autowired
     private BookRepository repository;
 
@@ -42,7 +42,7 @@ public class BookRepositoryTest {
         var author = authorRepository.findById(2);
         assertTrue(author.isPresent());
 
-        var book = Book.builder().title("Green Apple").build();
+        var book = Book.builder().name("Green Apple").build();
         book.addAuthor(author.get());
 
         var res = repository.save(book);

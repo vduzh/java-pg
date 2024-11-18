@@ -21,8 +21,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "author")
-public class AuthorBi implements BaseEntity<Integer> {
+@Table(name = "bar")
+public class Writer implements BaseEntity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,14 +34,14 @@ public class AuthorBi implements BaseEntity<Integer> {
     @Builder.Default
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "book_author",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id")
+            name = "foo_bar",
+            joinColumns = @JoinColumn(name = "foo_id"),
+            inverseJoinColumns = @JoinColumn(name = "bar_id")
     )
-    private Set<BookBi> books = new HashSet<>();
+    private Set<Work> works = new HashSet<>();
 
-    public void addBook(BookBi book) {
-        books.add(book);
-        book.getAuthors().add(this);
+    public void addWork(Work work) {
+        works.add(work);
+        work.getWriters().add(this);
     }
 }

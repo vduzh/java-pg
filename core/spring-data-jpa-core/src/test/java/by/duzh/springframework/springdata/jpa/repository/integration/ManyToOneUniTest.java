@@ -1,7 +1,6 @@
 package by.duzh.springframework.springdata.jpa.repository.integration;
 
 import by.duzh.springframework.springdata.jpa.ApplicationRunner;
-import by.duzh.springframework.springdata.jpa.entity.School;
 import by.duzh.springframework.springdata.jpa.entity.Student;
 import by.duzh.springframework.springdata.jpa.repository.SchoolRepository;
 import by.duzh.springframework.springdata.jpa.repository.StudentRepository;
@@ -18,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Transactional
 @Rollback
 @SpringBootTest(classes = ApplicationRunner.class)
-public class StudentRepositoryTest {
+public class ManyToOneUniTest {
     @Autowired
     private StudentRepository repository;
 
@@ -28,23 +27,22 @@ public class StudentRepositoryTest {
     @Test
     void findAll() {
         var students = repository.findAll();
-        assertThat(students).hasSize(3);
+        assertThat(students).hasSize(20);
     }
 
     @Test
     void getById() {
-        var school = repository.findById(1);
-        assertTrue(school.isPresent());
+        var student = repository.findById(14);
+        assertTrue(student.isPresent());
     }
 
-    @Rollback
     @Test
     void add() {
-        var school = schoolRepository.findById(2);
+        var school = schoolRepository.findById(6);
         assertTrue(school.isPresent());
 
         var student = Student.builder()
-                .name("John Doe")
+                .name("Test")
                 .school(school.get())
                 .build();
 

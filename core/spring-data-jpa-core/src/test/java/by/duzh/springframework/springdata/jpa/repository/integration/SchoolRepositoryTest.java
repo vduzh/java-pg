@@ -2,7 +2,6 @@ package by.duzh.springframework.springdata.jpa.repository.integration;
 
 import by.duzh.springframework.springdata.jpa.ApplicationRunner;
 import by.duzh.springframework.springdata.jpa.entity.School;
-import by.duzh.springframework.springdata.jpa.repository.PositionRepository;
 import by.duzh.springframework.springdata.jpa.repository.SchoolRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
