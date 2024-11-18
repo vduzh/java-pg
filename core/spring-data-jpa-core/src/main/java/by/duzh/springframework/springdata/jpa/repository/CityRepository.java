@@ -2,11 +2,12 @@ package by.duzh.springframework.springdata.jpa.repository;
 
 import by.duzh.springframework.springdata.jpa.entity.City;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface CityRepository extends JpaRepository<City, Integer> {
+public interface CityRepository extends JpaRepository<City, Integer>, JpaSpecificationExecutor<City> {
     @Query("select ci from Country cn join cn.cities ci where cn.name = :country")
     List<City> getAllByCountryNameHQ(String country);
 

@@ -14,7 +14,7 @@ VALUES ('Green School');
 INSERT INTO master (name)
 VALUES ('Countries');
 INSERT INTO master (name)
-VALUES ('Cities');
+VALUES ('Languages');
 
 INSERT INTO detail (name, master_id)
 VALUES ('John Smith', 1);
@@ -53,16 +53,16 @@ INSERT INTO detail (name, master_id)
 VALUES ('Robert Green', 6);
 
 INSERT INTO detail (name, master_id)
-VALUES ('Belarus', 7);
+VALUES ('Minsk', 7);
 INSERT INTO detail (name, master_id)
-VALUES ('Poland', 7);
+VALUES ('Vitebsk', 7);
 INSERT INTO detail (name, master_id)
-VALUES ('Germany', 7);
+VALUES ('Mogilev', 7);
 
 INSERT INTO detail (name, master_id)
-VALUES ('Minsk', 8);
+VALUES ('Russian', 8);
 INSERT INTO detail (name, master_id)
-VALUES ('Vitebsk', 8);
+VALUES ('English', 8);
 
 -- many-to-many both unidirectional and bidirectional association
 INSERT INTO foo (name)

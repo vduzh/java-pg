@@ -2,13 +2,16 @@ package by.duzh.springframework.springdata.jpa.repository.integration;
 
 import by.duzh.springframework.springdata.jpa.ApplicationRunner;
 import by.duzh.springframework.springdata.jpa.entity.City;
+import by.duzh.springframework.springdata.jpa.entity.City_;
 import by.duzh.springframework.springdata.jpa.entity.Country;
+import by.duzh.springframework.springdata.jpa.entity.Country_;
 import by.duzh.springframework.springdata.jpa.repository.CityRepository;
 import by.duzh.springframework.springdata.jpa.repository.CountryRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +30,34 @@ public class OneToManyBiTest {
 
 
     @Test
-    void findCountries() {
+    void findAllCountries() {
         var countries = countryRepository.findAll();
+        Assertions.assertThat(countries).hasSize(8);
+
+        // Use a spec
+        Specification<Country> spec = null;
+
+        // find all
+        spec = (root, query, builder) -> null;
+        countries = countryRepository.findAll(spec);
+        System.out.println(countries);
+        Assertions.assertThat(countries).hasSize(8);
+
+        // find by name
+        spec = (root, query, builder) -> builder.equal(root.get(Country_.name), "Countries");
+        countries = countryRepository.findAll(spec);
+        System.out.println(countries);
+        Assertions.assertThat(countries).hasSize(1);
+
+        // find countries ordered by name
+        spec = (root, query, builder) -> {
+            if (query != null) {
+                query.orderBy(builder.asc(root.get(Country_.name)));
+            }
+            return null;
+        };
+        countries = countryRepository.findAll(spec);
+        System.out.println(countries);
         Assertions.assertThat(countries).hasSize(8);
     }
 
@@ -36,6 +65,28 @@ public class OneToManyBiTest {
     void findCities() {
         var cities = cityRepository.findAll();
         Assertions.assertThat(cities).hasSize(20);
+
+        // Use a spec
+        Specification<City> spec = null;
+
+        // find all
+        spec = (root, query, builder) -> null;
+        cities = cityRepository.findAll(spec);
+        Assertions.assertThat(cities).hasSize(20);
+
+        // find by name
+        spec = (root, query, builder) -> builder.equal(root.get(City_.name), "Minsk");
+        cities = cityRepository.findAll(spec);
+        Assertions.assertThat(cities).hasSize(1);
+
+        // find all cities by country name
+        spec = (city, query, builder) -> {
+            var country = city.join(City_.country);
+            return builder.equal(country.get(Country_.name), "Countries");
+        };
+        cities = cityRepository.findAll(spec);
+        System.out.println(cities);
+        Assertions.assertThat(cities).hasSize(3);
     }
 
     @Test

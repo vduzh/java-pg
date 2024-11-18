@@ -7,6 +7,7 @@ import by.duzh.springframework.springdata.jpa.repository.DepartmentRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +36,18 @@ public class OneToManyUniTest {
         assertThat(departments).hasSize(1);
     }
 
+    @Test
+    void findAllWithCriteria() {
+        Specification<Department> spec = (root, query, criteriaBuilder) -> null;
+        var departments = repository.findAll(spec);
+        assertThat(departments).hasSize(8);
+
+
+        spec = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("name"), "Departments");
+        departments = repository.findAll(spec);
+        System.out.println(departments);
+        assertThat(departments).hasSize(1);
+    }
 
     @Test
     void getById() {
