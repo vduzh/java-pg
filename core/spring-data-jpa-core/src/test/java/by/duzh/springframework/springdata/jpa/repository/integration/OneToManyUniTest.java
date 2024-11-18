@@ -27,6 +27,16 @@ public class OneToManyUniTest {
     }
 
     @Test
+    void findAllWithHQL() {
+        var departments = repository.findAllHQL();
+        assertThat(departments).hasSize(8);
+
+        departments = repository.findAllWithParamHQL("Departments");
+        assertThat(departments).hasSize(1);
+    }
+
+
+    @Test
     void getById() {
         var department = repository.findById(1);
         assertTrue(department.isPresent());

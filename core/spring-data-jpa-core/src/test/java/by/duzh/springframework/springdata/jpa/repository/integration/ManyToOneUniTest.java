@@ -11,23 +11,39 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
 @Rollback
 @SpringBootTest(classes = ApplicationRunner.class)
 public class ManyToOneUniTest {
+    public static final int STUDENT_ID = 14;
+
     @Autowired
     private StudentRepository repository;
 
     @Autowired
     private SchoolRepository schoolRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
     @Test
     void findAll() {
         var students = repository.findAll();
         assertThat(students).hasSize(20);
+    }
+
+    @Test
+    void findAllHQL() {
+        var students = repository.findAllHQL();
+        assertThat(students).hasSize(20);
+
+        var schoolName = "Green School";
+        students = repository.findAllBySchoolHQL(schoolName);
+        assertThat(students).hasSize(2);
+
+        students = repository.findAllBySchoolWithLeftJoinHQL(schoolName);
+        assertThat(students).hasSize(2);
     }
 
     @Test
@@ -48,5 +64,15 @@ public class ManyToOneUniTest {
 
         var res = repository.save(student);
         assertNotNull(res.getId());
+    }
+
+    @Test
+    void updateHQL() {
+        var countRows = studentRepository.updateStudentNameHQL(STUDENT_ID, "Test");
+        assertEquals(1, countRows);
+
+        var student = repository.findById(STUDENT_ID);
+        assertTrue(student.isPresent());
+        System.out.println(student.get());
     }
 }
