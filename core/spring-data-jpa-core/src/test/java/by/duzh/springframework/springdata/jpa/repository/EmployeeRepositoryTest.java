@@ -1,12 +1,10 @@
-package by.duzh.springframework.springdata.jpa.repository.integration;
+package by.duzh.springframework.springdata.jpa.repository;
 
 import by.duzh.springframework.springdata.jpa.ApplicationRunner;
 import by.duzh.springframework.springdata.jpa.entity.*;
-import by.duzh.springframework.springdata.jpa.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 

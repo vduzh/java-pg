@@ -1,9 +1,7 @@
-package by.duzh.springframework.springdata.jpa.repository.integration;
+package by.duzh.springframework.springdata.jpa.repository;
 
 import by.duzh.springframework.springdata.jpa.ApplicationRunner;
 import by.duzh.springframework.springdata.jpa.entity.Book;
-import by.duzh.springframework.springdata.jpa.repository.AuthorRepository;
-import by.duzh.springframework.springdata.jpa.repository.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
