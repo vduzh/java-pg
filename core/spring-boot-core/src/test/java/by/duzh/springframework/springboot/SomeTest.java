@@ -16,13 +16,9 @@ public class SomeTest {
     @Autowired
     String foo;
 
-
     @Test
     void name() {
-
         System.out.println(foo);
-
-
         //throw new RuntimeException();
     }
 }

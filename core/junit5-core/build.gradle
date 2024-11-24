@@ -1,0 +1,8 @@
+plugins {
+    id "io.freefair.lombok" version "8.10.2"
+    id 'java'
+}
+
+dependencies {
+    testImplementation("org.assertj:assertj-core:3.26.3")
+}
