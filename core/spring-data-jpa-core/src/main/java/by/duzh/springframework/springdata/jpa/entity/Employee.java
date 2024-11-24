@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "login")
-@ToString(exclude = {"office", "position", "manager"})
+@ToString(exclude = {"office", "position", "manager", "profile", "chats"})
 @Builder
 @Entity
 @Table(name = "employee")
@@ -47,4 +49,26 @@ public class Employee implements BaseEntity<Long> {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
     private Employee manager;
+
+    @OneToOne(
+            mappedBy = "employee",
+            cascade = CascadeType.ALL,
+            // configure LAZY like this:
+            fetch = FetchType.LAZY, optional = false
+    )
+    private Profile profile;
+
+    @Builder.Default
+    @ManyToMany()
+    @JoinTable(
+            name = "employee_team",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_id")
+    )
+    private Set<Country> countries = new HashSet<>();
+//
+//    public void addTeam(Country country) {
+//        countries.add(country);
+//        country.getEmployees().add(this);
+//    }
 }

@@ -4,22 +4,21 @@ import jakarta.persistence.*;
 import lombok.*;
 
 /**
- * Many-to-one relationship with unidirectional associations.
+ * One-To-Many relationship with unidirectional associations.
  * <p/>
- * Many instances of an entity are associated with one instance of another entity.
+ * Entity has a reference to one or many instances of another entity
  * <p/>
- * Each Student can be enrolled in one School only, but each School can have multiple Students.
+ * Each Department has many Teachers, but eachTeacher belongs to one Department only.
  */
 @Data
 @ToString
-//@ToString(exclude = "userChats")
 @EqualsAndHashCode(of = "name")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "master")
-public class School implements BaseEntity<Integer> {
+@Table(name = "detail")
+public class Teacher implements BaseEntity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

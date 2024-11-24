@@ -17,7 +17,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "author")
+@Table(name = "bar")
 public class Author implements BaseEntity<Integer> {
 
     @Id

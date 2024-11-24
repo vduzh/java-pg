@@ -2,6 +2,7 @@ package by.duzh.springframework.springdata.jpa.repository;
 
 import by.duzh.springframework.springdata.jpa.ApplicationRunner;
 import by.duzh.springframework.springdata.jpa.entity.School;
+import by.duzh.springframework.springdata.jpa.repository.SchoolRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

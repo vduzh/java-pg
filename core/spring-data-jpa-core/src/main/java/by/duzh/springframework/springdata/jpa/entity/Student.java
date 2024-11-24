@@ -18,7 +18,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "student")
+@Table(name = "detail")
 public class Student implements BaseEntity<Integer> {
 
     @Id
@@ -31,6 +31,6 @@ public class Student implements BaseEntity<Integer> {
     // each student can be enrolled in only one school
     @ManyToOne(fetch = FetchType.LAZY)
     // foreign key column name in the student table to join the Student and School entities
-    @JoinColumn(name = "school_id")
+    @JoinColumn(name = "master_id")
     private School school;
 }

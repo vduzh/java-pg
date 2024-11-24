@@ -1,7 +1,7 @@
 package by.duzh.springframework.springdata.jpa.repository;
 
 import by.duzh.springframework.springdata.jpa.ApplicationRunner;
-import by.duzh.springframework.springdata.jpa.entity.Student;
+import by.duzh.springframework.springdata.jpa.entity.Book;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,37 +15,35 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Transactional
 @Rollback
 @SpringBootTest(classes = ApplicationRunner.class)
-public class StudentRepositoryTest {
+public class ManyToManyUniTest {
     @Autowired
-    private StudentRepository repository;
+    private BookRepository repository;
 
     @Autowired
-    private SchoolRepository schoolRepository;
+    private AuthorRepository authorRepository;
 
     @Test
     void findAll() {
-        var students = repository.findAll();
-        assertThat(students).hasSize(3);
+        var books = repository.findAll();
+        assertThat(books).hasSize(3);
     }
 
     @Test
     void getById() {
-        var school = repository.findById(1);
-        assertTrue(school.isPresent());
+        var book = repository.findById(1);
+        assertTrue(book.isPresent());
     }
 
     @Rollback
     @Test
     void add() {
-        var school = schoolRepository.findById(2);
-        assertTrue(school.isPresent());
+        var author = authorRepository.findById(2);
+        assertTrue(author.isPresent());
 
-        var student = Student.builder()
-                .name("John Doe")
-                .school(school.get())
-                .build();
+        var book = Book.builder().name("Green Apple").build();
+        book.addAuthor(author.get());
 
-        var res = repository.save(student);
+        var res = repository.save(book);
         assertNotNull(res.getId());
     }
 }
