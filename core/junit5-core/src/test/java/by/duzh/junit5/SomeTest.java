@@ -34,13 +34,21 @@ class SomeTest {
         assertTrue(true);
     }
 
+    @Disabled
     @Test
     void fail() {
         Assertions.fail();
     }
 
+    @Disabled
     @Test
     void failWithCustomErrorMessage() {
         assertTrue(false, () -> "Something went wrong");
+    }
+
+    @RepeatedTest(2)
+    void repeatedTest(RepetitionInfo info) {
+        System.out.println(info.getCurrentRepetition());
+        assertTrue(true);
     }
 }
