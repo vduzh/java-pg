@@ -1,3 +1,7 @@
 rootProject.name = 'java-core'
 
-include 'core:jse-core', 'core:spring-core', 'core:spring-boot-core', 'core:spring-data-jpa-core', 'core:hibernate-core', 'core:junit5-core'
+include 'core:jse-core'
+include 'core:hibernate-core'
+include 'core:spring-core'
+include 'core:spring-boot-core', 'core:spring-data-jpa-core'
+include 'core:junit5-core', 'core:mockito-core'
