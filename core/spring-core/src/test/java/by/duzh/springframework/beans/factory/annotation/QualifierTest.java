@@ -18,18 +18,39 @@ public class QualifierTest {
     @Configuration
     static class AppConfig {
         @Bean
-        public String foo() { return "foo"; }
+        public String foo() {
+            return "FooValue";
+        }
 
         @Bean
-        public String bar() { return "bar"; }
+        public String bar() {
+            return "BarValue";
+        }
+
+        @Bean
+        @Autowired
+        public String fooAndBar(@Qualifier("foo") String fooValue, @Qualifier("bar") String barValue) {
+            return fooValue + "And" + barValue;
+        }
+
     }
 
     @Autowired
     @Qualifier("bar")
     String s;
 
+    @Autowired
+    @Qualifier("foo")
+    String s2;
+
+    @Autowired
+    @Qualifier("fooAndBar")
+    String s3;
+
     @Test
     void name() throws Exception {
-        assertEquals("bar", s);
+        assertEquals("BarValue", s);
+        assertEquals("FooValue", s2);
+        assertEquals("FooValueAndBarValue", s3);
     }
 }
