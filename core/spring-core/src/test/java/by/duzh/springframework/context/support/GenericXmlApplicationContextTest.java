@@ -6,45 +6,59 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mock.env.MockEnvironment;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GenericXmlApplicationContextTest {
+    static final String PATH = GenericXmlApplicationContextTest.class
+            .getPackageName().replace('.', '/') + "/app-context-foo.xml";
 
     @Test
-    void create() throws Exception {
-        String path = getClass().getPackageName().replace('.', '/') + "/app-context-foo.xml";
-
-        // Default constructor
+    void createAndLoadWithClassPathResource() {
         try (GenericXmlApplicationContext ctx = new GenericXmlApplicationContext()) {
-            ctx.load(new ClassPathResource(path));
+            ctx.load(new ClassPathResource(PATH));
             ctx.refresh();
-            ctx.getBean("foo");
+            assertTrue(Arrays.asList(ctx.getBeanDefinitionNames()).contains("foo"));
         }
+    }
 
-        try (var ctx = new GenericXmlApplicationContext()) {
-            ctx.load("classpath:" + path);
+    @Test
+    void createAndLoadWithClasspath() {
+        try (GenericXmlApplicationContext ctx = new GenericXmlApplicationContext()) {
+            ctx.load("classpath:" + PATH);
             ctx.refresh();
-            ctx.getBean("foo");
+            assertTrue(Arrays.asList(ctx.getBeanDefinitionNames()).contains("foo"));
         }
+    }
 
-        try (var ctx = new GenericXmlApplicationContext()) {
-            //NOTE: relativeClass is very useful
+    @Test
+    void createAndLoadWithRelativeClassAndResourceNames() {
+        try (GenericXmlApplicationContext ctx = new GenericXmlApplicationContext()) {
             ctx.load(getClass(), "app-context-foo.xml");
             ctx.refresh();
-            ctx.getBean("foo");
+            assertTrue(Arrays.asList(ctx.getBeanDefinitionNames()).contains("foo"));
         }
+    }
 
-        // Constructors with params
-        try (var ctx = new GenericXmlApplicationContext(new ClassPathResource(path))) {
-            ctx.getBean("foo");
+    @Test
+    void createWithClassPathResourceInConstructor() {
+        try (var ctx = new GenericXmlApplicationContext(new ClassPathResource(PATH))) {
+            assertTrue(Arrays.asList(ctx.getBeanDefinitionNames()).contains("foo"));
         }
+    }
 
-        try (var ctx = new GenericXmlApplicationContext(path)) {
-            ctx.getBean("foo");
+    @Test
+    void createWithPathInConstructor() {
+        try (var ctx = new GenericXmlApplicationContext(PATH)) {
+            assertTrue(Arrays.asList(ctx.getBeanDefinitionNames()).contains("foo"));
         }
+    }
 
+    @Test
+    void createWithRelativeClassAndResourceNamesInConstructor() {
         try (var ctx = new GenericXmlApplicationContext(getClass(), "app-context-foo.xml")) {
             ctx.getBean("foo");
         }
