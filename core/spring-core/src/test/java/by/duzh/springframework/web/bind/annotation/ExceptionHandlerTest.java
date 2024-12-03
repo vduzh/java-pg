@@ -1,6 +1,9 @@
 package by.duzh.springframework.web.bind.annotation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.Ordered;
@@ -22,9 +25,6 @@ import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolv
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;

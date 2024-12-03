@@ -1,6 +1,7 @@
 package by.duzh.springframework.stereotype.beans;
 
-import javax.validation.constraints.NotEmpty;
+
+import jakarta.validation.constraints.NotEmpty;
 
 public class Hotel {
     public Integer id;
