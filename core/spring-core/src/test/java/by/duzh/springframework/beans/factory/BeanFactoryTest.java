@@ -31,7 +31,7 @@ public class BeanFactoryTest {
 
         // Read a definition from XML file
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(listableBeanFactory);
-        reader.loadBeanDefinitions(new ClassPathResource("context/app-context-basic. xml"));
+        reader.loadBeanDefinitions(new ClassPathResource("context/app-context-basic.xml"));
 
         beanFactory = listableBeanFactory;
     }
