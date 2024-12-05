@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/create_schema.sql
+#  - include:
+#      file: db/changelog/changelog-jpa-core.sql
+#  - include:
+#      file: db/changelog/2.sql
+#  - include:
+#      file: db/changelog/3.sql

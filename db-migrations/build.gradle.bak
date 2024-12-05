@@ -1,0 +1,21 @@
+plugins {
+//    id 'java'
+    id 'org.liquibase.gradle' version '3.0.1'
+}
+
+allprojects {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+dependencies {
+    implementation 'org.liquibase:liquibase-core:4.29.0'
+    implementation 'org.postgresql:postgresql:42.6.0'
+}
+
+//task runJpaCoreMigrations(type: GradleBuild) {
+//    dir = file('db-migrations/jpa-core')
+//    tasks = ['runLiquibase']
+//}

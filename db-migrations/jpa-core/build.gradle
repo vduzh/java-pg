@@ -1,0 +1,50 @@
+//plugins {
+//    id 'java'
+//}
+//
+//dependencies {
+//    implementation 'org.liquibase:liquibase-core:4.23.0'  // Liquibase
+//    implementation 'org.postgresql:postgresql:42.6.0'    // PostgreSQL драйвер
+//}
+//
+//task runLiquibase(type: JavaExec) {
+//    mainClass.set('liquibase.integration.commandline.Main')
+//    classpath = sourceSets.main.runtimeClasspath
+//    args = [
+//            "--changeLogFile=src/main/resources/db/changelog/changelog-master.yaml",
+////            "--url=jdbc:postgresql://localhost:5432/postgres",
+//            "--url=jdbc:postgresql://localhost:5433/postgres",
+//            "--username=postgres",
+////            "--username=your_username",
+//            "--password=postgres",
+////            "--password=your_password",
+//            "--driver=org.postgresql.Driver",
+//            "update"
+//    ]
+//}
+
+
+plugins {
+    id 'org.liquibase.gradle' version '3.0.1'
+}
+
+repositories {
+    gradlePluginPortal()
+    mavenCentral()
+}
+
+liquibase {
+    activities {
+        main {
+            changeLogFile 'src/main/resources/db/changelog/changelog-master.yaml'
+            url 'jdbc:postgresql://localhost:5433/postgres'
+            username 'postgres'
+            password 'postgres'
+        }
+    }
+}
+
+dependencies {
+    implementation 'org.liquibase:liquibase-core:4.23.0'
+    implementation 'org.postgresql:postgresql:42.6.0'
+}

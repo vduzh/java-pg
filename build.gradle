@@ -8,14 +8,16 @@ allprojects {
     version = '1.0-SNAPSHOT'
 
     repositories {
+//        gradlePluginPortal()
         mavenCentral()
     }
 }
 
 subprojects {
     apply plugin: 'java'
+//    apply plugin: 'idea'
 
-    sourceCompatibility = '21'  // ���������� Java 21
+    sourceCompatibility = '21'
     targetCompatibility = '21'
 
     dependencies {
@@ -26,4 +28,12 @@ subprojects {
     test {
         useJUnitPlatform()
     }
+
+//    // Задача для запуска миграций для jpa-core
+//    task runJpaCoreMigrations(type: GradleBuild) {
+//        group = 'Liquibase'
+//        description = 'Запуск миграций для jpa-core'
+//        dir = file('db-migrations/jpa-core')  // Путь к подпроекту jpa-core
+//        tasks = ['runLiquibase']  // Задача для выполнения в подмодуле jpa-core
+//    }
 }
