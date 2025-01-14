@@ -2,7 +2,7 @@
 junit = "5.10.0"
 mockito-junit-jupiter = "5.0.0"
 assertj = "3.26.3"
-spring-boot-plugin = "3.3.5"
+spring-boot = "3.4.1"
 picocli = "4.7.1"
 postgresql = "42.7.3"
 liquibase-core = "4.30.0"
@@ -11,6 +11,7 @@ lombok-plugin = "8.10.2"
 jpamodelgen = "6.5.3.Final"
 
 [libraries]
+spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
@@ -26,7 +27,7 @@ postgresql = { group = "org.postgresql", name = "postgresql", version.ref = "pos
 #groovy = ["groovy-core", "groovy-json", "groovy-nio"]
 
 [plugins]
-spring-boot-plugin = { id = "org.springframework.boot", version.ref = "spring-boot-plugin" }
+spring-boot-plugin = { id = "org.springframework.boot", version.ref = "spring-boot" }
 lombok-plugin = { id = "io.freefair.lombok", version.ref = "lombok-plugin" }
 liquibase-plugin = { id = "org.liquibase.gradle", version.ref = "liquibase-plugin" }
 
