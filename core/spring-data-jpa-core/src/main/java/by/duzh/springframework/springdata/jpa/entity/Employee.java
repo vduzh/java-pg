@@ -11,7 +11,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "login")
-@ToString(exclude = {"office", "position", "manager", "profile", "chats"})
+@ToString(exclude = {"office", "position", "manager", "profile"})
 @Builder
 @Entity
 @Table(name = "employee")

@@ -3,11 +3,6 @@ plugins {
 }
 
 dependencies {
-//    configurations {
-//        testImplementation.exclude group: 'org.junit.jupiter'
-//        testImplementation.exclude group: 'org.junit.platform'
-//    }
-
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.junit.vintage:junit-vintage-engine:5.10.0'
 }

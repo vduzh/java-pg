@@ -198,7 +198,7 @@ public class StreamTests {
 
     @Test
     public void testMapToDouble() {
-        DoubleStream doubles = stream.mapToDouble(Double::new);
+        DoubleStream doubles = stream.mapToDouble(Double::valueOf);
     }
 
     @Test
@@ -208,7 +208,7 @@ public class StreamTests {
 
     @Test
     public void testMapToLong() {
-        LongStream longs = stream.mapToLong(Long::new);
+        LongStream longs = stream.mapToLong(Long::valueOf);
     }
 
     @Test

@@ -16,7 +16,7 @@ TBD
 ### Database (postgres)
 
 * https://hub.docker.com/_/postgres
-* docker run --name java-core-postgres -e POSTGRES_PASSWORD=postgres -p 5433:5432 -d postgres
+* docker run --name postgres-pg -e POSTGRES_PASSWORD=postgres -p 5433:5432 -d postgres
 * Check if the postgres is available: docker ps
 
 ## Configure

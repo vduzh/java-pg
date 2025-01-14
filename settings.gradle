@@ -1,10 +1,19 @@
-rootProject.name = 'java-core'
+//pluginManagement {
+//    repositories {
+//        gradlePluginPortal() // Основной репозиторий плагинов Gradle
+//        mavenCentral()       // Альтернативный репозиторий
+//    }
+//}
+
+rootProject.name = 'java-pg'
 
 include 'core:jse-core'
-include 'core:hibernate-core'
+//include 'core:hibernate-core'
 include 'core:spring-core'
-include 'core:spring-boot-core', 'core:spring-data-jpa-core'
+include 'core:spring-boot-core'
+include 'core:spring-data-jpa-core'
 include 'core:junit5-core', 'core:mockito-core'
-include 'db-migrations', 'db-migrations:jpa-core'
-//include 'db-migrations', 'db-migrations:jpa-core'
-//include 'db-migrations'
+include 'db-migrations'
+include 'db-migrations:foo-db', 'db-migrations:bar-db'
+include 'db-migrations:jpa-core-db'
+

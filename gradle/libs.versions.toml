@@ -1,0 +1,36 @@
+[versions]
+junit = "5.10.0"
+mockito-junit-jupiter = "5.0.0"
+assertj = "3.26.3"
+spring-boot-plugin = "3.3.5"
+picocli = "4.7.1"
+postgresql = "42.7.3"
+liquibase-core = "4.30.0"
+liquibase-plugin = "2.2.2"
+lombok-plugin = "8.10.2"
+jpamodelgen = "6.5.3.Final"
+
+[libraries]
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
+mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito-junit-jupiter" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+jpamodelgen = { module = "org.hibernate:hibernate-jpamodelgen", version.ref = "jpamodelgen" }
+picocli = { group = "info.picocli", name = "picocli", version.ref = "picocli" }
+liquibase-core = { group = "org.liquibase", name = "liquibase-core", version.ref = "liquibase-core" }
+postgresql = { group = "org.postgresql", name = "postgresql", version.ref = "postgresql" }
+
+#[bundles]
+#groovy = ["groovy-core", "groovy-json", "groovy-nio"]
+
+[plugins]
+spring-boot-plugin = { id = "org.springframework.boot", version.ref = "spring-boot-plugin" }
+lombok-plugin = { id = "io.freefair.lombok", version.ref = "lombok-plugin" }
+liquibase-plugin = { id = "org.liquibase.gradle", version.ref = "liquibase-plugin" }
+
+
+
+
+

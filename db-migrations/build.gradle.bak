@@ -1,21 +1,43 @@
 plugins {
-//    id 'java'
-    id 'org.liquibase.gradle' version '3.0.1'
+    alias(libs.plugins.liquibase.plugin) apply false
 }
 
-allprojects {
-    repositories {
-        gradlePluginPortal()
-        mavenCentral()
+def configureLiquibase(Project project) {
+    project.liquibase {
+        activities {
+            main {
+                arguments = [
+                        searchPath   : "${project.projectDir}",
+                        changelogFile: "changelog-master.yaml",
+                        url          : 'jdbc:postgresql://localhost:5433/postgres',
+                        driver       : 'org.postgresql.Driver'
+                ]
+            }
+        }
+        runList = 'main'
     }
 }
 
-dependencies {
-    implementation 'org.liquibase:liquibase-core:4.29.0'
-    implementation 'org.postgresql:postgresql:42.6.0'
+subprojects {
+    apply plugin: 'org.liquibase.gradle'
+
+    dependencies {
+        liquibaseRuntime libs.liquibase.core
+        liquibaseRuntime libs.postgresql
+        liquibaseRuntime libs.picocli
+    }
+
+    configureLiquibase(project)
 }
 
-//task runJpaCoreMigrations(type: GradleBuild) {
-//    dir = file('db-migrations/jpa-core')
-//    tasks = ['runLiquibase']
+//dependencies {
+//    liquibaseRuntime libs.liquibase.core
+//    liquibaseRuntime libs.postgresql
+//    liquibaseRuntime libs.picocli
 //}
+
+task updateAll {
+    group = 'Liquibase'
+    description = 'Run Liquibase migrations for all subprojects in db-migrations.'
+    dependsOn subprojects.collect { "${it.path}:update" }
+}

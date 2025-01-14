@@ -24,7 +24,7 @@ public class RuntimeTest {
 
     @Test
     public void testExec() throws Exception {
-        var process = runtime.exec("java");
+        var process = runtime.exec(new String[]{"java"});
     }
 
     @Test
@@ -41,11 +41,6 @@ public class RuntimeTest {
     @Test
     public void testGc() throws Exception {
         runtime.gc();
-    }
-
-    @Test
-    public void testRunFinalization() throws Exception {
-        runtime.runFinalization();
     }
 
     @Test

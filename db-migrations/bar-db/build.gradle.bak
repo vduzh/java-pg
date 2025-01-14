@@ -1,0 +1,11 @@
+liquibase {
+    activities {
+        main {
+            arguments.putAll([
+                    'databaseChangeLogTableName': 'DATABASECHANGELOG_BAR',
+                    username: 'postgres',
+                    password: 'postgres'
+            ])
+        }
+    }
+}

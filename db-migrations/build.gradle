@@ -1,0 +1,5 @@
+tasks.register('updateAll') {
+    group = 'db-migrations'
+    description = 'Run Liquibase migrations for all subprojects in db-migrations.'
+    dependsOn subprojects.collect { "${it.path}:update" }
+}

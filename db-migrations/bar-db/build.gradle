@@ -1,0 +1,23 @@
+plugins {
+    alias(libs.plugins.liquibase.plugin)
+}
+
+dependencies {
+    liquibaseRuntime libs.liquibase.core
+    liquibaseRuntime libs.postgresql
+    liquibaseRuntime libs.picocli
+}
+
+liquibase {
+    activities {
+        main {
+            searchPath "${project.projectDir}"
+            changelogFile 'changelog-master.yaml'
+            driver 'org.postgresql.Driver'
+            url 'jdbc:postgresql://localhost:5433/postgres'
+            databaseChangelogTableName 'DATABASECHANGELOG_BAR'
+            username 'postgres'
+            password 'postgres'
+        }
+    }
+}
