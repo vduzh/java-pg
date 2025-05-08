@@ -1,4 +1,5 @@
 [versions]
+java = "21"
 junit = "5.10.0"
 mockito-junit-jupiter = "5.0.0"
 assertj = "3.26.3"

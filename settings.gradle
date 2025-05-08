@@ -16,4 +16,6 @@ include 'core:junit5-core', 'core:mockito-core'
 include 'db-migrations'
 include 'db-migrations:foo-db', 'db-migrations:bar-db'
 include 'db-migrations:jpa-core-db'
+include 'core:jpa-entity'
+findProject(':core:jpa-entity')?.name = 'jpa-entity'
 

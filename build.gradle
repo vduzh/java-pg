@@ -1,8 +1,17 @@
 allprojects {
     group = 'by.duzh.java'
     version = '1.0-SNAPSHOT'
+
     repositories {
         mavenCentral()
+    }
+
+    plugins.withId('java') {
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(libs.versions.java.get())
+            }
+        }
     }
 }
 
