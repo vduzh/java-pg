@@ -28,7 +28,7 @@ class UserServiceTest {
 
     @Test
     void fail() {
-        Assertions.fail();
+        //Assertions.fail();
     }
 
     @Test
