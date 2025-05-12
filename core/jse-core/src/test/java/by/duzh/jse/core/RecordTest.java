@@ -13,9 +13,4 @@ public class RecordTest {
         Assert.assertEquals(1, point.x());
         Assert.assertEquals(2, point.y());
     }
-
-    @Test
-    public void name() throws Exception {
-        throw new Exception("RecordTest!!!!");
-    }
 }

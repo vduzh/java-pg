@@ -1,7 +1,9 @@
 package by.duzh.jse.annotation;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 
 import java.lang.annotation.*;
 import java.lang.reflect.Method;
@@ -103,32 +105,32 @@ public class AnnotationTests {
 
         // Get a method annotation
         CustomAnnotation annotation = method.getAnnotation(CustomAnnotation.class);
-        Assert.assertEquals(annotation.str(), "annotation sample");
-        Assert.assertEquals(annotation.val(), 100);
+        Assertions.assertEquals(annotation.str(), "annotation sample");
+        Assertions.assertEquals(annotation.val(), 100);
     }
 
     @Test
     public void getAnnotations() throws Exception {
         Annotation[] annotations = Foo.class.getMethod("bar").getAnnotations();
-        Assert.assertEquals(annotations.length, 4);
+        Assertions.assertEquals(annotations.length, 4);
     }
 
     @Test
     public void geDeclaredAnnotations() throws Exception {
         Annotation[] annotations = FooSubClass.class.getMethod("bar").getDeclaredAnnotations();
-        Assert.assertEquals(1, annotations.length);
-        Assert.assertTrue(annotations[0] instanceof SecondAnnotation);
+        Assertions.assertEquals(1, annotations.length);
+        Assertions.assertTrue(annotations[0] instanceof SecondAnnotation);
     }
 
     @Test
     public void isAnnotationPresent() throws Exception {
         Class<Foo> klass = Foo.class;
         Method method = klass.getMethod("bar");
-        Assert.assertTrue(method.isAnnotationPresent(CustomAnnotation.class));
-        Assert.assertTrue(method.isAnnotationPresent(SingleMemberAnnotation.class));
-        Assert.assertTrue(method.isAnnotationPresent(Marker.class));
-        Assert.assertTrue(method.isAnnotationPresent(SomeRepeatableContainer.class));
-        Assert.assertFalse(method.isAnnotationPresent(Retention.class));
+        Assertions.assertTrue(method.isAnnotationPresent(CustomAnnotation.class));
+        Assertions.assertTrue(method.isAnnotationPresent(SingleMemberAnnotation.class));
+        Assertions.assertTrue(method.isAnnotationPresent(Marker.class));
+        Assertions.assertTrue(method.isAnnotationPresent(SomeRepeatableContainer.class));
+        Assertions.assertFalse(method.isAnnotationPresent(Retention.class));
     }
 
     @Test
@@ -136,8 +138,8 @@ public class AnnotationTests {
         Class<FooSubClass> klass = FooSubClass.class;
 
         Method method = klass.getMethod("overridden");
-        Assert.assertTrue(method.isAnnotationPresent(SecondAnnotation.class));
-        Assert.assertFalse(method.isAnnotationPresent(CustomAnnotation.class));
+        Assertions.assertTrue(method.isAnnotationPresent(SecondAnnotation.class));
+        Assertions.assertFalse(method.isAnnotationPresent(CustomAnnotation.class));
     }
 
 
@@ -147,7 +149,7 @@ public class AnnotationTests {
 
         SomeRepeatableContainer annotationContainer = method.getAnnotation(SomeRepeatableContainer.class);
         for (SomeRepeatable repeatable : annotationContainer.value()) {
-            Assert.assertTrue("one".equals(repeatable.str()) || "two".equals(repeatable.str()));
+            Assertions.assertTrue("one".equals(repeatable.str()) || "two".equals(repeatable.str()));
         }
     }
 
@@ -155,7 +157,7 @@ public class AnnotationTests {
     public void testRepeatableAnnotationWithGetAnnotationsByTypeOK() throws Exception {
         Method method = Foo.class.getMethod("bar");
         for (SomeRepeatable repeatable : method.getAnnotationsByType(SomeRepeatable.class)) {
-            Assert.assertTrue("one".equals(repeatable.str()) || "two".equals(repeatable.str()));
+            Assertions.assertTrue("one".equals(repeatable.str()) || "two".equals(repeatable.str()));
         }
     }
 
