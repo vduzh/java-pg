@@ -60,6 +60,6 @@ public class PrintWriterTest {
         PrintWriter printWriter = new PrintWriter(writer);
         PrintWriter printWriter1 = printWriter.format("%s World!", "Hello");
         Assert.assertEquals(printWriter, printWriter1);
-        Assert.assertEquals("Hello World", new String(writer.toCharArray()));
+        Assert.assertEquals("Hello World!", new String(writer.toCharArray()));
     }
 }
