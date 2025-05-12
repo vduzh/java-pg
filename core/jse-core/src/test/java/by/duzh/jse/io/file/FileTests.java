@@ -1,7 +1,8 @@
 package by.duzh.jse.io.file;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,99 +18,104 @@ public class FileTests {
 
     private File file;
 
+    @BeforeEach
+    public void init() {
+        file = new File(TMP_DIR);
+    }
+
     @Test
     public void testCreate() {
         // With path
         file = new File(JAVA_HOME_DIR);
-        Assert.assertTrue(file.exists());
+        Assertions.assertTrue(file.exists());
 
         // With path and name
         file = new File(JAVA_HOME_DIR, FILE_NAME);
-        Assert.assertTrue(file.exists());
+        Assertions.assertTrue(file.exists());
 
         // With file and name
         file = new File(new File(JAVA_HOME_DIR), FILE_NAME);
-        Assert.assertTrue(file.exists());
+        Assertions.assertTrue(file.exists());
     }
 
     @Test
     public void testCreateNewFile() throws IOException {
         file = new File(TMP_DIR + UUID.randomUUID() + ".txt");
 
-        Assert.assertTrue(file.createNewFile());
+        Assertions.assertTrue(file.createNewFile());
     }
 
     @Test
     public void testCreateDirectory() {
         file = new File(TMP_DIR + UUID.randomUUID());
-        Assert.assertTrue(file.mkdir());
+        Assertions.assertTrue(file.mkdir());
 
         file = new File(TMP_DIR + UUID.randomUUID() + System.getProperty("file.separator") + UUID.randomUUID());
-        Assert.assertTrue(file.mkdirs());
+        Assertions.assertTrue(file.mkdirs());
     }
 
     @Test
     public void testExists() {
         file = new File(JAVA_HOME_DIR);
-        Assert.assertTrue(file.exists());
+        Assertions.assertTrue(file.exists());
 
         file = new File(JAVA_HOME_DIR, "foo.txt");
-        Assert.assertFalse(file.exists());
+        Assertions.assertFalse(file.exists());
     }
 
     @Test
     public void testGetAttributes() {
         // name
         file = new File(JAVA_HOME_DIR, "bin");
-        Assert.assertEquals("bin", file.getName());
+        Assertions.assertEquals("bin", file.getName());
 
         // length
         file = new File(JAVA_HOME_DIR, FILE_NAME);
-        Assert.assertTrue(file.length() > 0);
+        Assertions.assertTrue(file.length() > 0);
 
         // path
         file = new File(JAVA_HOME_DIR, "bin");
-        Assert.assertEquals(JAVA_HOME_DIR + System.getProperty("file.separator") + "bin", file.getPath());
+        Assertions.assertEquals(JAVA_HOME_DIR + System.getProperty("file.separator") + "bin", file.getPath());
 
         // absolute path
         file = new File(JAVA_HOME_DIR, "bin");
-        Assert.assertEquals(JAVA_HOME_DIR + System.getProperty("file.separator") + "bin", file.getAbsolutePath());
+        Assertions.assertEquals(JAVA_HOME_DIR + System.getProperty("file.separator") + "bin", file.getAbsolutePath());
 
         // get parent
         file = new File(JAVA_HOME_DIR, "bin");
-        Assert.assertEquals(JAVA_HOME_DIR, file.getParent());
+        Assertions.assertEquals(JAVA_HOME_DIR, file.getParent());
 
         // can read
         file = new File(JAVA_HOME_DIR, FILE_NAME);
-        Assert.assertTrue(file.canRead());
+        Assertions.assertTrue(file.canRead());
 
         // can write
         file = new File(JAVA_HOME_DIR, FILE_NAME);
         // TODO: depends on the OS
-        // Assert.assertFalse(file.canWrite());
+        // Assertions.assertFalse(file.canWrite());
 
         // can execute
         file = new File(JAVA_HOME_DIR, FILE_NAME);
         // TODO: depends on the OS
-        //Assert.assertFalse(file.canExecute());
+        //Assertions.assertFalse(file.canExecute());
 
         // is directory
         file = new File(JAVA_HOME_DIR);
-        Assert.assertTrue(file.isDirectory());
+        Assertions.assertTrue(file.isDirectory());
 
         file = new File(JAVA_HOME_DIR, FILE_NAME);
-        Assert.assertFalse(file.isDirectory());
+        Assertions.assertFalse(file.isDirectory());
 
         // is file
         file = new File(JAVA_HOME_DIR);
-        Assert.assertFalse(file.isFile());
+        Assertions.assertFalse(file.isFile());
 
         file = new File(JAVA_HOME_DIR, FILE_NAME);
-        Assert.assertTrue(file.isFile());
+        Assertions.assertTrue(file.isFile());
 
         // is hidden
         file = new File(JAVA_HOME_DIR, FILE_NAME);
-        Assert.assertFalse(file.isHidden());
+        Assertions.assertFalse(file.isHidden());
     }
 
     @Test
@@ -117,10 +123,10 @@ public class FileTests {
         file = new File(JAVA_HOME_DIR);
 
         String[] list = file.list();
-        Assert.assertTrue(Arrays.asList(list).contains(FILE_NAME));
+        Assertions.assertTrue(Arrays.asList(list).contains(FILE_NAME));
 
         list = file.list((file, name) -> FILE_NAME.equals(name));
-        Assert.assertEquals(1, list.length);
+        Assertions.assertEquals(1, list.length);
     }
 
     @Test
@@ -128,24 +134,24 @@ public class FileTests {
         file = new File(JAVA_HOME_DIR);
 
         File[] list = file.listFiles();
-        Assert.assertTrue(Arrays.stream(list)
+        Assertions.assertTrue(Arrays.stream(list)
                 .map(f -> f.getName())
                 .anyMatch(name -> name.equals(FILE_NAME)));
 
         list = file.listFiles((file, name) -> FILE_NAME.equals(name));
-        Assert.assertEquals(1, list.length);
+        Assertions.assertEquals(1, list.length);
 
         list = file.listFiles((file) -> FILE_NAME.equals(file.getName()));
-        Assert.assertEquals(1, list.length);
+        Assertions.assertEquals(1, list.length);
     }
 
     @Test
     public void testSpace() throws IOException {
         file = new File(TMP_DIR);
 
-        Assert.assertTrue(file.getTotalSpace() > 0);
-        Assert.assertTrue(file.getFreeSpace() > 0);
-        Assert.assertTrue(file.getUsableSpace() > 0);
+        Assertions.assertTrue(file.getTotalSpace() > 0);
+        Assertions.assertTrue(file.getFreeSpace() > 0);
+        Assertions.assertTrue(file.getUsableSpace() > 0);
     }
 
     @Test
@@ -153,7 +159,7 @@ public class FileTests {
         file = new File(TMP_DIR + UUID.randomUUID() + ".txt");
         file.createNewFile();
 
-        Assert.assertTrue(file.setLastModified(System.currentTimeMillis()));
+        Assertions.assertTrue(file.setLastModified(System.currentTimeMillis()));
     }
 
     @Test
@@ -161,7 +167,7 @@ public class FileTests {
         file = new File(TMP_DIR + UUID.randomUUID() + ".txt");
         file.createNewFile();
 
-        Assert.assertTrue(file.setReadable(true));
+        Assertions.assertTrue(file.setReadable(true));
     }
 
     @Test
@@ -171,8 +177,8 @@ public class FileTests {
 
         File file2 = new File(TMP_DIR + UUID.randomUUID() + ".dat");
 
-        Assert.assertTrue(file.renameTo(file2));
-        Assert.assertFalse(file.exists());
+        Assertions.assertTrue(file.renameTo(file2));
+        Assertions.assertFalse(file.exists());
     }
 
     @Test
@@ -180,7 +186,7 @@ public class FileTests {
         file = new File(TMP_DIR + UUID.randomUUID() + ".txt");
         file.createNewFile();
 
-        Assert.assertTrue(file.delete());
+        Assertions.assertTrue(file.delete());
     }
 
     @Test
@@ -188,6 +194,6 @@ public class FileTests {
         file = new File(JAVA_HOME_DIR + FILE_NAME);
         Path path = file.toPath();
 
-        Assert.assertEquals(file.getAbsolutePath(), path.toString());
+        Assertions.assertEquals(file.getAbsolutePath(), path.toString());
     }
 }
