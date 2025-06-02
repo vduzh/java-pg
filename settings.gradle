@@ -16,9 +16,9 @@ include 'lib:dto:foo'
 include 'core'
 include 'core:jse-core'
 include 'core:junit5-core', 'core:mockito-core'
-include 'core:spring-core', 'core:spring-boot-core'
-include 'core:hibernate-core'
-include 'core:spring-data-jpa-core'
+//include 'core:spring-core', 'core:spring-boot-core'
+//include 'core:hibernate-core'
+//include 'core:spring-data-jpa-core'
 
 // Если подпроект находится не прямо в корне, а, например, в папке 'modules':
 // include 'modules:auth', 'modules:billing'
