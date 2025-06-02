@@ -1,7 +1,28 @@
-rootProject.name = 'java-core'
+pluginManagement {
+    // Здесь описываются репозитории, где Gradle будет искать плагины
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
 
+// root project
+rootProject.name = 'java-pg'
+
+// include subprojects (each subproject in its own folder)
+include 'lib', 'lib:dto'
+include 'lib:dto:foo'
+
+include 'core'
 include 'core:jse-core'
-include 'core:hibernate-core'
-include 'core:spring-core'
-include 'core:spring-boot-core', 'core:spring-data-jpa-core'
 include 'core:junit5-core', 'core:mockito-core'
+include 'core:spring-core', 'core:spring-boot-core'
+//include 'core:hibernate-core'
+//include , 'core:spring-data-jpa-core'
+//include
+
+// Если подпроект находится не прямо в корне, а, например, в папке 'modules':
+// include 'modules:auth', 'modules:billing'
+// project(':modules:auth').projectDir = file('modules/auth')
+// project(':modules:billing').projectDir = file('modules/billing')
+

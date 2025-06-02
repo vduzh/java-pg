@@ -1,11 +1,17 @@
+// централизованного управления версиями плагинов  с apply false
 plugins {
-    id "io.freefair.lombok" version "8.10.2"
-    id 'java'
+    id 'java' // 'java-library', 'application', etc.
+//    id 'org.springframework.boot' version '3.2.0' apply false // Apply false - плагин будет применен в подпроектах, но его версия объявлена здесь
+//    id 'io.spring.dependency-management' version '1.1.4' apply false
 }
 
+// Все проекты, включая корневой
 allprojects {
-    group = 'by.duzh'
-    version = '1.0-SNAPSHOT'
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
 
     repositories {
         mavenCentral()
@@ -13,17 +19,41 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'java'
-
-    sourceCompatibility = '21'  // ���������� Java 21
-    targetCompatibility = '21'
+    apply plugin: 'java-library'
+    // Этот плагин нужен только для подпроектов с зависимостями
+//    apply plugin: 'io.spring.dependency-management' // Применяем dependency-management
+//    apply plugin: 'org.springframework.boot'
+    // Spring Boot может быть применен только там, где нужен (или в allprojects, если все сервисы)
 
     dependencies {
-        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
-        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+        // import Spring Boot BOM
+        implementation platform(libs.spring.boot.dependencies)
+
+//        implementation 'org.springframework.boot:spring-boot-starter'
+//        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+        // Junit 5 integration
+        testImplementation 'org.junit.jupiter:junit-jupiter-api'
+        testImplementation 'org.junit.jupiter:junit-jupiter-engine'
+        // AssertJ (для улучшенных утверждений)
+        testImplementation 'org.assertj:assertj-core'
     }
 
-    test {
+    // Настройка Test задач (test, integrationTest, performanceTest и пр.), общая для всех подпроектов
+    tasks.withType(Test).configureEach {
+        // required for JUnit 5
         useJUnitPlatform()
+
+        // Show log in the console
+        /*testLogging {
+            events "passed", "skipped", "failed", "standardOut", "standardError"
+            exceptionFormat = "full"
+        }*/
+
+        // Запускать тесты параллельно (осторожно с ресурсоемкими тестами)
+        // maxParallelForks = Runtime.runtime.availableProcessors()
+        // Включение/исключение конкретных тестов
+        // include '**/MySpecificTest.class'
+        // exclude '**/SlowTests.class'
     }
 }
