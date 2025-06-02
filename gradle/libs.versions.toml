@@ -1,0 +1,13 @@
+# gradle/libs.versions.toml
+[versions]
+gradle = "8.10.1"
+springBoot = "3.2.0"
+lombok = "8.10.2"
+
+[libraries]
+# Можно объявить сам BOM в каталоге, если вам нужно ссылаться на него напрямую
+spring-boot-dependencies = { group = "org.springframework.boot", name = "spring-boot-dependencies", version.ref = "springBoot" }
+
+[plugins]
+# Плагины также можно централизовать
+lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
