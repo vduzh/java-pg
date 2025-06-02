@@ -10,15 +10,19 @@ pluginManagement {
 rootProject.name = 'java-pg'
 
 // include subprojects (each subproject in its own folder)
-include 'lib', 'lib:dto'
+
+include 'core', 'lib', 'app'
+
+include 'lib:dto'
 include 'lib:dto:foo'
 
-include 'core'
 include 'core:jse-core'
 include 'core:junit5-core', 'core:mockito-core'
 //include 'core:spring-core', 'core:spring-boot-core'
 //include 'core:hibernate-core'
 //include 'core:spring-data-jpa-core'
+
+include 'app:spring-cloud-app'
 
 // Если подпроект находится не прямо в корне, а, например, в папке 'modules':
 // include 'modules:auth', 'modules:billing'
