@@ -1,6 +1,4 @@
-package by.duzh.junit5.service;
-
-import by.duzh.junit5.model.User;
+package by.duzh.junit5.assertj;
 
 import java.util.*;
 import java.util.function.Function;

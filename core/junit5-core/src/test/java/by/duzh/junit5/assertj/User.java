@@ -1,4 +1,4 @@
-package by.duzh.junit5.model;
+package by.duzh.junit5.assertj;
 
 import lombok.Builder;
 import lombok.Data;

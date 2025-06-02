@@ -1,13 +1,12 @@
-package by.duzh.mockito;
+package by.duzh.junit5;
 
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 // package level
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class SomeTest {
-
+class CoreFeaturesTest {
     @BeforeAll
     void setUpClass() {
         System.out.println("before all is working");
@@ -30,25 +29,24 @@ class SomeTest {
 
     // package level
     @Test
-    void ok() {
+    void shouldPass() {
         assertTrue(true);
     }
 
-    @Disabled
     @Test
-    void fail() {
-        Assertions.fail();
+    void shouldFail() {
+        assertThrows(Error.class, Assertions::fail);
     }
 
-    @Disabled
     @Test
-    void failWithCustomErrorMessage() {
-        assertTrue(false, () -> "Something went wrong");
+    void shouldFailWithCustomErrorMessage() {
+        assertThrows(Error.class, () -> {
+            assertTrue(false, () -> "Something went wrong");
+        });
     }
 
     @RepeatedTest(2)
-    void repeatedTest(RepetitionInfo info) {
-        System.out.println(info.getCurrentRepetition());
+    void shouldRepeatedTestTwice(RepetitionInfo info) {
         assertTrue(true);
     }
 }
