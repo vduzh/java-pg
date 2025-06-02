@@ -1,4 +1,4 @@
-package by.duzh.mockito.dao;
+package by.duzh.mockito.service;
 
 public class UserDao {
     public boolean delete(Integer id) {

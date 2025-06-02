@@ -1,7 +1,5 @@
 package by.duzh.mockito.service;
 
-import by.duzh.mockito.dao.UserDao;
-
 public class UserService {
     private final UserDao userDao;
 

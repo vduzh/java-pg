@@ -1,14 +1,11 @@
-package by.duzh.junit5.service;
+package by.duzh.mockito.service;
 
-import by.duzh.mockito.dao.UserDao;
-import by.duzh.mockito.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.*;
 
 class UserServiceTest {
 
@@ -17,20 +14,20 @@ class UserServiceTest {
 
     @BeforeEach
     void setUp() {
-        userDao = Mockito.mock(UserDao.class);
+        userDao = mock(UserDao.class);
         userService = new UserService(userDao);
     }
 
     @Test
     void shouldDeleteUser() {
         // better as vacation-templates
-        Mockito.doReturn(true).when(userDao).delete(10);
+        doReturn(true).when(userDao).delete(10);
         userService.deleteUser(10);
 
-        Mockito.when(userDao.delete(10)).thenReturn(true);
+        when(userDao.delete(10)).thenReturn(true);
         userService.deleteUser(10);
 
-        Mockito.when(userDao.delete(10))
+        when(userDao.delete(10))
                 .thenReturn(true)
                 .thenReturn(false);
 
@@ -40,11 +37,10 @@ class UserServiceTest {
 
     @Test
     void testDummyObjects() {
-        Mockito.doReturn(true).when(userDao).delete(Mockito.anyInt());
+        doReturn(true).when(userDao).delete(anyInt());
         userService.deleteUser(10);
 
-        Mockito.doReturn(true).when(userDao).delete(Mockito.any());
+        doReturn(true).when(userDao).delete(any());
         userService.deleteUser(10);
     }
-
 }

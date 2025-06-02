@@ -1,9 +1,7 @@
 plugins {
-    id "io.freefair.lombok" version "8.10.2"
-    id 'java'
+    alias(libs.plugins.lombok)
 }
 
 dependencies {
-    testImplementation("org.assertj:assertj-core:3.26.3")
-    testImplementation("org.mockito:mockito-core:5.11.0")
+    testImplementation "org.mockito:mockito-core"
 }

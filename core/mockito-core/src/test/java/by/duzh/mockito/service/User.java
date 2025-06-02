@@ -1,4 +1,4 @@
-package by.duzh.mockito.model;
+package by.duzh.mockito.service;
 
 import lombok.Builder;
 import lombok.Data;
