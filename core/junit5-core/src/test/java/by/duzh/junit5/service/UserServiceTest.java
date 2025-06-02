@@ -27,8 +27,10 @@ class UserServiceTest {
     }
 
     @Test
-    void fail() {
-        Assertions.fail();
+    public void fail() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            userService.fail();
+        });
     }
 
     @Test

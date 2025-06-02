@@ -34,4 +34,8 @@ public class UserService {
         return users.stream()
                 .collect(toMap(User::getId, Function.identity()));
     }
+
+    public void fail() {
+        throw new IllegalArgumentException("This method is expected to fail");
+    }
 }
