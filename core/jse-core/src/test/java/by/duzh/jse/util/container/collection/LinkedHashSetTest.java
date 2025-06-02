@@ -1,7 +1,7 @@
 package by.duzh.jse.util.container.collection;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -18,7 +18,7 @@ public class LinkedHashSetTest {
     @Test
     public void testCreateFromCollection() {
         set = new LinkedHashSet<>(Arrays.asList(1, 2, 3));
-        Assert.assertEquals(3, set.size());
+        Assertions.assertEquals(3, set.size());
     }
 
     @Test
@@ -40,10 +40,10 @@ public class LinkedHashSetTest {
         set.add(2);
         set.add(3);
 
-        Assert.assertEquals(3, set.size());
+        Assertions.assertEquals(3, set.size());
         Iterator<Integer> iterator = set.iterator();
         for (int i = 1; i <= 3; i++) {
-            Assert.assertEquals(i, iterator.next().intValue());
+            Assertions.assertEquals(i, iterator.next().intValue());
         }
     }
 }

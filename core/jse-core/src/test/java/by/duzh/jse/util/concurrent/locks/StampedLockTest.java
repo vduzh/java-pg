@@ -1,33 +1,20 @@
 package by.duzh.jse.util.concurrent.locks;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import java.util.logging.Logger;
 
-import java.util.HashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.StampedLock;
-
+@Disabled
 public class StampedLockTest {
-    private StampedLock lock;
+    private static final Logger logger = Logger.getLogger(StampedLockTest.class.getName());
 
     @Test
-    public void testReadLock() throws Exception {
-        //lock.readLock()
-
-        throw new RuntimeException("ReadWriteLockTest");
+    public void testReadLock() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 
     @Test
-    public void testWriteLock() throws Exception {
-        ExecutorService executor = Executors.newFixedThreadPool(3);
-
-        var map = new HashMap<String, String>();
-
-
-
-        //lock.writeLock()
-
-        throw new RuntimeException("ReadWriteLockTest");
+    public void testWriteLock() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

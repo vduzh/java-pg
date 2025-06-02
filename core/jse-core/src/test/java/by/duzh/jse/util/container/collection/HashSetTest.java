@@ -1,7 +1,7 @@
 package by.duzh.jse.util.container.collection;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +18,7 @@ public class HashSetTest {
     @Test
     public void testCreateFromCollection() {
         set = new HashSet<>(Arrays.asList(1, 2, 3));
-        Assert.assertEquals(3, set.size());
+        Assertions.assertEquals(3, set.size());
     }
 
     @Test
@@ -39,6 +39,6 @@ public class HashSetTest {
         set.add(2);
         set.add(2);
 
-        Assert.assertEquals(2, set.size());
+        Assertions.assertEquals(2, set.size());
     }
 }

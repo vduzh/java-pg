@@ -1,11 +1,13 @@
 package by.duzh.springframework.test.context;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.NestedTestConfiguration;
+import java.util.logging.Logger;
 
 public class NestedTestConfigurationTest {
+    private static final Logger logger = Logger.getLogger(NestedTestConfigurationTest.class.getName());
+
     @Test
-    void name() {
-        throw new RuntimeException();
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

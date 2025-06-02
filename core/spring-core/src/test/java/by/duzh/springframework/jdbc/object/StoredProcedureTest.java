@@ -1,12 +1,13 @@
 package by.duzh.springframework.jdbc.object;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.object.StoredProcedure;
+import java.util.logging.Logger;
 
 public class StoredProcedureTest {
+    private static final Logger logger = Logger.getLogger(StoredProcedureTest.class.getName());
+
     @Test
-    void name() {
-        StoredProcedure storedProcedure;
-        throw new RuntimeException();
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

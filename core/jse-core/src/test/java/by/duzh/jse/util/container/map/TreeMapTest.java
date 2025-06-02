@@ -1,8 +1,8 @@
 package by.duzh.jse.util.container.map;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -12,7 +12,7 @@ import java.util.TreeMap;
 public class TreeMapTest {
     private TreeMap<Integer, String> map;
 
-    @Before
+    @BeforeEach
     public void init() {
         map = new TreeMap<>();
         map.put(2, "two");
@@ -24,7 +24,7 @@ public class TreeMapTest {
     public void testDefaultComparator() {
         int i = 1;
         for (Map.Entry<Integer, String> e: map.entrySet()) {
-            Assert.assertEquals(i++, e.getKey().intValue());
+            Assertions.assertEquals(i++, e.getKey().intValue());
         }
     }
 
@@ -37,8 +37,7 @@ public class TreeMapTest {
 
         int i = 3;
         for (Map.Entry<Integer, String> e: map.entrySet()) {
-            Assert.assertEquals(i--, e.getKey().intValue());
+            Assertions.assertEquals(i--, e.getKey().intValue());
         }
     }
-
 }

@@ -1,6 +1,6 @@
 package by.duzh.jse.oop;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 class FinalTestClass {
     // applied to the instance field

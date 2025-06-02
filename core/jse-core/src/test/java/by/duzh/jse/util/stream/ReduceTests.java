@@ -1,7 +1,7 @@
 package by.duzh.jse.util.stream;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 public class ReduceTests {
     private static ArrayList<Integer> myList = new ArrayList<>();
 
-    @BeforeClass
+    @BeforeAll
     public static void initMyList() {
         myList.add(7);
         myList.add(18);

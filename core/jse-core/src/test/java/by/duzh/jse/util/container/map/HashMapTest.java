@@ -1,7 +1,7 @@
 package by.duzh.jse.util.container.map;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +11,7 @@ import java.util.Map;
 public class HashMapTest {
     private HashMap<Integer, String> map;
 
-    @Before
+    @BeforeEach
     public void init() {
         map = new HashMap<>();
         map.put(1, "one");

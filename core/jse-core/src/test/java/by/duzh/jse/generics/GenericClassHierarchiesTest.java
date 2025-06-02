@@ -1,7 +1,7 @@
 package by.duzh.jse.generics;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 public class GenericClassHierarchiesTest {
     @Test
@@ -13,7 +13,7 @@ public class GenericClassHierarchiesTest {
         }
 
         SubSimpleGeneric<String> obj = new SubSimpleGeneric<String>("test");
-        Assert.assertEquals("test", obj.getValue());
+        Assertions.assertEquals("test", obj.getValue());
     }
 
     @Test
@@ -32,8 +32,8 @@ public class GenericClassHierarchiesTest {
         }
 
         TwoTypesGeneric<Integer, String> obj = new TwoTypesGeneric<Integer, String>(123, "test");
-        Assert.assertEquals(123, obj.getData().intValue());
-        Assert.assertEquals("test", obj.getValue());
+        Assertions.assertEquals(123, obj.getData().intValue());
+        Assertions.assertEquals("test", obj.getValue());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class GenericClassHierarchiesTest {
         }
 
         NonGenericSuperClass<String> obj = new NonGenericSuperClass<String>("test");
-        Assert.assertEquals("test", obj.getData());
+        Assertions.assertEquals("test", obj.getData());
     }
 
     @Test
@@ -68,11 +68,11 @@ public class GenericClassHierarchiesTest {
         Gen<Integer> obj1 = new Gen<Integer>();
         SubGen<Integer> obj2 = new SubGen<Integer>();
 
-        Assert.assertTrue(obj1 instanceof Gen<?>);
-        Assert.assertFalse(obj1 instanceof SubGen<?>);
+        Assertions.assertTrue(obj1 instanceof Gen<?>);
+        Assertions.assertFalse(obj1 instanceof SubGen<?>);
 
-        Assert.assertTrue(obj2 instanceof Gen<?>);
-        Assert.assertTrue(obj2 instanceof SubGen<?>);
+        Assertions.assertTrue(obj2 instanceof Gen<?>);
+        Assertions.assertTrue(obj2 instanceof SubGen<?>);
     }
 
     @Test
@@ -106,7 +106,7 @@ public class GenericClassHierarchiesTest {
         }
 
         SubGen<Integer> obj = new SubGen<Integer>();
-        Assert.assertEquals("1 and 1", obj.foo(1));
+        Assertions.assertEquals("1 and 1", obj.foo(1));
     }
 
     @Test

@@ -1,7 +1,7 @@
 package by.duzh.jse.util;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
@@ -18,7 +18,7 @@ public class UUIDTests {
     @Test
     public void testCreateRandomUUID() {
         uuid = UUID.randomUUID();
-        Assert.assertEquals(2, uuid.variant());
-        Assert.assertEquals(4, uuid.version());
+        Assertions.assertEquals(2, uuid.variant());
+        Assertions.assertEquals(4, uuid.version());
     }
 }

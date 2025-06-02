@@ -1,7 +1,8 @@
 package by.duzh.jse;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import java.util.logging.Logger;
 
 class VarArgs {
     // int is a variable-length argument
@@ -27,22 +28,28 @@ class VarArgs {
 }
 
 public class VariableLengthArgumentsTests {
+    private static final Logger logger = Logger.getLogger(VariableLengthArgumentsTests.class.getName());
+
     @Test
     public void testWithSeveralVariableLengthArgs() throws Exception {
         int res = VarArgs.sum(1, 2, 3);
-        Assert.assertEquals(6, res);
+        Assertions.assertEquals(6, res);
     }
 
     @Test
     public void testWithNoArgs() throws Exception {
         int res = VarArgs.sum();
-        Assert.assertEquals(0, res);
+        Assertions.assertEquals(0, res);
     }
 
     @Test
     public void testSeveralArgs() throws Exception {
         int res = VarArgs.multiply(10, 2, 4);
-        Assert.assertEquals(80, res);
+        Assertions.assertEquals(80, res);
     }
 
+    @Test
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
+    }
 }

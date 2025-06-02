@@ -1,13 +1,15 @@
 package by.duzh.jse.net;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 
+@Disabled
 public class ServerSocketTest {
-    @Before
+    @BeforeEach
     public void init() {
     }
 

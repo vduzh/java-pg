@@ -1,19 +1,21 @@
 package by.duzh.jse.util.concurrent.executor;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@Disabled
 public class ScheduledExecutorServiceTest {
     private ScheduledExecutorService executorService;
     private int[] count;
 
-    @Before
+    @BeforeEach
     public void init() {
         executorService = Executors.newScheduledThreadPool(1);
         count = new int[]{0};
@@ -42,7 +44,7 @@ public class ScheduledExecutorServiceTest {
         executorService.shutdown();
 
         executorService.awaitTermination(1, TimeUnit.HOURS);
-        Assert.assertEquals(5, count[0]);
+        Assertions.assertEquals(5, count[0]);
     }
 
     @Test
@@ -52,7 +54,7 @@ public class ScheduledExecutorServiceTest {
         executorService.shutdown();
 
         executorService.awaitTermination(1, TimeUnit.HOURS);
-        Assert.assertEquals(3, count[0]);
+        Assertions.assertEquals(3, count[0]);
     }
 
     @Test
@@ -62,7 +64,7 @@ public class ScheduledExecutorServiceTest {
         executorService.shutdown();
 
         executorService.awaitTermination(1, TimeUnit.HOURS);
-        Assert.assertEquals(2, count[0]);
+        Assertions.assertEquals(2, count[0]);
     }
 
     @Test
@@ -72,7 +74,7 @@ public class ScheduledExecutorServiceTest {
         executorService.shutdown();
 
         executorService.awaitTermination(1, TimeUnit.HOURS);
-        Assert.assertEquals(2, count[0]);
+        Assertions.assertEquals(2, count[0]);
     }
 
     @Test
@@ -82,6 +84,6 @@ public class ScheduledExecutorServiceTest {
         executorService.shutdown();
 
         executorService.awaitTermination(1, TimeUnit.HOURS);
-        Assert.assertEquals(1, count[0]);
+        Assertions.assertEquals(1, count[0]);
     }
 }

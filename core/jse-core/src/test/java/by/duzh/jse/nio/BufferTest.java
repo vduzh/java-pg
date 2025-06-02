@@ -1,8 +1,8 @@
 package by.duzh.jse.nio;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
@@ -14,7 +14,7 @@ public class BufferTest {
     private static final int LIMIT = CAPACITY / 4 * 3; // 12
     private Buffer buffer;
 
-    @Before
+    @BeforeEach
     public void init() {
         ByteBuffer b = ByteBuffer.allocate(CAPACITY); // 16 elements
         b.limit(LIMIT); // 12 elements
@@ -24,66 +24,66 @@ public class BufferTest {
     @Test
     public void testIsReadOnly() {
         //TODO: where to set???
-        Assert.assertFalse(buffer.isReadOnly());
+        Assertions.assertFalse(buffer.isReadOnly());
     }
 
     @Test
     public void testPosition() {
-        Assert.assertEquals(TEXT.length(), buffer.position()); //10
+        Assertions.assertEquals(TEXT.length(), buffer.position()); //10
     }
 
     @Test
     public void testSetPosition() {
         buffer.position(5);
 
-        Assert.assertEquals(5, buffer.position());
+        Assertions.assertEquals(5, buffer.position());
     }
 
     @Test
     public void testCapacity() {
-        Assert.assertEquals(CAPACITY, buffer.capacity());
+        Assertions.assertEquals(CAPACITY, buffer.capacity());
     }
 
     @Test
     public void testGetLimit() {
-        Assert.assertEquals(LIMIT, buffer.limit());
+        Assertions.assertEquals(LIMIT, buffer.limit());
     }
 
     @Test
     public void tesSetLimit() {
         Buffer b = buffer.limit(LIMIT + 2);
 
-        Assert.assertTrue(b == buffer);
-        Assert.assertEquals(CAPACITY, buffer.capacity());
-        Assert.assertEquals(LIMIT + 2, buffer.limit());
+        Assertions.assertTrue(b == buffer);
+        Assertions.assertEquals(CAPACITY, buffer.capacity());
+        Assertions.assertEquals(LIMIT + 2, buffer.limit());
     }
 
     @Test
     public void testClear() {
-        Assert.assertEquals(LIMIT, buffer.limit());
+        Assertions.assertEquals(LIMIT, buffer.limit());
 
         Buffer b = buffer.clear();
 
-        Assert.assertTrue(b == buffer);
-        Assert.assertEquals(CAPACITY, buffer.capacity());
-        Assert.assertEquals(CAPACITY, buffer.limit()); // LIMIT Capacity now!
-        Assert.assertEquals(0, buffer.position());
+        Assertions.assertTrue(b == buffer);
+        Assertions.assertEquals(CAPACITY, buffer.capacity());
+        Assertions.assertEquals(CAPACITY, buffer.limit()); // LIMIT Capacity now!
+        Assertions.assertEquals(0, buffer.position());
     }
 
     @Test
     public void testHasRemaining() {
-        Assert.assertTrue(buffer.hasRemaining());
+        Assertions.assertTrue(buffer.hasRemaining());
     }
 
     @Test
     public void testRemaining() {
-        Assert.assertEquals(buffer.limit() - buffer.position(), buffer.remaining()); // 4
+        Assertions.assertEquals(buffer.limit() - buffer.position(), buffer.remaining()); // 4
 
         buffer.clear();
-        Assert.assertEquals(buffer.limit(), buffer.remaining()); // 16
+        Assertions.assertEquals(buffer.limit(), buffer.remaining()); // 16
 
         buffer.limit(LIMIT);
-        Assert.assertEquals(buffer.limit(), buffer.remaining()); // 12
+        Assertions.assertEquals(buffer.limit(), buffer.remaining()); // 12
     }
 
     @Test
@@ -92,20 +92,20 @@ public class BufferTest {
 
         buffer.rewind();
 
-        Assert.assertEquals(0, buffer.position());
+        Assertions.assertEquals(0, buffer.position());
     }
 
     @Test
     public void testFlip() {
-        Assert.assertEquals(TEXT.length(), buffer.position()); // 10
-        Assert.assertEquals(LIMIT, buffer.limit()); // 12
+        Assertions.assertEquals(TEXT.length(), buffer.position()); // 10
+        Assertions.assertEquals(LIMIT, buffer.limit()); // 12
 
         int oldPosition = buffer.position();
 
         buffer.flip();
 
-        Assert.assertEquals(0, buffer.position());
-        Assert.assertEquals(oldPosition, buffer.limit()); // 10
+        Assertions.assertEquals(0, buffer.position());
+        Assertions.assertEquals(oldPosition, buffer.limit()); // 10
     }
 
     @Test
@@ -122,40 +122,40 @@ public class BufferTest {
 
         buffer.reset();
 
-        Assert.assertEquals(5, buffer.position());
+        Assertions.assertEquals(5, buffer.position());
     }
 
     @Test
     public void testHasArray() {
-        Assert.assertTrue(buffer.hasArray());
+        Assertions.assertTrue(buffer.hasArray());
     }
 
     @Test
     public void testArray() {
         Object obj = buffer.array();
-        Assert.assertTrue(obj instanceof byte[]);
+        Assertions.assertTrue(obj instanceof byte[]);
     }
 
     @Test
     public void testArrayOffset() {
         //TODO: not clear!!!
         int offset = buffer.arrayOffset();
-        Assert.assertEquals(0, offset);
+        Assertions.assertEquals(0, offset);
     }
 
     @Test
     public void testIsDirect() {
         //TODO: Where to set
-        Assert.assertFalse(buffer.isDirect());
+        Assertions.assertFalse(buffer.isDirect());
     }
 
     @Test
     public void testJDK9Duplicate() {
         Buffer duplicate = buffer.duplicate();
 
-        Assert.assertEquals(16, duplicate.capacity());
-        Assert.assertEquals(12, duplicate.limit());
-        Assert.assertEquals(10, duplicate.position());
+        Assertions.assertEquals(16, duplicate.capacity());
+        Assertions.assertEquals(12, duplicate.limit());
+        Assertions.assertEquals(10, duplicate.position());
    }
 
     @Test
@@ -163,8 +163,8 @@ public class BufferTest {
         buffer.position(5);
         Buffer slice = buffer.slice();
 
-        Assert.assertEquals(7, slice.capacity()); // buffer.limit - 5
-        Assert.assertEquals(7, slice.limit()); // buffer.limit - 5
-        Assert.assertEquals(0, slice.position());
+        Assertions.assertEquals(7, slice.capacity()); // buffer.limit - 5
+        Assertions.assertEquals(7, slice.limit()); // buffer.limit - 5
+        Assertions.assertEquals(0, slice.position());
     }
 }

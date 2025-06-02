@@ -1,7 +1,7 @@
 package by.duzh.jse.lang;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,31 +21,31 @@ public class StringTest {
 
     @Test
     public void testValueOfInt() {
-        Assert.assertEquals("123", String.valueOf(123));
+        Assertions.assertEquals("123", String.valueOf(123));
     }
 
     @Test
     public void testValueOfBoolean() {
-        Assert.assertEquals("true", String.valueOf(true));
+        Assertions.assertEquals("true", String.valueOf(true));
     }
 
     @Test
     public void testValueOfChars() {
         char[] chars = {'h', 'e', 'l', 'l', 'o'};
-        Assert.assertEquals("ll", String.valueOf(chars, 2, 2));
+        Assertions.assertEquals("ll", String.valueOf(chars, 2, 2));
     }
 
     @Test
     public void testConcat() throws Exception{
-        Assert.assertEquals("test world", "test " + "world");
-        Assert.assertEquals("test1", "test" + 1);
+        Assertions.assertEquals("test world", "test " + "world");
+        Assertions.assertEquals("test1", "test" + 1);
     }
 
     @Test
     public void testToCharArray() {
         char[] chars = "ab".toCharArray();
-        Assert.assertEquals('a', chars[0]);
-        Assert.assertEquals('b', chars[1]);
+        Assertions.assertEquals('a', chars[0]);
+        Assertions.assertEquals('b', chars[1]);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class StringTest {
         var s = "Hello";
         var chars = new char[5];
         s.getChars(0, 5, chars, 0);
-        Assert.assertEquals(s, String.valueOf(chars));
+        Assertions.assertEquals(s, String.valueOf(chars));
     }
 
     @Test
@@ -62,17 +62,17 @@ public class StringTest {
         char[] chars = {'?', 0, 0, 0, 0, 0, '?'};
 
         s.getChars(6, 11, chars, 1);
-        Assert.assertEquals("?World?", String.valueOf(chars));
+        Assertions.assertEquals("?World?", String.valueOf(chars));
     }
 
     @Test
     public void testRegionMatchesOK() {
-        Assert.assertTrue("Hello World!".regionMatches(6, "My World is good!", 3, 5));
+        Assertions.assertTrue("Hello World!".regionMatches(6, "My World is good!", 3, 5));
     }
 
     @Test
     public void testRegionMatchesFalse() {
-        Assert.assertFalse("Hello World!".regionMatches(6, "My World is good!", 0, 5));
+        Assertions.assertFalse("Hello World!".regionMatches(6, "My World is good!", 0, 5));
     }
 
     @Test
@@ -84,38 +84,38 @@ public class StringTest {
 
     @Test
     public void testCompareTo() {
-        Assert.assertTrue("aaa".compareTo("bb") < 0);
-        Assert.assertEquals(0, "aa".compareTo("aa"));
-        Assert.assertTrue("bb".compareTo("aa") > 0);
+        Assertions.assertTrue("aaa".compareTo("bb") < 0);
+        Assertions.assertEquals(0, "aa".compareTo("aa"));
+        Assertions.assertTrue("bb".compareTo("aa") > 0);
     }
 
     @Test
     public void testReplaceChars() {
-        Assert.assertEquals("abc".replace('b', '-'), "a-c");
+        Assertions.assertEquals("abc".replace('b', '-'), "a-c");
     }
 
     @Test
     public void testReplaceCharSequence() {
-        Assert.assertEquals("abcdef".replace("cde", "kk"), "abkkf");
+        Assertions.assertEquals("abcdef".replace("cde", "kk"), "abkkf");
     }
 
     @Test
     public void testJoin() {
-        Assert.assertEquals("one-two-ten", String.join("-", "one", "two", "ten"));
+        Assertions.assertEquals("one-two-ten", String.join("-", "one", "two", "ten"));
     }
 
     @Test
     public void testJoinIterable() {
         var strings = Arrays.asList("one", "two", "ten");
-        Assert.assertEquals("one-two-ten", String.join("-", strings));
+        Assertions.assertEquals("one-two-ten", String.join("-", strings));
     }
 
     @Test
     public void testIsBlank() {
         // for empty string
-        Assert.assertTrue("".isBlank());
+        Assertions.assertTrue("".isBlank());
         // for the string full of spaces
-        Assert.assertTrue("  ".isBlank());
+        Assertions.assertTrue("  ".isBlank());
     }
 
     @Test
@@ -125,33 +125,33 @@ public class StringTest {
         Stream<String> stringStream = s.lines();
         var list = stringStream.toList();
 
-        Assert.assertEquals(2, list.size());
-        Assert.assertEquals("Hello", list.get(0));
-        Assert.assertEquals("World!", list.get(1));
+        Assertions.assertEquals(2, list.size());
+        Assertions.assertEquals("Hello", list.get(0));
+        Assertions.assertEquals("World!", list.get(1));
     }
 
     @Test
     public void testRepeat() {
         var s = "foo".repeat(3);
-        Assert.assertEquals("foofoofoo", s);
+        Assertions.assertEquals("foofoofoo", s);
     }
 
     @Test
     public void testStrip() {
         var s = "   Hello World!  ".strip();
-        Assert.assertEquals("Hello World!", s);
+        Assertions.assertEquals("Hello World!", s);
     }
 
     @Test
     public void testStripLeading() {
         var s = "  Hello World!  ".stripLeading();
-        Assert.assertEquals("Hello World!  ", s);
+        Assertions.assertEquals("Hello World!  ", s);
     }
 
     @Test
     public void testStripTrailing() {
         var s = "  Hello World!  ".stripTrailing();
-        Assert.assertEquals("  Hello World!", s);
+        Assertions.assertEquals("  Hello World!", s);
     }
 
     @Test
@@ -161,11 +161,11 @@ public class StringTest {
                 World!
                 """;
 
-        Assert.assertEquals("Hello\nWorld!\n", s.stripIndent());
+        Assertions.assertEquals("Hello\nWorld!\n", s.stripIndent());
     }
 
     @Test
     public void testFormatted() throws Exception {
-        Assert.assertEquals("Hello John!", "Hello %s!".formatted("John"));
+        Assertions.assertEquals("Hello John!", "Hello %s!".formatted("John"));
     }
 }

@@ -1,22 +1,21 @@
 package by.duzh.jse.net;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.UnknownHostException;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 public class CookiePolicyTest {
-    private URI uri;
-
-    @Before
-    public void init() throws UnknownHostException {
-    }
-
     @Test
-    public void testCreate() throws URISyntaxException {
-        //TODO: implement...
-        throw new RuntimeException(getClass() + "  is not implemented");
-   }
+    @EnabledIfSystemProperty(named = "test.network", matches = "true")
+    public void testCreate() throws Exception {
+        CookieManager manager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
+        URL url = new URL("http://www.google.com");
+        Map<String, List<String>> headers = Map.of("Set-Cookie", List.of("test=value"));
+        manager.put(url.toURI(), headers);
+    }
 }

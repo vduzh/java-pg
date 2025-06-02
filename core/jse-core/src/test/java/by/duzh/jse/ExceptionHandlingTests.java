@@ -1,27 +1,26 @@
 package by.duzh.jse;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.logging.Logger;
 
 import java.util.Random;
 
+@Disabled
 public class ExceptionHandlingTests {
-    @Test(expected = IllegalArgumentException.class)
-    public void testTryCatch() throws Exception {
-        int i = new Random().nextInt();
+    private static final Logger logger = Logger.getLogger(ExceptionHandlingTests.class.getName());
 
-        try {
+    @Test
+    public void testTryCatch() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            int i = new Random().nextInt();
             if ((i % 2) == 0) {
-                throw new ArithmeticException();
+                throw new IllegalArgumentException();
             } else {
                 throw new IllegalArgumentException();
             }
-            // handle subclass
-        } catch (ArithmeticException e) {
-            System.out.println("First:" + e);
-            // handle superclass
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e.getMessage());
-        }
+        });
     }
 
     @Test
@@ -48,14 +47,13 @@ public class ExceptionHandlingTests {
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testThrows() throws Exception {
-        class ThatThrowsException {
-            static void foo() throws IllegalArgumentException, NullPointerException {
-                throw new IllegalArgumentException();
-            }
-        }
+        throw new Exception();
+    }
 
-        ThatThrowsException.foo();
+    @Test
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

@@ -1,8 +1,8 @@
 package by.duzh.jse.lang.runtime;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 public class ProcessHandleTest {
     private ProcessHandle processHandle;
 
-    @Before
+    @BeforeEach
     public void init() throws Exception {
         // JVM process
         processHandle = ProcessHandle.current();
@@ -23,7 +23,7 @@ public class ProcessHandleTest {
     public void testCreate() throws Exception {
         // handle of the current process
         processHandle = ProcessHandle.current();
-        Assert.assertNotNull(processHandle);
+        Assertions.assertNotNull(processHandle);
 
         // handle of the process run by JVM
         processHandle = new ProcessBuilder()
@@ -31,17 +31,17 @@ public class ProcessHandleTest {
                 .redirectOutput(ProcessBuilder.Redirect.DISCARD)
                 .start()
                 .toHandle();
-        Assert.assertNotNull(processHandle);
+        Assertions.assertNotNull(processHandle);
 
         // handle of any process
         Optional<ProcessHandle> opt = ProcessHandle.of(ProcessHandle.current().pid());
-        Assert.assertTrue(opt.isPresent());
+        Assertions.assertTrue(opt.isPresent());
     }
 
     @Test
     public void testPid() throws Exception {
         long pid = processHandle.pid();
-        Assert.assertNotEquals(0, pid);
+        Assertions.assertNotEquals(0, pid);
     }
 
     @Test
@@ -49,65 +49,69 @@ public class ProcessHandleTest {
         ProcessHandle.Info info = processHandle.info();
 
         Optional<String[]> arguments = info.arguments();
-        Assert.assertFalse(arguments.isPresent());
+        Assertions.assertFalse(arguments.isPresent());
 
         Optional<String> command = info.command();
-        Assert.assertTrue(command.isPresent());
-        Assert.assertTrue(command.get().contains("java"));
+        Assertions.assertTrue(command.isPresent());
+        Assertions.assertTrue(command.get().contains("java"));
 
         Optional<String> commandLine = info.commandLine();
-        Assert.assertFalse(commandLine.isPresent()); // as arguments are empty
+        Assertions.assertFalse(commandLine.isPresent()); // as arguments are empty
 
         Optional<Instant> instant = info.startInstant();
-        Assert.assertTrue(instant.isPresent());
+        Assertions.assertTrue(instant.isPresent());
 
         Optional<Duration> totalCpuDuration = info.totalCpuDuration();
-        Assert.assertTrue(totalCpuDuration.isPresent());
+        Assertions.assertTrue(totalCpuDuration.isPresent());
 
         Optional<String> user = info.user();
-        Assert.assertTrue(user.isPresent());
+        Assertions.assertTrue(user.isPresent());
     }
 
     @Test
     public void testAllProcesses() throws Exception {
         long count = ProcessHandle.allProcesses().count();
-        Assert.assertNotEquals(0, count);
+        Assertions.assertNotEquals(0, count);
     }
 
     @Test
     public void testParent() throws Exception {
         Optional<ProcessHandle> opt = processHandle.parent();
-        Assert.assertTrue(opt.isPresent());
+        Assertions.assertTrue(opt.isPresent());
     }
 
     @Test
     public void testChildren() throws Exception {
         long count = processHandle.children().peek(System.out::println).count();
-        Assert.assertNotEquals(0, count);
+        Assertions.assertNotEquals(0, count);
     }
 
     @Test
     public void testDescendants() throws Exception {
         long count = processHandle.descendants().peek(e -> System.out.println(e.pid())).count();
         System.out.println(count);
-        Assert.assertNotEquals(0, count);
+        Assertions.assertNotEquals(0, count);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testDestroy() throws Exception {
-        boolean destroyed = processHandle.destroy();
-        Assert.assertFalse(destroyed);
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            boolean destroyed = processHandle.destroy();
+            Assertions.assertFalse(destroyed);
+        });
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testDestroyForcibly() throws Exception {
-        boolean destroyed = processHandle.destroyForcibly();
-        Assert.assertFalse(destroyed);
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            boolean destroyed = processHandle.destroyForcibly();
+            Assertions.assertFalse(destroyed);
+        });
     }
 
     @Test
     public void testAlive() throws Exception {
-        Assert.assertTrue(processHandle.isAlive());
+        Assertions.assertTrue(processHandle.isAlive());
     }
 
     @Test
@@ -127,20 +131,19 @@ public class ProcessHandleTest {
         // wait for the process termination
         future.get();
 
-        Assert.assertFalse(process.isAlive());
-        Assert.assertTrue(res[0]);
+        Assertions.assertFalse(process.isAlive());
+        Assertions.assertTrue(res[0]);
     }
 
     @Test
     public void testSupportsNormalTermination() throws Exception {
         boolean res = processHandle.supportsNormalTermination();
-        Assert.assertFalse(res);
+        Assertions.assertFalse(res);
     }
 
     @Test
     public void testEquals() throws Exception {
         // TODO implement
         //processHandle
-
     }
 }

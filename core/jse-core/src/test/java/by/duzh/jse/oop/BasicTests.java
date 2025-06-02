@@ -1,10 +1,10 @@
 package by.duzh.jse.oop;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class Box {
@@ -199,53 +199,51 @@ public class BasicTests {
     public void testOverloading() {
         // object methods
         Box box = new Box();
-
-        assertEquals(10, box.calculate(5));
-        assertEquals(100, box.calculate(10L));
+        assertEquals(14, box.calculate(7));
         assertEquals(7, box.calculate());
+        assertEquals(70, box.calculate(7L));
 
-        // static methods
-        assertEquals(100, Box.staticMethod(100));
+        // class methods
+        assertEquals(6, Box.staticMethod());
+        assertEquals(7, Box.staticMethod(7));
 
-        // a variable-length argument method
-        assertEquals(3, box.sum(1, 2));
-        assertEquals(30, box.sum(10L, 20L));
-        assertEquals(300, box.sum(100L, 200));
+        // variable-length argument
+        assertEquals(6, box.sum(1, 2, 3));
+        assertEquals(6, box.sum(1L, 2L, 3L));
+        assertEquals(7, box.sum(1, 2, 3, 1));
     }
 
     @Test
     public void testPrivateMember() {
         Box box = new Box();
-        box.setPrivateValue(100);
-        assertEquals(100, box.getPrivateValue());
+        box.setPrivateValue(10);
+        assertEquals(10, box.getPrivateValue());
     }
 
     @Test
     public void testPublicMember() {
         Box box = new Box();
-        box.publicValue = 100;
-        assertEquals(100, box.publicValue);
+        box.publicValue = 10;
+        assertEquals(10, box.publicValue);
     }
 
     @Test
     public void testDefaultMember() {
         Box box = new Box();
-        box.defaultValue = 100;
-        assertEquals(100, box.defaultValue);
+        box.defaultValue = 10;
+        assertEquals(10, box.defaultValue);
     }
 
     @Test
     public void testProtectedMember() {
         Box box = new Box();
-        box.protectedValue = 100;
-        assertEquals(100, box.protectedValue);
+        box.protectedValue = 10;
+        assertEquals(10, box.protectedValue);
     }
 
     @Test
     public void testFinalSpecifier() {
         Box box = new Box();
         assertEquals(1, box.finalValue);
-        // Not allowed to change final
-        // box.finalValue = 10;
     }
 }

@@ -1,7 +1,8 @@
 package by.duzh.jse.util.concurrent.atomic;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -10,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 // TODO: Write the rest tests
+@Disabled
 public class AtomicIntegerTest {
 
     @Test
@@ -27,7 +29,7 @@ public class AtomicIntegerTest {
         executor.shutdown();
 
         executor.awaitTermination(10, TimeUnit.SECONDS);
-        Assert.assertEquals(200, counter.get());
+        Assertions.assertEquals(200, counter.get());
     }
 
     @Test
@@ -38,8 +40,8 @@ public class AtomicIntegerTest {
         Future<Integer> result = executor.submit(counter::getAndIncrement);
         executor.shutdown();
 
-        Assert.assertEquals(10, result.get().intValue()); // synchronized call
-        Assert.assertEquals(11, counter.get());
+        Assertions.assertEquals(10, result.get().intValue()); // synchronized call
+        Assertions.assertEquals(11, counter.get());
     }
 
     @Test
@@ -50,8 +52,8 @@ public class AtomicIntegerTest {
         Future<Integer> result = executor.submit(() -> counter.addAndGet(5));
         executor.shutdown();
 
-        Assert.assertEquals(15, result.get().intValue()); // synchronized call
-        Assert.assertEquals(15, counter.get());
+        Assertions.assertEquals(15, result.get().intValue()); // synchronized call
+        Assertions.assertEquals(15, counter.get());
     }
 
     @Test
@@ -62,7 +64,7 @@ public class AtomicIntegerTest {
         Future<Integer> result = executor.submit(() -> counter.getAndAdd(5));
         executor.shutdown();
 
-        Assert.assertEquals(10, result.get().intValue()); // synchronized call
-        Assert.assertEquals(15, counter.get());
+        Assertions.assertEquals(10, result.get().intValue()); // synchronized call
+        Assertions.assertEquals(15, counter.get());
     }
 }

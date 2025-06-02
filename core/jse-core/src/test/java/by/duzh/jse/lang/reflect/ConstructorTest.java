@@ -1,7 +1,7 @@
 package by.duzh.jse.lang.reflect;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Retention;
@@ -37,23 +37,23 @@ public class ConstructorTest {
     public void testGettConstructors() throws Exception {
         Class<?> klass = Class.forName(NAME);
         Constructor<?>[] constructors = klass.getConstructors();
-        Assert.assertEquals(2, constructors.length);
+        Assertions.assertEquals(2, constructors.length);
     }
 
     @Test
     public void testGetDefaultConstructor() throws Exception {
         Class<?> klass = Class.forName(NAME);
-        Constructor<?> constructor = klass.getConstructor(null);
-        Assert.assertNotNull(constructor);
+        Constructor<?> constructor = klass.getConstructor(new Class[0]);
+        Assertions.assertNotNull(constructor);
     }
 
     @Test
     public void testGetDefaultConstructorWithParams() throws Exception {
         Class<?> klass = Class.forName(NAME);
         Constructor<?> constructor = klass.getConstructor(String.class);
-        Assert.assertNotNull(constructor);
-        Assert.assertEquals(NAME, constructor.getDeclaringClass().getName());
-        Assert.assertEquals(1, constructor.getExceptionTypes().length);
+        Assertions.assertNotNull(constructor);
+        Assertions.assertEquals(NAME, constructor.getDeclaringClass().getName());
+        Assertions.assertEquals(1, constructor.getExceptionTypes().length);
         //Assert.assertNotNull(constructor.);
     }
 }

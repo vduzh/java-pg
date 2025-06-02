@@ -1,7 +1,7 @@
 package by.duzh.jse.oop;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 abstract class AbstractSuperClass {
     abstract public int foo();
@@ -31,9 +31,9 @@ public class AbstractClassTest {
     @Test
     public void testAbstractClass() {
         SubClassForAbstractClass sub = new SubClassForAbstractClass();
-        Assert.assertEquals(500, sub.bar());
+        Assertions.assertEquals(500, sub.bar());
 
         SubClassWithNoAbstractMethods sub2 = new SubClassWithNoAbstractMethods();
-        Assert.assertEquals(77, sub2.buzz());
+        Assertions.assertEquals(77, sub2.buzz());
     }
 }

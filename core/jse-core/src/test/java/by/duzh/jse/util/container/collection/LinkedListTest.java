@@ -1,7 +1,7 @@
 package by.duzh.jse.util.container.collection;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -17,7 +17,7 @@ public class LinkedListTest {
     @Test
     public void testCreateListFromCollection() {
         list = new LinkedList<>(Arrays.asList(1, 2, 3));
-        Assert.assertEquals(3, list.size());
+        Assertions.assertEquals(3, list.size());
     }
 
     @Test
@@ -27,7 +27,7 @@ public class LinkedListTest {
         list.add(1, 2);
         list.set(1, 3);
 
-        Assert.assertEquals(2, list.size());
+        Assertions.assertEquals(2, list.size());
     }
 
     @Test
@@ -37,7 +37,7 @@ public class LinkedListTest {
         list.push(2);
         list.pop();
 
-        Assert.assertEquals(1, list.size());
+        Assertions.assertEquals(1, list.size());
     }
 
     @Test
@@ -48,7 +48,6 @@ public class LinkedListTest {
         list.addLast(3);
         list.addLast(4);
 
-        Assert.assertEquals(4, list.size());
+        Assertions.assertEquals(4, list.size());
     }
-
 }

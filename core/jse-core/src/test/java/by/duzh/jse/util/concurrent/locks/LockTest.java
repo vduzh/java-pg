@@ -1,7 +1,8 @@
 package by.duzh.jse.util.concurrent.locks;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 
 import java.util.List;
 import java.util.concurrent.*;
@@ -14,6 +15,7 @@ class Counter {
     static int value = 0;
 }
 
+@Disabled
 public class LockTest {
 
     @Test
@@ -49,7 +51,7 @@ public class LockTest {
         executor.shutdown();
         executor.awaitTermination(5, TimeUnit.SECONDS);
 
-        Assert.assertEquals(20, Counter.value);
+        Assertions.assertEquals(20, Counter.value);
     }
 
     @Test

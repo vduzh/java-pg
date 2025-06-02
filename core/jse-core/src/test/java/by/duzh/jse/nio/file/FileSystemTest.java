@@ -1,6 +1,6 @@
 package by.duzh.jse.nio.file;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;

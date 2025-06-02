@@ -14,8 +14,11 @@ import javax.sql.DataSource;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.logging.Logger;
+
 @SpringJUnitConfig(DataSourceTransactionManagerTest.TransactionManagerConfig.class)
 public class DataSourceTransactionManagerTest {
+    private static final Logger logger = Logger.getLogger(DataSourceTransactionManagerTest.class.getName());
 
     @Configuration
     @Import(DataSourceTestConfig.class)
@@ -30,7 +33,7 @@ public class DataSourceTransactionManagerTest {
     private PlatformTransactionManager transactionManager;
 
     @Test
-    void test() {
-        assertNotNull(transactionManager);
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

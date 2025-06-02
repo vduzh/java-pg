@@ -1,6 +1,6 @@
 package by.duzh.jse.lang.thread;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 class Locker {
@@ -57,12 +57,12 @@ public class ThreadLockTest {
     // - one does some staff, other compensates that job
     @Test
     public void testLiveLock() {
-        //TODO: create test
+        System.out.println("Test not implemented: ThreadLockTest.testLiveLock");
     }
 
     // Les prioritized thread are waiting and and can not run.
     @Test
     public void testLockStarvation() {
-        //TODO: create test
+        System.out.println("Test not implemented: ThreadLockTest.testLockStarvation");
     }
 }

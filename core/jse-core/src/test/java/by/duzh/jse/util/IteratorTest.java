@@ -1,7 +1,7 @@
 package by.duzh.jse.util;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -19,20 +19,22 @@ public class IteratorTest {
     @Test
     public void testHasNext() {
         iterator = Arrays.asList(1, 2).iterator();
-        Assert.assertTrue(iterator.hasNext());
+        Assertions.assertTrue(iterator.hasNext());
     }
 
     @Test
     public void testNext() {
         iterator = Arrays.asList(2).iterator();
-        Assert.assertEquals(2, iterator.next().intValue());
+        Assertions.assertEquals(2, iterator.next().intValue());
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testRemove() {
         iterator = Arrays.asList(1).iterator();
         iterator.next();
-        iterator.remove();
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> {
+            iterator.remove();
+        });
     }
 
     @Test
@@ -47,6 +49,6 @@ public class IteratorTest {
             value += que.poll().intValue();
         }
 
-        Assert.assertEquals(6, value);
+        Assertions.assertEquals(6, value);
     }
 }

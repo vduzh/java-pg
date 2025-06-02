@@ -1,7 +1,7 @@
 package by.duzh.jse;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.Random;
 
@@ -38,7 +38,7 @@ public class AutoBoxingTests {
         final var j = Integer.valueOf(20);
         Integer res = AutoBox.sum(10, j);
 
-        Assert.assertEquals(30, res.intValue());
+        Assertions.assertEquals(30, res.intValue());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class AutoBoxingTests {
         final var intObj = Integer.valueOf(20);
         Integer res = 10 + intObj;
 
-        Assert.assertEquals(30, res.intValue());
+        Assertions.assertEquals(30, res.intValue());
     }
 
     @Test

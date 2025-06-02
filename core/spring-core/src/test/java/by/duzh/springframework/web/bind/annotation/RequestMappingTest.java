@@ -13,7 +13,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.logging.Logger;
+
 public class RequestMappingTest {
+    private static final Logger logger = Logger.getLogger(RequestMappingTest.class.getName());
+
     private MockMvc buildMockMvc(Class<?> klass) {
         try {
             return MockMvcBuilders.standaloneSetup(klass.getDeclaredConstructor().newInstance()).build();
@@ -211,5 +215,10 @@ public class RequestMappingTest {
     void uriPatternOnTypeAndMethod() throws Exception {
         buildMockMvc(BuzController.class).perform(get("/buz/8/test/9/abc"))
                 .andExpect(status().isOk()).andExpect(view().name("index-8-9-abc"));
+    }
+
+    @Test
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

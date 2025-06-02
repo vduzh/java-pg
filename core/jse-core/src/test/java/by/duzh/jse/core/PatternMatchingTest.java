@@ -1,7 +1,7 @@
 package by.duzh.jse.core;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 public class PatternMatchingTest {
     @Test
@@ -9,7 +9,7 @@ public class PatternMatchingTest {
         Object obj = 123;
 
         if (obj instanceof Integer intValue) {
-            Assert.assertEquals(123, intValue.intValue());
+            Assertions.assertEquals(123, intValue.intValue());
         }
     }
 }

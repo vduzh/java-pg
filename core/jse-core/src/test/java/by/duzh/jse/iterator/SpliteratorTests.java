@@ -1,7 +1,7 @@
 package by.duzh.jse.iterator;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Spliterator;
@@ -9,7 +9,7 @@ import java.util.Spliterator;
 public class SpliteratorTests {
     private static ArrayList<Integer> myList = new ArrayList<>();
 
-    @BeforeClass
+    @BeforeAll
     public static void initMyList() {
         myList.add(1);
         myList.add(2);

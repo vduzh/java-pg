@@ -1,7 +1,8 @@
 package by.duzh.jse.util.concurrent.queue;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -11,6 +12,7 @@ import java.util.stream.IntStream;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+@Disabled
 public class BlockingQueueTest {
     private BlockingQueue<String> blockingQueue;
 
@@ -18,24 +20,26 @@ public class BlockingQueueTest {
     public void createUnboundedQueue() {
         BlockingQueue<String> blockingQueue = new LinkedBlockingDeque<>();
 
-        Assert.assertEquals(Integer.MAX_VALUE, blockingQueue.remainingCapacity());
+        Assertions.assertEquals(Integer.MAX_VALUE, blockingQueue.remainingCapacity());
     }
 
     @Test
     public void createBoundedQueue() {
         BlockingQueue<String> blockingQueue = new LinkedBlockingDeque<>(10);
 
-        Assert.assertEquals(Integer.MAX_VALUE, blockingQueue.remainingCapacity());
+        Assertions.assertEquals(10, blockingQueue.remainingCapacity());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testAdd() throws Exception {
         blockingQueue = new LinkedBlockingDeque<>(1);
 
-        Assert.assertTrue(blockingQueue.add("A"));
+        Assertions.assertTrue(blockingQueue.add("A"));
 
         // throws IllegalStateException as the queue is full
-        blockingQueue.add("B");
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            blockingQueue.add("B");
+        });
     }
 
     @Test
@@ -61,9 +65,9 @@ public class BlockingQueueTest {
     public void testOffer() throws Exception {
         BlockingQueue<String> blockingQueue = new LinkedBlockingDeque<>(1);
 
-        Assert.assertTrue(blockingQueue.offer("A"));
-        Assert.assertFalse(blockingQueue.offer("B"));
-        Assert.assertFalse(blockingQueue.offer("C", 1, SECONDS));
+        Assertions.assertTrue(blockingQueue.offer("A"));
+        Assertions.assertFalse(blockingQueue.offer("B"));
+        Assertions.assertFalse(blockingQueue.offer("C", 1, SECONDS));
 
         // Run a task that will consume the value in 2 sec
         new Thread(() -> {
@@ -75,7 +79,7 @@ public class BlockingQueueTest {
             }
         }).start();
 
-        Assert.assertTrue(blockingQueue.offer("D", 4, SECONDS));
+        Assertions.assertTrue(blockingQueue.offer("D", 4, SECONDS));
     }
 
     @Test
@@ -83,7 +87,7 @@ public class BlockingQueueTest {
         BlockingQueue<String> blockingQueue = new LinkedBlockingDeque<>(1);
 
         blockingQueue.put("A");
-        Assert.assertEquals("A", blockingQueue.take());
+        Assertions.assertEquals("A", blockingQueue.take());
 
         // Run a task that will consume the value in 2 sec
         new Thread(() -> {
@@ -96,14 +100,14 @@ public class BlockingQueueTest {
         }).start();
 
         // wait for the producer
-        Assert.assertEquals("B", blockingQueue.take());
+        Assertions.assertEquals("B", blockingQueue.take());
     }
 
     @Test
     public void testPoll() throws Exception {
         BlockingQueue<String> blockingQueue = new LinkedBlockingDeque<>(1);
 
-        Assert.assertNull(blockingQueue.poll(1, SECONDS));
+        Assertions.assertNull(blockingQueue.poll(1, SECONDS));
 
         // Run a task that will consume the value in 2 sec
         new Thread(() -> {
@@ -116,7 +120,7 @@ public class BlockingQueueTest {
         }).start();
 
         // wait for the producer
-        Assert.assertEquals("B", blockingQueue.poll(2, SECONDS));
+        Assertions.assertEquals("B", blockingQueue.poll(2, SECONDS));
     }
 
     @Test

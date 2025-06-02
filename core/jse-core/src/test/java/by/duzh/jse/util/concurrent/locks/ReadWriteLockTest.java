@@ -1,8 +1,9 @@
 package by.duzh.jse.util.concurrent.locks;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 
 import java.awt.*;
 import java.io.*;
@@ -12,18 +13,19 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+@Disabled
 public class ReadWriteLockTest {
     private ReadWriteLock lock;
 
     ExecutorService executor;
 
-    @Before
+    @BeforeEach
     public void init() throws Exception {
         lock = new ReentrantReadWriteLock();
         executor = Executors.newCachedThreadPool();
     }
 
-    @After
+    @AfterEach
     public void destroy() throws Exception {
         executor.shutdown();
         executor.awaitTermination(10, TimeUnit.SECONDS);

@@ -1,7 +1,7 @@
 package by.duzh.jse.io;
 
 import by.duzh.jse.io.etc.User;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import java.util.logging.Logger;
 
 import java.io.ByteArrayOutputStream;

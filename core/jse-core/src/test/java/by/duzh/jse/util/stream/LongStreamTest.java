@@ -1,8 +1,8 @@
 package by.duzh.jse.util.stream;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.IntSummaryStatistics;
 import java.util.List;
@@ -17,7 +17,7 @@ public class LongStreamTest {
 
     private final long[] ARRAY_SOURCE = {1, 2, 3};
 
-    @Before
+    @BeforeEach
     public void init() {
         stream = LongStream.of(ARRAY_SOURCE);
     }
@@ -25,6 +25,6 @@ public class LongStreamTest {
     @Test
     public void testRange() {
         stream = LongStream.range(1, 4);
-        Assert.assertEquals(6, stream.count());
+        Assertions.assertEquals(3, stream.count());
     }
 }

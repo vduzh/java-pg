@@ -1,7 +1,7 @@
 package by.duzh.jse.io.stream;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -30,7 +30,7 @@ public class BufferedInputStreamTests {
     @Test
     public void testMarkSupported() {
         try (BufferedInputStream is = new BufferedInputStream(new ByteArrayInputStream(bytes))) {
-            Assert.assertTrue(is.markSupported());
+            Assertions.assertTrue(is.markSupported());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

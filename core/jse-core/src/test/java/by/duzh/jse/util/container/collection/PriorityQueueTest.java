@@ -1,8 +1,8 @@
 package by.duzh.jse.util.container.collection;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,7 +11,7 @@ import java.util.PriorityQueue;
 public class PriorityQueueTest {
     private PriorityQueue<Integer> queue;
 
-    @Before
+    @BeforeEach
     public void init() {
         queue = new PriorityQueue<>(Arrays.asList(1, 2, 3));
     }
@@ -37,33 +37,33 @@ public class PriorityQueueTest {
         queue.add(1);
         queue.add(2);
 
-        Assert.assertEquals(1, queue.poll().intValue());
-        Assert.assertEquals(2, queue.poll().intValue());
+        Assertions.assertEquals(1, queue.poll().intValue());
+        Assertions.assertEquals(2, queue.poll().intValue());
     }
 
     @Test
     public void testJDK11ForEach() {
-        queue.forEach(i -> Assert.assertTrue(i <= 3));
+        queue.forEach(i -> Assertions.assertTrue(i <= 3));
     }
 
     @Test
     public void testJDK11RemoveAll() {
         queue.removeAll(Arrays.asList(1, 3));
-        Assert.assertEquals(1, queue.size());
-        Assert.assertEquals(2, queue.poll().intValue());
+        Assertions.assertEquals(1, queue.size());
+        Assertions.assertEquals(2, queue.poll().intValue());
     }
 
     @Test
     public void testJDK11RemoveIf() {
         queue.removeIf(i -> i == 1 || i == 3);
-        Assert.assertEquals(1, queue.size());
-        Assert.assertEquals(2, queue.poll().intValue());
+        Assertions.assertEquals(1, queue.size());
+        Assertions.assertEquals(2, queue.poll().intValue());
     }
 
     @Test
     public void testJDK11RetainAll() {
         queue.retainAll(Collections.singletonList(2));
-        Assert.assertEquals(1, queue.size());
-        Assert.assertEquals(2, queue.poll().intValue());
+        Assertions.assertEquals(1, queue.size());
+        Assertions.assertEquals(2, queue.poll().intValue());
     }
 }

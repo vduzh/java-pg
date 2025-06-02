@@ -1,8 +1,8 @@
 package by.duzh.jse.util.container.map;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -14,7 +14,7 @@ import java.util.Set;
 public class LinkedHashMapTest {
     private LinkedHashMap<Integer, String> map;
 
-    @Before
+    @BeforeEach
     public void init() {
         map = new LinkedHashMap<>();
         map.put(2, "two");
@@ -26,8 +26,8 @@ public class LinkedHashMapTest {
     public void testOrder() {
         Iterator<Map.Entry<Integer, String>> iterator = map.entrySet().iterator();
 
-        Assert.assertEquals(2, iterator.next().getKey().intValue());
-        Assert.assertEquals(1, iterator.next().getKey().intValue());
-        Assert.assertEquals(3, iterator.next().getKey().intValue());
+        Assertions.assertEquals(2, iterator.next().getKey().intValue());
+        Assertions.assertEquals(1, iterator.next().getKey().intValue());
+        Assertions.assertEquals(3, iterator.next().getKey().intValue());
     }
 }

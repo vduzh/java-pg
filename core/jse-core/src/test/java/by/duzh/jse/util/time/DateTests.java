@@ -1,8 +1,7 @@
 package by.duzh.jse.util.time;
 
-import org.junit.Assert;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import java.util.Date;
 
 //NOTE: The remaining members are deprecated.
@@ -22,7 +21,7 @@ public class DateTests {
     @Test
     public void testGetTime() {
         Date date = new Date(TEST_DATE);
-        Assert.assertEquals(TEST_DATE, date.getTime());
+        Assertions.assertEquals(TEST_DATE, date.getTime());
     }
 
     @Test
@@ -30,17 +29,17 @@ public class DateTests {
         Date date = new Date();
         date.setTime(TEST_DATE);
 
-        Assert.assertEquals(TEST_DATE, date.getTime());
+        Assertions.assertEquals(TEST_DATE, date.getTime());
     }
 
     @Test
     public void testAfter() {
-        Assert.assertTrue(new Date().after(new Date(TEST_DATE)));
+        Assertions.assertTrue(new Date().after(new Date(TEST_DATE)));
     }
 
     @Test
     public void testBefore() {
-        Assert.assertTrue(new Date(TEST_DATE).before(new Date()));
+        Assertions.assertTrue(new Date(TEST_DATE).before(new Date()));
     }
 
     @Test
@@ -49,9 +48,9 @@ public class DateTests {
         Date old2 = new Date(TEST_DATE);
         Date now = new Date();
 
-        Assert.assertTrue(old.compareTo(now) < 0);
-        Assert.assertTrue(now.compareTo(old) > 0);
-        Assert.assertTrue(old.compareTo(old2) == 0);
+        Assertions.assertTrue(old.compareTo(now) < 0);
+        Assertions.assertTrue(now.compareTo(old) > 0);
+        Assertions.assertTrue(old.compareTo(old2) == 0);
     }
 
     @Test
@@ -60,8 +59,8 @@ public class DateTests {
         Date date2 = new Date(TEST_DATE);
         Date date3 = new Date();
 
-        Assert.assertTrue(date1.equals(date2));
-        Assert.assertFalse(date1.equals(date3));
+        Assertions.assertTrue(date1.equals(date2));
+        Assertions.assertFalse(date1.equals(date3));
     }
 
     @Test
@@ -69,7 +68,7 @@ public class DateTests {
         Date date1 = new Date(TEST_DATE);
         Date date2 = (Date) date1.clone();
 
-        Assert.assertEquals(date1, date2);
+        Assertions.assertEquals(date1, date2);
     }
 
     @Test

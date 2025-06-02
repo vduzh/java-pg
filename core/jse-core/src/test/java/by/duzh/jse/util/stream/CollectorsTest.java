@@ -1,8 +1,8 @@
 package by.duzh.jse.util.stream;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,7 +13,7 @@ public class CollectorsTest {
 
     private Stream<Integer> stream;
 
-    @Before
+    @BeforeEach
     public void init() {
         stream = Arrays.stream(ARRAY_SOURCE);
     }
@@ -31,37 +31,37 @@ public class CollectorsTest {
     @Test
     public void testCounting() {
         long count = stream.collect(Collectors.counting());
-        Assert.assertEquals(15, count);
+        Assertions.assertEquals(15, count);
     }
 
     @Test
     public void testAveragingInt() {
         double average = Stream.of("1", "333", "55555").collect(Collectors.averagingInt(String::length));
-        Assert.assertEquals(3.0, average, 0.001);
+        Assertions.assertEquals(3.0, average, 0.001);
     }
 
     @Test
     public void testCollectingAndThen() {
         int count = stream.collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.size()));
-        Assert.assertEquals(15, count);
+        Assertions.assertEquals(15, count);
 
         List<Integer> res = Stream.of(ARRAY_SOURCE).collect(Collectors.collectingAndThen(
                 Collectors.toList(),
                 list -> list.stream().map(i -> i * 10).collect(Collectors.toList())
         ));
-        Assert.assertEquals(20, res.get(1).intValue());
+        Assertions.assertEquals(20, res.get(1).intValue());
     }
 
     @Test
     public void testJoining() {
         String s = Stream.of("1", "333", "55555").collect(Collectors.joining(","));
-        Assert.assertEquals("1,333,55555", s);
+        Assertions.assertEquals("1,333,55555", s);
     }
 
     @Test
     public void testMapping() {
         long count = Stream.of("1", "333", "55555").collect(Collectors.mapping(String::length, Collectors.counting()));
-        Assert.assertEquals(3, count);
+        Assertions.assertEquals(3, count);
     }
 
     @Test
@@ -69,9 +69,9 @@ public class CollectorsTest {
         // Group numbers on evenness -> map: "odd" - numbers, "even" -> numbers
         Map<String, List<Integer>> oddAndEven = stream.collect(Collectors.groupingBy(i -> i % 2 == 1 ? "odd" : "even"));
 
-        Assert.assertEquals(2, oddAndEven.size());
-        Assert.assertEquals(6, oddAndEven.get("odd").size());
-        Assert.assertEquals(9, oddAndEven.get("even").size());
+        Assertions.assertEquals(2, oddAndEven.size());
+        Assertions.assertEquals(6, oddAndEven.get("odd").size());
+        Assertions.assertEquals(9, oddAndEven.get("even").size());
     }
 
     @Test
@@ -80,15 +80,15 @@ public class CollectorsTest {
         // Partitioning numbers by evenness -> map: true - odd numbers, false -> even numbers.
         Map<Boolean, List<Integer>> oddAndEven = stream.collect(Collectors.partitioningBy(i -> i % 2 == 1));
 
-        Assert.assertEquals(2, oddAndEven.size());
-        Assert.assertEquals(6, oddAndEven.get(true).size());
-        Assert.assertEquals(9, oddAndEven.get(false).size());
+        Assertions.assertEquals(2, oddAndEven.size());
+        Assertions.assertEquals(6, oddAndEven.get(true).size());
+        Assertions.assertEquals(9, oddAndEven.get(false).size());
     }
 
     @Test
     public void testJDK9Filtering() {
         List<Integer> res = stream.collect(Collectors.filtering(i -> i <= 15, Collectors.toList()));
-        Assert.assertEquals("[1, 2, 15]", res.toString());
+        Assertions.assertEquals("[1, 2, 15]", res.toString());
     }
 
     @Test
@@ -96,7 +96,7 @@ public class CollectorsTest {
         List<Integer> res = Stream.of("2", "3").collect(Collectors.flatMapping(
                 s -> Stream.iterate(1, i -> i <= Integer.parseInt(s), i -> i + 1),
                 Collectors.toList()));
-        Assert.assertEquals("[1, 2, 1, 2, 3]", res.toString());
+        Assertions.assertEquals("[1, 2, 1, 2, 3]", res.toString());
     }
 
     @Test
@@ -112,12 +112,12 @@ public class CollectorsTest {
     @Test
     public void testJDK10ToUnmodifiableMap () {
         var map = Stream.of("1", "333").collect(Collectors.toUnmodifiableMap(Integer::parseInt, String::length));
-        Assert.assertEquals(1, map.get(1).intValue());
-        Assert.assertEquals(3, map.get(333).intValue());
+        Assertions.assertEquals(1, map.get(1).intValue());
+        Assertions.assertEquals(3, map.get(333).intValue());
 
         map = Stream.of("1", "333", "333").collect(Collectors.toUnmodifiableMap(Integer::parseInt, String::length, Integer::sum));
-        Assert.assertEquals(2, map.size());
-        Assert.assertEquals(1, map.get(1).intValue());
-        Assert.assertEquals(6, map.get(333).intValue());
+        Assertions.assertEquals(2, map.size());
+        Assertions.assertEquals(1, map.get(1).intValue());
+        Assertions.assertEquals(6, map.get(333).intValue());
     }
 }

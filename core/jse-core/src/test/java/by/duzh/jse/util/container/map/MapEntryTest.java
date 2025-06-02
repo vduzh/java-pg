@@ -1,15 +1,15 @@
 package by.duzh.jse.util.container.map;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
 public class MapEntryTest {
     private Map.Entry<Integer, String> entry;
 
-    @Before
+    @BeforeEach
     public void init() {
         HashMap<Integer, String> map = new HashMap<>();
         map.put(1, "11");
@@ -30,20 +30,20 @@ public class MapEntryTest {
 
     @Test
     public void testGetKey() {
-        Assert.assertEquals(1, entry.getKey().intValue());
+        Assertions.assertEquals(1, entry.getKey().intValue());
     }
 
     @Test
     public void testGetValue() {
-        Assert.assertEquals("11", entry.getValue());
+        Assertions.assertEquals("11", entry.getValue());
     }
 
     @Test
     public void testSetValue() {
         String oldValue = entry.setValue("foo");
 
-        Assert.assertEquals("11", oldValue);
-        Assert.assertEquals("foo", entry.getValue());
+        Assertions.assertEquals("11", oldValue);
+        Assertions.assertEquals("foo", entry.getValue());
     }
 
 }

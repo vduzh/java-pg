@@ -1,8 +1,8 @@
 package by.duzh.jse.util;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
@@ -10,7 +10,7 @@ import java.util.*;
 public class SpliteratorTest {
     private Spliterator<Integer> spliterator;
 
-    @Before
+    @BeforeEach
     public void init() {
         spliterator = new ArrayList(Arrays.asList(1, 2, 3, 4)).spliterator();
     }
@@ -25,7 +25,7 @@ public class SpliteratorTest {
     @Test
     public void testEstimatedSize() {
         long estimateSize = spliterator.estimateSize();
-        Assert.assertEquals(4, estimateSize);
+        Assertions.assertEquals(4, estimateSize);
     }
 
     @Test
@@ -38,13 +38,13 @@ public class SpliteratorTest {
         for (int i : integers) {
             result += i;
         }
-        Assert.assertEquals(10, result);
+        Assertions.assertEquals(10, result);
     }
 
     @Test
     public void testGetExactSizeIfKnown() {
         long size = spliterator.getExactSizeIfKnown();
-        Assert.assertEquals(4, size);
+        Assertions.assertEquals(4, size);
     }
 
     @Test
@@ -53,13 +53,13 @@ public class SpliteratorTest {
 
         for (int i = 1; i <= 4; i++) {
             boolean b = spliterator.tryAdvance(queue::add);
-            Assert.assertTrue(b);
-            Assert.assertEquals(1, queue.size());
-            Assert.assertEquals(i, queue.poll().intValue());
+            Assertions.assertTrue(b);
+            Assertions.assertEquals(1, queue.size());
+            Assertions.assertEquals(i, queue.poll().intValue());
         }
 
         boolean b = spliterator.tryAdvance(queue::add);
-        Assert.assertFalse(b);
+        Assertions.assertFalse(b);
     }
 
     //TODO: add tests for multi-threading

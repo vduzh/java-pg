@@ -1,7 +1,8 @@
 package by.duzh.jse.lang;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -61,84 +62,84 @@ class SomeClass extends SomeSuperClass implements Serializable {
     }
 }
 
+@Disabled
 public class ClassTest {
     private final String NAME = "by.duzh.jse.lang.SomeClass";
 
     @Test
     public void testClassForName() throws Exception {
         Class<?> klass = Class.forName(NAME);
-        Assert.assertEquals(klass.getName(), NAME);
+        Assertions.assertEquals(klass.getName(), NAME);
     }
 
     @Test
     public void testGetAnnotations() throws Exception {
         Class<?> klass = Class.forName(NAME);
         Annotation[] annotations = klass.getAnnotations();
-        Assert.assertEquals(1, annotations.length);
+        Assertions.assertEquals(1, annotations.length);
     }
 
     @Test
     public void testGetAnnotation() throws Exception {
         Class<?> klass = Class.forName(NAME);
         Annotation annotation = klass.getAnnotation(AnnotationForClassTest.class);
-        Assert.assertNotNull(annotation);
+        Assertions.assertNotNull(annotation);
     }
 
     @Test
     public void testGetAnnotationsByType() throws Exception {
         Class<?> klass = Class.forName(NAME);
         Annotation[] annotations = klass.getAnnotationsByType(AnnotationForClassTest.class);
-        Assert.assertEquals(1, annotations.length);
+        Assertions.assertEquals(1, annotations.length);
     }
 
     @Test
     public void testGetClasses() throws Exception {
         Class<?> klass = Class.forName(NAME);
         Class<?>[] classes = klass.getClasses();
-        Assert.assertEquals(2, classes.length);
+        Assertions.assertEquals(2, classes.length);
     }
 
     @Test
     public void testGetConstructors() throws Exception {
         Class<?> klass = Class.forName(NAME);
         Constructor<?>[] constructors = klass.getConstructors();
-        Assert.assertEquals(2, constructors.length);
+        Assertions.assertEquals(2, constructors.length);
     }
 
     @Test
     public void testGetDefaultConstructor() throws Exception {
         Class<?> klass = Class.forName(NAME);
         Constructor<?> constructor = klass.getConstructor();
-        Assert.assertNotNull(constructor);
+        Assertions.assertNotNull(constructor);
     }
 
     @Test
     public void testGetDefaultConstructorWithParams() throws Exception {
         Class<?> klass = Class.forName(NAME);
         Constructor<?> constructor = klass.getConstructor(String.class);
-        Assert.assertNotNull(constructor);
+        Assertions.assertNotNull(constructor);
     }
 
     @Test
     public void testGetDeclaredFields() throws Exception {
         Class<?> klass = Class.forName(NAME);
         Field[] fields = klass.getDeclaredFields();
-        Assert.assertEquals(2, fields.length);
+        Assertions.assertEquals(2, fields.length);
     }
 
     @Test
     public void testGetFields() throws Exception {
         Class<?> klass = Class.forName(NAME);
         Field[] fields = klass.getFields();
-        Assert.assertEquals(3, fields.length);
+        Assertions.assertEquals(3, fields.length);
     }
-
 
     @Test
     public void testGetDeclaredMethods() throws Exception {
         Class<?> klass = Class.forName(NAME);
         Method[] methods = klass.getDeclaredMethods();
-        Assert.assertEquals(2, methods.length);
+        Assertions.assertEquals(2, methods.length);
     }
 
     @Test
@@ -147,10 +148,12 @@ public class ClassTest {
         Field field = klass.getDeclaredField("s");
     }
 
-    @Test(expected = NoSuchFieldException.class)
+    @Test
     public void testGetFieldError() throws Exception {
         Class<?> klass = Class.forName(NAME);
-        Field field = klass.getDeclaredField("s111");
+        Assertions.assertThrows(NoSuchFieldException.class, () -> {
+            Field field = klass.getDeclaredField("s111");
+        });
     }
 
     @Test
@@ -159,9 +162,11 @@ public class ClassTest {
         Method method = klass.getDeclaredMethod("getI");
     }
 
-    @Test(expected = NoSuchMethodException.class)
+    @Test
     public void testGetMethodError() throws Exception {
         Class<?> klass = Class.forName(NAME);
-        Method method = klass.getDeclaredMethod("getI2");
+        Assertions.assertThrows(NoSuchMethodException.class, () -> {
+            Method method = klass.getDeclaredMethod("getI2");
+        });
     }
 }

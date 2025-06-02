@@ -1,6 +1,6 @@
 package by.duzh.jse;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 class Application {
     public static void main(String[] args) {

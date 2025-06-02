@@ -1,7 +1,7 @@
 package by.duzh.jse.generics;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 interface GenericInterfaceDemo<T extends Number> {
     double foo(T value);
@@ -28,12 +28,12 @@ public class GenericInterfacesTest {
     @Test
     public void testGenericInterfaceDemo() {
         GenericInterfaceDemo<Integer> obj = new GenericInterfaceDemoImpl<Integer>();
-        Assert.assertEquals(123.0, obj.foo(123), 0);
+        Assertions.assertEquals(123.0, obj.foo(123), 0);
     }
 
     @Test
     public void testNotGenericInterfaceDemoWithInteger() {
         NotGenericInterfaceDemoImpl obj = new NotGenericInterfaceDemoImpl();
-        Assert.assertEquals(123.0, obj.foo(123), 0);
+        Assertions.assertEquals(123.0, obj.foo(123), 0);
     }
 }

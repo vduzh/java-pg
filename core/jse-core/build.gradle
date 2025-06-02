@@ -1,13 +1,13 @@
-plugins {
-    id 'java'
-}
+//plugins {
+//    id 'java'
+//}
 
-dependencies {
-//    configurations {
-//        testImplementation.exclude group: 'org.junit.jupiter'
-//        testImplementation.exclude group: 'org.junit.platform'
-//    }
-
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.junit.vintage:junit-vintage-engine:5.10.0'
-}
+//dependencies {
+//    implementation 'org.springframework.boot:spring-boot-starter'
+//    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+//
+//    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+//}

@@ -1,8 +1,11 @@
 package by.duzh.jse;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import java.util.logging.Logger;
 
 public class LoopTests {
+    private static final Logger logger = Logger.getLogger(LoopTests.class.getName());
+
     @Test
     public void testWhile() throws Exception {
         int i = 0;
@@ -39,5 +42,10 @@ public class LoopTests {
         for (Object obj : new Object[2]) {
             System.out.println("for each");
         }
+    }
+
+    @Test
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

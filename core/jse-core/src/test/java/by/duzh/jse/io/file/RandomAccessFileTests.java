@@ -1,8 +1,8 @@
 package by.duzh.jse.io.file;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.*;
 import java.util.Random;
@@ -20,7 +20,7 @@ public class RandomAccessFileTests {
         File file = new File(JAVA_HOME_DIR, FILE_NAME);
         try (RandomAccessFile ras = new RandomAccessFile(file, "r")) {
             ras.seek(16);
-            Assert.assertTrue(ras.read() > -1);
+            Assertions.assertTrue(ras.read() > -1);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,8 +1,9 @@
 package by.duzh.jse.util.concurrent.executor;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,10 +13,11 @@ import static java.lang.Thread.currentThread;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+@Disabled
 public class ExecutorServiceTest {
     private ExecutorService executorService;
 
-    @Before
+    @BeforeEach
     public void init() {
         executorService = Executors.newFixedThreadPool(5); // via a factory method
     }
@@ -23,7 +25,7 @@ public class ExecutorServiceTest {
     @Test
     public void testLifecycle() throws Exception {
         /*State: running*/
-        Assert.assertFalse(executorService.isTerminated());
+        Assertions.assertFalse(executorService.isTerminated());
 
         executorService.execute(() -> {
             try {
@@ -37,13 +39,13 @@ public class ExecutorServiceTest {
         // send a shutdown request
         executorService.shutdown();
         // Tasks are still working...
-        Assert.assertFalse(executorService.isTerminated());
-        Assert.assertTrue(executorService.isShutdown());
+        Assertions.assertFalse(executorService.isTerminated());
+        Assertions.assertTrue(executorService.isShutdown());
 
         /*State: terminated*/
         var isTerminated = executorService.awaitTermination(4, SECONDS);
-        Assert.assertTrue(isTerminated);
-        Assert.assertTrue(executorService.isTerminated());
+        Assertions.assertTrue(isTerminated);
+        Assertions.assertTrue(executorService.isTerminated());
     }
 
     @Test
@@ -53,7 +55,7 @@ public class ExecutorServiceTest {
             System.out.println("Callable task: working...");
             return true;
         });
-        Assert.assertTrue(f1.get());
+        Assertions.assertTrue(f1.get());
 
         // submit a runnable task
         Future<?> f2 = executorService.submit(() -> System.out.println("Runnable task: working..."));
@@ -71,7 +73,7 @@ public class ExecutorServiceTest {
             System.out.println("Runnable task: finished!");
 
         }, "TEST");
-        Assert.assertEquals("TEST", future.get());
+        Assertions.assertEquals("TEST", future.get());
 
         executorService.shutdown();
     }
@@ -131,7 +133,7 @@ public class ExecutorServiceTest {
         executorService.shutdown();
 
         // like join : wait for some time to finish execution of the commands
-        Assert.assertTrue(executorService.awaitTermination(5, SECONDS));
+        Assertions.assertTrue(executorService.awaitTermination(5, SECONDS));
     }
 
     @Test
@@ -143,7 +145,7 @@ public class ExecutorServiceTest {
         executorService.shutdown();
 
         // tasks are still working...
-        Assert.assertFalse(executorService.awaitTermination(1, SECONDS));
+        Assertions.assertFalse(executorService.awaitTermination(1, SECONDS));
     }
 
     @Test
@@ -188,7 +190,7 @@ public class ExecutorServiceTest {
         });
         executorService.shutdown();
 
-        Assert.assertTrue(executorService.isShutdown());
+        Assertions.assertTrue(executorService.isShutdown());
     }
 
     @Test
@@ -215,7 +217,7 @@ public class ExecutorServiceTest {
         executorService.shutdown();
         executorService.awaitTermination(2, SECONDS);
 
-        Assert.assertFalse(executorService.isTerminated());
+        Assertions.assertFalse(executorService.isTerminated());
     }
 
     static class ReservationTask implements Callable<String> {

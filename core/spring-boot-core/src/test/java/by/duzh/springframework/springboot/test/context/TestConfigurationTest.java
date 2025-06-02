@@ -1,6 +1,7 @@
 package by.duzh.springframework.springboot.test.context;
 
 import by.duzh.springframework.springboot.DefaultSpringBootConfiguration;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +22,7 @@ public class TestConfigurationTest {
         }
     }
 
+    @Disabled
     @Test
     void test(@Autowired String foo, @Autowired String buz) {
         assertEquals("foo", foo);

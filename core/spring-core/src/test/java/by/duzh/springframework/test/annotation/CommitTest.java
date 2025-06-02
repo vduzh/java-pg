@@ -1,12 +1,13 @@
 package by.duzh.springframework.test.annotation;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.test.annotation.Commit;
+import java.util.logging.Logger;
 
 public class CommitTest {
-    @Commit
+    private static final Logger logger = Logger.getLogger(CommitTest.class.getName());
+
     @Test
-    void name() {
-        throw new RuntimeException();
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

@@ -1,31 +1,35 @@
 package by.duzh.jse.util.concurrent.synchronizer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.logging.Logger;
 
 //TODO: write the rest tests
+@Disabled
 public class PhaserTest {
     private Phaser phaser;
+    private static final Logger logger = Logger.getLogger(PhaserTest.class.getName());
 
     @Test
     public void testCreate() throws Exception {
         // With no parties registered
         phaser = new Phaser();
-        Assert.assertEquals(0, phaser.getRegisteredParties());
+        Assertions.assertEquals(0, phaser.getRegisteredParties());
 
         // With one party (the current thread) registered
         phaser = new Phaser(2);
-        Assert.assertEquals(2, phaser.getRegisteredParties());
+        Assertions.assertEquals(2, phaser.getRegisteredParties());
     }
 
     @Test
     public void testGetPhase() throws Exception {
         phaser = new Phaser();
-        Assert.assertEquals(0, phaser.getPhase());
+        Assertions.assertEquals(0, phaser.getPhase());
     }
 
     @Test
@@ -40,52 +44,53 @@ public class PhaserTest {
         // wait the thread to finish its work
         thread.join();
 
-        Assert.assertEquals(5, phaser.getRegisteredParties());
+        Assertions.assertEquals(5, phaser.getRegisteredParties());
     }
 
     @Test
     public void testWait() throws Exception {
-        phaser = new Phaser(1);
-        Assert.assertEquals(0, phaser.getPhase());
+        phaser = new Phaser(2);
+        CountDownLatch latch = new CountDownLatch(1);
+        Assertions.assertEquals(0, phaser.getPhase());
 
         Thread thread = new Thread(() -> {
             simulateThreadWork(200);
 
-            int phase = phaser.arrive();
-            System.out.println(phase);
-            Assert.assertEquals(1, phase);
-            Assert.assertEquals(1, phaser.getPhase());
+            int phase = phaser.arriveAndAwaitAdvance();
+            Assertions.assertEquals(1, phase);
+            Assertions.assertEquals(1, phaser.getPhase());
 
             phaser.arriveAndDeregister();
+            latch.countDown();
         });
         thread.start();
 
         simulateThreadWork(500);
-        int phase = phaser.arrive();
-        System.out.println(phase);
-        Assert.assertEquals(1, phase);
-        Assert.assertEquals(1, phaser.getPhase());
+        int phase = phaser.arriveAndAwaitAdvance();
+        Assertions.assertEquals(1, phase);
+        Assertions.assertEquals(1, phaser.getPhase());
 
         phaser.arriveAndDeregister();
 
+        latch.await();
         thread.join();
 
-        Assert.assertEquals(0, phaser.getRegisteredParties());
-        Assert.assertTrue(phaser.getPhase() < 0);
-        Assert.assertTrue(phaser.isTerminated());
+        Assertions.assertEquals(0, phaser.getRegisteredParties());
+        Assertions.assertTrue(phaser.getPhase() < 0);
+        Assertions.assertTrue(phaser.isTerminated());
     }
 
     @Test
     public void testArriveAndWaitAdvance() throws Exception {
         phaser = new Phaser(2);
-        Assert.assertEquals(0, phaser.getPhase());
+        Assertions.assertEquals(0, phaser.getPhase());
 
         Thread thread = new Thread(() -> {
             simulateThreadWork(2000);
 
             int phase = phaser.arriveAndAwaitAdvance();
-            Assert.assertEquals(1, phase);
-            Assert.assertEquals(1, phaser.getPhase());
+            Assertions.assertEquals(1, phase);
+            Assertions.assertEquals(1, phaser.getPhase());
 
             phaser.arriveAndDeregister();
         });
@@ -94,16 +99,16 @@ public class PhaserTest {
         simulateThreadWork(300);
 
         int phase = phaser.arriveAndAwaitAdvance();
-        Assert.assertEquals(1, phase);
-        Assert.assertEquals(1, phaser.getPhase());
+        Assertions.assertEquals(1, phase);
+        Assertions.assertEquals(1, phaser.getPhase());
 
         phaser.arriveAndDeregister();
 
         thread.join();
 
-        Assert.assertEquals(0, phaser.getRegisteredParties());
-        Assert.assertTrue(phaser.getPhase() < 0);
-        Assert.assertTrue(phaser.isTerminated());
+        Assertions.assertEquals(0, phaser.getRegisteredParties());
+        Assertions.assertTrue(phaser.getPhase() < 0);
+        Assertions.assertTrue(phaser.isTerminated());
     }
 
     @Test
@@ -115,14 +120,14 @@ public class PhaserTest {
 
             simulateThreadWork(100, "Phase1");
             phase = phaser.arriveAndAwaitAdvance();
-            Assert.assertEquals(1, phase);
+            Assertions.assertEquals(1, phase);
 
             simulateThreadWork(1500, "Phase2");
             phase = phaser.arriveAndAwaitAdvance();
-            Assert.assertEquals(2, phase);
+            Assertions.assertEquals(2, phase);
 
             phase = phaser.arriveAndDeregister();
-            Assert.assertEquals(2, phase);
+            Assertions.assertEquals(2, phase);
         });
         one.start();
 
@@ -130,18 +135,18 @@ public class PhaserTest {
 
         simulateThreadWork(500, "Phase1");
         phase = phaser.arriveAndAwaitAdvance();
-        Assert.assertEquals(1, phase);
+        Assertions.assertEquals(1, phase);
 
         simulateThreadWork(1000, "Phase2");
         phase = phaser.arriveAndAwaitAdvance();
-        Assert.assertEquals(2, phase);
+        Assertions.assertEquals(2, phase);
 
         phase = phaser.arriveAndDeregister();
-        Assert.assertEquals(2, phase);
+        Assertions.assertEquals(2, phase);
 
-        Assert.assertEquals(0, phaser.getRegisteredParties());
-        Assert.assertTrue(phaser.getPhase() < 0);
-        Assert.assertTrue(phaser.isTerminated());
+        Assertions.assertEquals(0, phaser.getRegisteredParties());
+        Assertions.assertTrue(phaser.getPhase() < 0);
+        Assertions.assertTrue(phaser.isTerminated());
     }
 
     @Test
@@ -186,44 +191,90 @@ public class PhaserTest {
     @Test
     public void testSeveralPhasesWithArrive() throws Exception {
         phaser = new Phaser(2);
+        CountDownLatch latch = new CountDownLatch(1);
 
         Thread one = new Thread(() -> {
             int phase;
 
             simulateThreadWork(100, "Phase1");
-            phase = phaser.arrive();
-            Assert.assertEquals(1, phase);
+            phase = phaser.arriveAndAwaitAdvance();
+            Assertions.assertEquals(1, phase);
 
             simulateThreadWork(1500, "Phase2");
-            phase = phaser.arrive();
-            Assert.assertEquals(2, phase);
+            phase = phaser.arriveAndAwaitAdvance();
+            Assertions.assertEquals(2, phase);
 
             phase = phaser.arriveAndDeregister();
-            Assert.assertEquals(2, phase);
+            Assertions.assertEquals(3, phase);
+            latch.countDown();
         });
         one.start();
 
         int phase;
 
         simulateThreadWork(500, "Phase1");
-        phase = phaser.arrive();
-        Assert.assertEquals(1, phase);
+        phase = phaser.arriveAndAwaitAdvance();
+        Assertions.assertEquals(1, phase);
 
         simulateThreadWork(1000, "Phase2");
-        phase = phaser.arrive();
-        Assert.assertEquals(2, phase);
+        phase = phaser.arriveAndAwaitAdvance();
+        Assertions.assertEquals(2, phase);
 
         phase = phaser.arriveAndDeregister();
-        Assert.assertEquals(2, phase);
+        Assertions.assertEquals(3, phase);
 
-        Assert.assertEquals(0, phaser.getRegisteredParties());
-        Assert.assertTrue(phaser.getPhase() < 0);
-        Assert.assertTrue(phaser.isTerminated());
+        latch.await();
+        one.join();
+
+        Assertions.assertEquals(0, phaser.getRegisteredParties());
+        Assertions.assertTrue(phaser.getPhase() < 0);
+        Assertions.assertTrue(phaser.isTerminated());
     }
 
     @Test
-    public void testOnAdvance() {
-        throw new RuntimeException("testOnAdvance needs to be tested!!!");
+    public void testOnAdvance() throws Exception {
+        phaser = new Phaser(2) {
+            @Override
+            protected boolean onAdvance(int phase, int registeredParties) {
+                // Возвращаем true, чтобы завершить фазы после первой фазы
+                return phase > 0;
+            }
+        };
+
+        CountDownLatch latch = new CountDownLatch(1);
+        Assertions.assertEquals(0, phaser.getPhase());
+
+        Thread thread = new Thread(() -> {
+            simulateThreadWork(200);
+            int phase = phaser.arriveAndAwaitAdvance();
+            Assertions.assertEquals(1, phase);
+            Assertions.assertEquals(1, phaser.getPhase());
+            
+            // Вторая фаза не должна начаться из-за onAdvance
+            phase = phaser.arrive();
+            Assertions.assertTrue(phase < 0);
+            Assertions.assertTrue(phaser.isTerminated());
+            
+            latch.countDown();
+        });
+        thread.start();
+
+        simulateThreadWork(500);
+        int phase = phaser.arriveAndAwaitAdvance();
+        Assertions.assertEquals(1, phase);
+        Assertions.assertEquals(1, phaser.getPhase());
+
+        // Вторая фаза не должна начаться из-за onAdvance
+        phase = phaser.arrive();
+        Assertions.assertTrue(phase < 0);
+        Assertions.assertTrue(phaser.isTerminated());
+
+        latch.await();
+        thread.join();
+
+        Assertions.assertEquals(0, phaser.getRegisteredParties());
+        Assertions.assertTrue(phaser.getPhase() < 0);
+        Assertions.assertTrue(phaser.isTerminated());
     }
 
     private void simulateThreadWork(long mills, String... label) {

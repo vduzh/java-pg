@@ -1,8 +1,8 @@
 package by.duzh.jse.util.container.collection;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.EmptyStackException;
@@ -12,26 +12,26 @@ import java.util.Vector;
 public class StackTest {
     private Stack<Integer> stack;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         stack = new Stack<>();
     }
 
     @Test
     public void testEmpty() {
-        Assert.assertTrue(stack.empty());
+        Assertions.assertTrue(stack.empty());
 
         stack.add(1);
 
-        Assert.assertFalse(stack.empty());
+        Assertions.assertFalse(stack.empty());
     }
 
     @Test
     public void testPush() {
         int i = stack.push(1);
 
-        Assert.assertFalse(stack.empty());
-        Assert.assertEquals(1, i);
+        Assertions.assertFalse(stack.empty());
+        Assertions.assertEquals(1, i);
     }
 
     @Test
@@ -40,13 +40,13 @@ public class StackTest {
 
         int i = stack.peek();
 
-        Assert.assertFalse(stack.empty());
-        Assert.assertEquals(1, i);
+        Assertions.assertFalse(stack.empty());
+        Assertions.assertEquals(1, i);
     }
 
-    @Test(expected = EmptyStackException.class)
+    @Test
     public void testPeekOnEmptyStack() {
-        stack.peek();
+        Assertions.assertThrows(EmptyStackException.class, () -> stack.peek());
     }
 
     @Test
@@ -55,13 +55,13 @@ public class StackTest {
 
         int i = stack.pop();
 
-        Assert.assertTrue(stack.empty());
-        Assert.assertEquals(1, i);
+        Assertions.assertTrue(stack.empty());
+        Assertions.assertEquals(1, i);
     }
 
-    @Test(expected = EmptyStackException.class)
+    @Test
     public void testPopOnEmptyStack() {
-        stack.pop();
+        Assertions.assertThrows(EmptyStackException.class, () -> stack.pop());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class StackTest {
         int i = stack.search(3);
         int j = stack.search(99);
 
-        Assert.assertEquals(3, i);
-        Assert.assertEquals(-1, j);
+        Assertions.assertEquals(3, i);
+        Assertions.assertEquals(-1, j);
     }
 }

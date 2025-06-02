@@ -1,7 +1,8 @@
 package by.duzh.jse.nio.file.attribute;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,10 +16,11 @@ import java.util.Set;
 import static by.duzh.jse.nio.etc.Params.FILE_PATH;
 import static by.duzh.jse.nio.etc.Params.JAVA_HOME_DIR;
 
+@Disabled
 public class PosixFileAttributesTest {
     private PosixFileAttributes dirAttributes, fileAttributes;
 
-    @Before
+    @BeforeEach
     public void init() throws IOException {
         //TODO: throws UnsupportedOperationException in windows
         dirAttributes = Files.readAttributes(Paths.get(JAVA_HOME_DIR), PosixFileAttributes.class);

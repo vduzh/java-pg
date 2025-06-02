@@ -1,12 +1,13 @@
 package by.duzh.springframework.jdbc.datasource.init;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import java.util.logging.Logger;
 
 public class DatabasePopulatorTest {
+    private static final Logger logger = Logger.getLogger(DatabasePopulatorTest.class.getName());
+
     @Test
-    void name() {
-        DatabasePopulator populator;
-        throw new RuntimeException();
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

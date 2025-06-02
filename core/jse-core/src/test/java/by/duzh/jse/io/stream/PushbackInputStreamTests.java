@@ -1,7 +1,7 @@
 package by.duzh.jse.io.stream;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class PushbackInputStreamTests {
             // Return the byte back to IS
             is.unread(b);
             // Read that byte again
-            Assert.assertEquals(b, is.read());
+            Assertions.assertEquals(b, is.read());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -38,7 +38,7 @@ public class PushbackInputStreamTests {
             is.read(bytes);
             String s2 = new String(bytes);
 
-            Assert.assertEquals(s, s2);
+            Assertions.assertEquals(s, s2);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

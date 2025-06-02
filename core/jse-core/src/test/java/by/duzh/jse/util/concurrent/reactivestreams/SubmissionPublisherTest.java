@@ -1,7 +1,7 @@
 package by.duzh.jse.util.concurrent.reactivestreams;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Flow;
@@ -24,7 +24,7 @@ public class SubmissionPublisherTest {
     @Test
     public void testGetEachSubscriberMaxBufferCapacity() throws Exception {
         try (var publisher = new SubmissionPublisher<>()) {
-            Assert.assertEquals(256, publisher.getMaxBufferCapacity());
+            Assertions.assertEquals(256, publisher.getMaxBufferCapacity());
         };
     }
 
@@ -51,14 +51,14 @@ public class SubmissionPublisherTest {
             res = publisher.offer(257, 3, SECONDS, (a, b) -> false);
             System.out.println(res);
 */
-            //Assert.assertEquals(256, publisher.getMaxBufferCapacity());
+            //Assertions.assertEquals(256, publisher.getMaxBufferCapacity());
         };
 
 /*
         try (var publisher = new SubmissionPublisher<>()) {
             publisher.getMaxBufferCapacity()
             publisher.offer(1, 1, SECONDS, (a, b) -> false);
-            Assert.assertEquals(256, publisher.getMaxBufferCapacity());
+            Assertions.assertEquals(256, publisher.getMaxBufferCapacity());
         };
 */
     }

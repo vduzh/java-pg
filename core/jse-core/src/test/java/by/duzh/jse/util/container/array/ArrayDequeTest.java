@@ -1,7 +1,7 @@
 package by.duzh.jse.util.container.array;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayDeque;
 
@@ -21,9 +21,9 @@ public class ArrayDequeTest {
         queue.addLast(4);
         queue.addLast(5);
 
-        Assert.assertEquals(1, queue.poll().intValue());
-        Assert.assertEquals(2, queue.poll().intValue());
-        Assert.assertEquals(4, queue.poll().intValue());
-        Assert.assertEquals(5, queue.poll().intValue());
+        Assertions.assertEquals(1, queue.poll().intValue());
+        Assertions.assertEquals(2, queue.poll().intValue());
+        Assertions.assertEquals(4, queue.poll().intValue());
+        Assertions.assertEquals(5, queue.poll().intValue());
     }
 }

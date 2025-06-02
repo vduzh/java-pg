@@ -1,8 +1,8 @@
 package by.duzh.jse.util.concurrent;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.*;
 import java.util.function.BiConsumer;
@@ -10,7 +10,7 @@ import java.util.stream.LongStream;
 
 public class SubmissionPublisherTest {
 
-    @Before
+    @BeforeEach
     public void init() {
         try (SubmissionPublisher<Long> publisher = new SubmissionPublisher<Long>()) {
             ;
@@ -51,7 +51,7 @@ public class SubmissionPublisherTest {
     public void testGetMaxBufferCapacity() {
         try (SubmissionPublisher<Long> publisher = new SubmissionPublisher<Long>()) {
             int maxBufferCapacity = publisher.getMaxBufferCapacity();
-            Assert.assertEquals(256, maxBufferCapacity);
+            Assertions.assertEquals(256, maxBufferCapacity);
         }
     }
 

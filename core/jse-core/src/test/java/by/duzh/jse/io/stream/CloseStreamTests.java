@@ -1,7 +1,7 @@
 package by.duzh.jse.io.stream;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,7 +13,7 @@ public class CloseStreamTests {
 
     private String name;
 
-    @Before
+    @BeforeEach
     public void init() {
         name = new Formatter().format("%s%s.txt", TMP_DIR, UUID.randomUUID()).toString();
     }

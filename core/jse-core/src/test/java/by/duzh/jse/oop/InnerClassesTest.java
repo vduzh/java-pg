@@ -1,7 +1,7 @@
 package by.duzh.jse.oop;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 class Outer {
     int outerField = 100;
@@ -76,7 +76,7 @@ public class InnerClassesTest {
     @Test
     public void testUseInnerInOuter() {
         Outer outer = new Outer();
-        Assert.assertEquals(400, outer.useInner());
+        Assertions.assertEquals(400, outer.useInner());
     }
 
     @Test
@@ -89,9 +89,9 @@ public class InnerClassesTest {
     @Test
     public void testAccessToOuterMembers() {
         Outer.Inner inner = new Outer().new Inner();
-        Assert.assertEquals(11_000, inner.accessOuterMember());
+        Assertions.assertEquals(11_000, inner.accessOuterMember());
 
         Outer.InnerStatic innerStatic = new Outer.InnerStatic();
-        Assert.assertEquals(144_00, innerStatic.accessOuterStaticMember());
+        Assertions.assertEquals(144_00, innerStatic.accessOuterStaticMember());
     }
 }

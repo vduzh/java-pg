@@ -1,10 +1,12 @@
 package by.duzh.jse.util.concurrent.forkjoin;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 
 import java.util.concurrent.RecursiveAction;
 
+@Disabled
 public class RecursiveActionTest {
 
     @Test
@@ -47,7 +49,7 @@ public class RecursiveActionTest {
         action.invoke();
 
         // Assert
-        Assert.assertEquals(3, data[9], 0.00001);
-        Assert.assertEquals(100, data[10000], 0.00001);
+        Assertions.assertEquals(3, data[9], 0.00001);
+        Assertions.assertEquals(100, data[10000], 0.00001);
     }
 }

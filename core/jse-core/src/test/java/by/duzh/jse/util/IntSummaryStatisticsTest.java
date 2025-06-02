@@ -1,8 +1,8 @@
 package by.duzh.jse.util;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Base64;
 import java.util.IntSummaryStatistics;
@@ -10,7 +10,7 @@ import java.util.IntSummaryStatistics;
 public class IntSummaryStatisticsTest {
     private IntSummaryStatistics statistics;
 
-    @Before
+    @BeforeEach
     public void init() {
         statistics = new IntSummaryStatistics();
     }
@@ -23,10 +23,10 @@ public class IntSummaryStatisticsTest {
         statistics.accept(4);
         statistics.accept(5);
 
-        Assert.assertEquals(15, statistics.getSum());
-        Assert.assertEquals(5, statistics.getCount());
-        Assert.assertEquals(3, statistics.getAverage(), 0);
-        Assert.assertEquals(5, statistics.getMax());
-        Assert.assertEquals(1, statistics.getMin());
+        Assertions.assertEquals(15, statistics.getSum());
+        Assertions.assertEquals(5, statistics.getCount());
+        Assertions.assertEquals(3, statistics.getAverage(), 0);
+        Assertions.assertEquals(5, statistics.getMax());
+        Assertions.assertEquals(1, statistics.getMin());
     }
 }

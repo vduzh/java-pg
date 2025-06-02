@@ -1,9 +1,9 @@
 package by.duzh.jse.util.concurrent.executor;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.concurrent.*;
@@ -13,12 +13,12 @@ public class CallableTest {
 
     ExecutorService executor;
 
-    @Before
+    @BeforeEach
     public void init() {
         executor = Executors.newSingleThreadExecutor();
     }
 
-    @After
+    @AfterEach
     public void destroy() {
         // first stop taking new tasks
         executor.shutdown();
@@ -44,7 +44,7 @@ public class CallableTest {
         // submit callable
         Future<Integer> future = executor.submit(task);
 
-        Assert.assertEquals(5, future.get().intValue());
+        Assertions.assertEquals(5, future.get().intValue());
     }
 
     @Test
@@ -59,7 +59,7 @@ public class CallableTest {
             future.get();
         } catch (Exception e) {
             // thrown as the call method generates the FileNotFoundException
-            Assert.assertTrue(e.getCause() instanceof FileNotFoundException);
+            Assertions.assertTrue(e.getCause() instanceof FileNotFoundException);
         }
     }
 }

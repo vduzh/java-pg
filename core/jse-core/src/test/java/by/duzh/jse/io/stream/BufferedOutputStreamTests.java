@@ -1,13 +1,16 @@
 package by.duzh.jse.io.stream;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import java.util.logging.Logger;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class BufferedOutputStreamTests {
+    private static final Logger logger = Logger.getLogger(BufferedOutputStreamTests.class.getName());
+
     // NOTE: Recommended buffer size
     private static final int BUF_SIZE = 8192;
 
@@ -33,10 +36,10 @@ public class BufferedOutputStreamTests {
         // Manual flush
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream(); BufferedOutputStream os = new BufferedOutputStream(bos)) {
             os.write(bytes);
-            Assert.assertEquals(0, bos.size());
+            Assertions.assertEquals(0, bos.size());
 
             os.flush();
-            Assert.assertEquals(bytes.length, bos.size());
+            Assertions.assertEquals(bytes.length, bos.size());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -48,13 +51,13 @@ public class BufferedOutputStreamTests {
         try (BufferedOutputStream os = new BufferedOutputStream(bos)) {
             os.write(bytes);
             data = bos.toByteArray();
-            Assert.assertEquals(0, data.length);
+            Assertions.assertEquals(0, data.length);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         data = bos.toByteArray();
-        Assert.assertEquals(bytes.length, data.length);
+        Assertions.assertEquals(bytes.length, data.length);
     }
 }
 

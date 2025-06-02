@@ -1,7 +1,7 @@
 package by.duzh.jse.generics;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 class GenericConstructorDemo {
     private final double value;
@@ -19,6 +19,6 @@ public class GenericConstructorsTest {
     @Test
     public void testGenericConstructorWithInteger() {
         GenericConstructorDemo obj = new GenericConstructorDemo(123);
-        Assert.assertEquals(123.0, obj.getValue(), 0);
+        Assertions.assertEquals(123.0, obj.getValue(), 0);
     }
 }

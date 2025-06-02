@@ -1,7 +1,7 @@
 package by.duzh.jse.lang;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 public class SystemTest {
 
@@ -10,7 +10,7 @@ public class SystemTest {
         char[] src = " World".toCharArray();
         char[] dest = {'H', 'e', 'l', 'l', 'o', 0, 0, 0, 0, 0, 0};
         System.arraycopy(src, 0, dest, 5, 6);
-        Assert.assertEquals("Hello World", new String(dest));
+        Assertions.assertEquals("Hello World", new String(dest));
     }
 
     @Test

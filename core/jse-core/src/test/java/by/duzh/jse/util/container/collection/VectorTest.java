@@ -1,8 +1,8 @@
 package by.duzh.jse.util.container.collection;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,7 +14,7 @@ import java.util.Vector;
 public class VectorTest {
     private Vector<Integer> vector;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         vector = new Vector<Integer>();
     }
@@ -33,8 +33,8 @@ public class VectorTest {
     public void testCapacity() {
         vector = new Vector<Integer>(10);
 
-        Assert.assertEquals(10, vector.capacity());
-        Assert.assertEquals(0, vector.size());
+        Assertions.assertEquals(10, vector.capacity());
+        Assertions.assertEquals(0, vector.size());
     }
 
     @Test
@@ -45,15 +45,15 @@ public class VectorTest {
 
         vector.copyInto(dest);
 
-        Assert.assertEquals(1, dest[0].intValue());
-        Assert.assertEquals(2, dest[1].intValue());
+        Assertions.assertEquals(1, dest[0].intValue());
+        Assertions.assertEquals(2, dest[1].intValue());
     }
 
     @Test
     public void testAddElement() {
         vector.addElement(123);
 
-        Assert.assertEquals(1, vector.size());
+        Assertions.assertEquals(1, vector.size());
     }
 
     @Test
@@ -61,8 +61,8 @@ public class VectorTest {
         vector.addElement(1);
         vector.addElement(2);
 
-        Assert.assertEquals(1, vector.elementAt(0).intValue());
-        Assert.assertEquals(2, vector.elementAt(1).intValue());
+        Assertions.assertEquals(1, vector.elementAt(0).intValue());
+        Assertions.assertEquals(2, vector.elementAt(1).intValue());
     }
 
     @Test
@@ -70,7 +70,7 @@ public class VectorTest {
         vector.addElement(1);
         vector.addElement(2);
 
-        Assert.assertEquals(1, vector.firstElement().intValue());
+        Assertions.assertEquals(1, vector.firstElement().intValue());
     }
 
     @Test
@@ -78,7 +78,7 @@ public class VectorTest {
         vector.addElement(1);
         vector.addElement(2);
 
-        Assert.assertEquals(2, vector.lastElement().intValue());
+        Assertions.assertEquals(2, vector.lastElement().intValue());
     }
 
     @Test
@@ -87,7 +87,7 @@ public class VectorTest {
         vector.addElement(2);
         vector.addElement(3);
 
-        Assert.assertEquals(1, vector.indexOf(2));
+        Assertions.assertEquals(1, vector.indexOf(2));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class VectorTest {
         vector.addElement(2);
         vector.addElement(3);
 
-        Assert.assertEquals(2, vector.lastIndexOf(2));
+        Assertions.assertEquals(2, vector.lastIndexOf(2));
     }
 
     @Test
@@ -107,8 +107,8 @@ public class VectorTest {
         vector.addElement(2);
         vector.addElement(3);
 
-        Assert.assertTrue(vector.removeElement(3));
-        Assert.assertFalse(vector.removeElement(30));
+        Assertions.assertTrue(vector.removeElement(3));
+        Assertions.assertFalse(vector.removeElement(30));
     }
 
     @Test
@@ -120,6 +120,6 @@ public class VectorTest {
 
         vector.removeElementAt(3);
 
-        Assert.assertEquals(3, vector.size());
+        Assertions.assertEquals(3, vector.size());
     }
 }

@@ -1,8 +1,8 @@
 package by.duzh.jse;
 
-import org.junit.Assert;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import java.util.logging.Logger;
 import java.util.Random;
 
 /**
@@ -13,8 +13,12 @@ enum Operation {
     CREATE, READ, UPDATE, DELETE;
 }
 
-
+/**
+ * @see <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Enum.html">Enum</a>
+ */
 public class EnumTests {
+    private static final Logger logger = Logger.getLogger(EnumTests.class.getName());
+
     private Operation randomOperation() {
         var operations = Operation.values();
         return operations[new Random().nextInt(operations.length)];
@@ -29,17 +33,17 @@ public class EnumTests {
     @Test
     public void itIsEnum() {
         Operation op = Operation.READ;
-        Assert.assertTrue(op instanceof Enum);
+        Assertions.assertTrue(op instanceof Enum);
 
-        Assert.assertEquals(1, op.ordinal());
-        Assert.assertEquals(3, Operation.DELETE.ordinal());
-        Assert.assertFalse(Operation.DELETE.compareTo(Operation.READ) < 0);
+        Assertions.assertEquals(1, op.ordinal());
+        Assertions.assertEquals(3, Operation.DELETE.ordinal());
+        Assertions.assertFalse(Operation.DELETE.compareTo(Operation.READ) < 0);
 
     }
 
     @Test
     public void asString() {
-        Assert.assertEquals("READ", Operation.READ.toString());
+        Assertions.assertEquals("READ", Operation.READ.toString());
     }
 
     @Test
@@ -83,7 +87,7 @@ public class EnumTests {
     @Test
     public void testValueOf() {
         Operation op = Operation.valueOf("READ");
-        Assert.assertEquals(Operation.READ, op);
+        Assertions.assertEquals(Operation.READ, op);
     }
 
     @Test
@@ -115,6 +119,6 @@ public class EnumTests {
         Foo foo = Foo.TWO;
 
         // do assertion
-        Assert.assertEquals("dva", foo.getTranslation());
+        Assertions.assertEquals("dva", foo.getTranslation());
     }
 }

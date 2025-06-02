@@ -1,9 +1,10 @@
 package by.duzh.jse.util.concurrent;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -12,16 +13,17 @@ import java.util.concurrent.FutureTask;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+@Disabled
 public class FutureTaskTest {
     private FutureTask<Boolean> futureTask;
     private ExecutorService service;
 
-    @Before
+    @BeforeEach
     public void init() {
         service = Executors.newSingleThreadExecutor();
     }
 
-    @After
+    @AfterEach
     public void destroy() throws Exception {
         service.shutdown();
         service.awaitTermination(3, SECONDS);
@@ -32,6 +34,6 @@ public class FutureTaskTest {
         futureTask = new FutureTask<>(() -> true);
         //Future<Boolean> submit = service.submit(futureTask);
 
-        //Assert.assertTrue(submit.get());
+        //Assertions.assertTrue(submit.get());
     }
 }

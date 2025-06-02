@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.logging.Logger;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -48,6 +49,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //import static org.hamcrest.Matchers.*;
 
 public class ControllerTest {
+    private static final Logger logger = Logger.getLogger(ControllerTest.class.getName());
+
     MockMvc mockMvc;
 
     @Controller
@@ -189,7 +192,8 @@ public class ControllerTest {
                         try {
                             return f.getBytes();
                         } catch (IOException e) {
-                            throw new RuntimeException(e);
+                            logger.warning("IOException occurred: " + e.getMessage());
+                            return null;
                         }
                     })
                     .map(String::new)

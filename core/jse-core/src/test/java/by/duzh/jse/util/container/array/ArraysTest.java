@@ -1,7 +1,7 @@
 package by.duzh.jse.util.container.array;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -22,16 +22,16 @@ public class ArraysTest {
     public void testBinarySearchInt() {
         int[] arr = {1, 2, 3};
 
-        Assert.assertEquals(1, Arrays.binarySearch(arr, 2));
-        Assert.assertTrue(Arrays.binarySearch(arr, 22) < 0);
+        Assertions.assertEquals(1, Arrays.binarySearch(arr, 2));
+        Assertions.assertTrue(Arrays.binarySearch(arr, 22) < 0);
     }
 
     @Test
     public void testBinarySearchString() {
         String[] arr = {"a", "b", "c", "d", "e"};
 
-        Assert.assertEquals(3, Arrays.binarySearch(arr, "d"));
-        Assert.assertTrue(Arrays.binarySearch(arr, "22") < 0);
+        Assertions.assertEquals(3, Arrays.binarySearch(arr, "d"));
+        Assertions.assertTrue(Arrays.binarySearch(arr, "22") < 0);
     }
 
     @Test
@@ -40,14 +40,14 @@ public class ArraysTest {
 
         String[] copy = Arrays.copyOf(arr, 10);
 
-        Assert.assertEquals(10, copy.length);
-        Assert.assertEquals("b", copy[1]);
-        Assert.assertNull(copy[5]);
+        Assertions.assertEquals(10, copy.length);
+        Assertions.assertEquals("b", copy[1]);
+        Assertions.assertNull(copy[5]);
 
         copy = Arrays.copyOf(arr, 3);
 
-        Assert.assertEquals(3, copy.length);
-        Assert.assertEquals("c", copy[2]);
+        Assertions.assertEquals(3, copy.length);
+        Assertions.assertEquals("c", copy[2]);
     }
 
     @Test
@@ -56,10 +56,10 @@ public class ArraysTest {
 
         String[] copy = Arrays.copyOfRange(arr, 1, 4);
 
-        Assert.assertEquals(3, copy.length);
-        Assert.assertEquals("b", copy[0]);
-        Assert.assertEquals("c", copy[1]);
-        Assert.assertEquals("d", copy[2]);
+        Assertions.assertEquals(3, copy.length);
+        Assertions.assertEquals("b", copy[0]);
+        Assertions.assertEquals("c", copy[1]);
+        Assertions.assertEquals("d", copy[2]);
     }
 
     @Test
@@ -67,18 +67,18 @@ public class ArraysTest {
         // the whole arrays
         String[] arr1 = {"a", "b"};
         String[] arr2 = {"a", "b"};
-        Assert.assertEquals(0, Arrays.compare(arr1, arr2));
+        Assertions.assertEquals(0, Arrays.compare(arr1, arr2));
 
         arr1 = new String[]{"a"};
-        Assert.assertTrue(Arrays.compare(arr1, arr2) < 0);
+        Assertions.assertTrue(Arrays.compare(arr1, arr2) < 0);
 
         arr1 = new String[]{"a", "v"};
-        Assert.assertTrue(Arrays.compare(arr1, arr2) > 0);
+        Assertions.assertTrue(Arrays.compare(arr1, arr2) > 0);
 
         // subarray
         arr1 = new String[] {"1", "a", "b", "2"};
         arr2 = new String[] {"1", "1", "a", "b", "2", "2"};
-        Assert.assertEquals(0, Arrays.compare(arr1, 1, 3, arr2, 2, 4));
+        Assertions.assertEquals(0, Arrays.compare(arr1, 1, 3, arr2, 2, 4));
     }
 
     @Test
@@ -86,15 +86,15 @@ public class ArraysTest {
         // the whole arrays
         String[] arr1 = {"a", "b"};
         String[] arr2 = {"a", "b"};
-        Assert.assertEquals(-1, Arrays.mismatch(arr1, arr2));
+        Assertions.assertEquals(-1, Arrays.mismatch(arr1, arr2));
 
         arr1 = new String[]{"a", "b", "c"};
-        Assert.assertEquals(2, Arrays.mismatch(arr1, arr2));
+        Assertions.assertEquals(2, Arrays.mismatch(arr1, arr2));
 
         // subarray
         arr1 = new String[] {"1", "a", "b", "2"};
         arr2 = new String[] {"1", "1", "a", "b", "2", "2"};
-        Assert.assertEquals(2, Arrays.mismatch(arr1, 1, 3, arr2, 2, 5));
+        Assertions.assertEquals(2, Arrays.mismatch(arr1, 1, 3, arr2, 2, 5));
     }
 
     @Test
@@ -104,12 +104,12 @@ public class ArraysTest {
         String[] arr3 = {"b", "a", "c", "d", "e"};
         String[] arr4 = {"a", "b", "c", "d", "e"};
 
-        Assert.assertFalse(Arrays.equals(arr, arr2));
-        Assert.assertFalse(Arrays.equals(arr, arr3));
-        Assert.assertTrue(Arrays.equals(arr, arr4));
+        Assertions.assertFalse(Arrays.equals(arr, arr2));
+        Assertions.assertFalse(Arrays.equals(arr, arr3));
+        Assertions.assertTrue(Arrays.equals(arr, arr4));
 
         // JDK9
-        Assert.assertTrue(Arrays.equals(arr, 2, 4, arr4, 2, 4));
+        Assertions.assertTrue(Arrays.equals(arr, 2, 4, arr4, 2, 4));
     }
 
     @Test
@@ -119,7 +119,7 @@ public class ArraysTest {
         String[] arr3 = {"b", "a", "c", "d", "e"};
         String[] arr4 = {"a", "b", "c", "d", "e"};
 
-        Assert.assertFalse(Arrays.deepEquals(arr, arr2));
+        Assertions.assertFalse(Arrays.deepEquals(arr, arr2));
 
         // TODO: test arrays
     }
@@ -135,8 +135,8 @@ public class ArraysTest {
 
         Arrays.fill(arr, "foo");
 
-        Assert.assertEquals("foo", arr[0]);
-        Assert.assertEquals("foo", arr[9]);
+        Assertions.assertEquals("foo", arr[0]);
+        Assertions.assertEquals("foo", arr[9]);
     }
 
     @Test
@@ -145,10 +145,10 @@ public class ArraysTest {
 
         Arrays.fill(arr, 3, 6, "foo");
 
-        Assert.assertNull(arr[2]);
-        Assert.assertEquals("foo", arr[3]);
-        Assert.assertEquals("foo", arr[5]);
-        Assert.assertNull(arr[6]);
+        Assertions.assertNull(arr[2]);
+        Assertions.assertEquals("foo", arr[3]);
+        Assertions.assertEquals("foo", arr[5]);
+        Assertions.assertNull(arr[6]);
     }
 
     @Test
@@ -157,8 +157,8 @@ public class ArraysTest {
 
         Arrays.sort(arr);
 
-        Assert.assertEquals("a", arr[0]);
-        Assert.assertEquals("e", arr[4]);
+        Assertions.assertEquals("a", arr[0]);
+        Assertions.assertEquals("e", arr[4]);
     }
 
     @Test
@@ -167,11 +167,11 @@ public class ArraysTest {
 
         Arrays.sort(arr, Comparator.comparingInt(String::length));
 
-        Assert.assertEquals("e", arr[0]);
-        Assert.assertEquals("aa", arr[1]);
-        Assert.assertEquals("bbb", arr[2]);
-        Assert.assertEquals("cccc", arr[3]);
-        Assert.assertEquals("ddddd", arr[4]);
+        Assertions.assertEquals("e", arr[0]);
+        Assertions.assertEquals("aa", arr[1]);
+        Assertions.assertEquals("bbb", arr[2]);
+        Assertions.assertEquals("cccc", arr[3]);
+        Assertions.assertEquals("ddddd", arr[4]);
     }
 
     @Test
@@ -180,8 +180,8 @@ public class ArraysTest {
 
         Arrays.parallelSort(arr);
 
-        Assert.assertEquals("a", arr[0]);
-        Assert.assertEquals("e", arr[4]);
+        Assertions.assertEquals("a", arr[0]);
+        Assertions.assertEquals("e", arr[4]);
     }
 
     @Test
@@ -190,103 +190,112 @@ public class ArraysTest {
 
         Arrays.parallelSort(arr, Comparator.comparingInt(String::length));
 
-        Assert.assertEquals("e", arr[0]);
-        Assert.assertEquals("aa", arr[1]);
-        Assert.assertEquals("bbb", arr[2]);
-        Assert.assertEquals("cccc", arr[3]);
-        Assert.assertEquals("ddddd", arr[4]);
+        Assertions.assertEquals("e", arr[0]);
+        Assertions.assertEquals("aa", arr[1]);
+        Assertions.assertEquals("bbb", arr[2]);
+        Assertions.assertEquals("cccc", arr[3]);
+        Assertions.assertEquals("ddddd", arr[4]);
     }
 
     // TODO: write test - have a look at spliterator
     @Test
     public void testSpliterator() {
-        int[] arr = {1, 3, 2, 4};
+        String[] arr = {"a", "b", "c", "d", "e"};
 
-        Spliterator.OfInt spliterator = Arrays.spliterator(arr);
+        Spliterator<String> spliterator = Arrays.spliterator(arr);
+
+        Assertions.assertEquals(5, spliterator.estimateSize());
     }
 
     @Test
     public void testStream() {
-        int[] arr = {1, 2, 3, 4};
+        String[] arr = {"a", "b", "c", "d", "e"};
 
-        IntStream stream = Arrays.stream(arr);
-        stream.forEach(i -> Assert.assertTrue(i >= 1 && i <= 4));
+        long count = Arrays.stream(arr).count();
 
+        Assertions.assertEquals(5, count);
     }
 
     @Test
     public void testStreamWithRange() {
-        int[] arr = {1, 2, 3, 4, 5, 6, 7};
+        String[] arr = {"a", "b", "c", "d", "e"};
 
-        IntStream stream = Arrays.stream(arr, 2, 6);
+        long count = Arrays.stream(arr, 1, 4).count();
 
-        stream.forEach(i -> Assert.assertTrue(i >= 3 && i <= 6));
+        Assertions.assertEquals(3, count);
     }
 
     @Test
     public void testSetAll() {
-        int[] arr = {1, 2, 3};
+        String[] arr = new String[5];
 
-        Arrays.setAll(arr, i -> arr[i] * 10);
+        Arrays.setAll(arr, i -> String.valueOf(i));
 
-        Assert.assertEquals(10, arr[0]);
-        Assert.assertEquals(20, arr[1]);
-        Assert.assertEquals(30, arr[2]);
+        Assertions.assertEquals("0", arr[0]);
+        Assertions.assertEquals("4", arr[4]);
     }
 
     @Test
     public void testParallelSetAll() {
-        String[] arr = {"1", "22", "333"};
+        String[] arr = new String[5];
 
-        Arrays.parallelSetAll(arr, i -> String.valueOf(arr[i].length() * 10));
+        Arrays.parallelSetAll(arr, i -> String.valueOf(i));
 
-        Assert.assertEquals("10", arr[0]);
-        Assert.assertEquals("20", arr[1]);
-        Assert.assertEquals("30", arr[2]);
+        Assertions.assertEquals("0", arr[0]);
+        Assertions.assertEquals("4", arr[4]);
     }
 
     @Test
     public void testParallelPrefix() {
-        int[] arr = {1, 2, 3, 5};
+        int[] arr = {1, 2, 3, 4, 5};
 
-        Arrays.parallelPrefix(arr, (a, b) -> a * b);
+        Arrays.parallelPrefix(arr, (a, b) -> a + b);
 
-        Assert.assertEquals(1, arr[0]);
-        Assert.assertEquals(2, arr[1]);
-        Assert.assertEquals(6, arr[2]);
-        Assert.assertEquals(30, arr[3]);
+        Assertions.assertEquals(1, arr[0]);
+        Assertions.assertEquals(3, arr[1]);
+        Assertions.assertEquals(6, arr[2]);
+        Assertions.assertEquals(10, arr[3]);
+        Assertions.assertEquals(15, arr[4]);
     }
 
     @Test
     public void testParallelPrefixWithStrings() {
-        String[] arr = {"1", "2", "3", "4"};
+        String[] arr = {"a", "b", "c", "d", "e"};
 
         Arrays.parallelPrefix(arr, (a, b) -> a + b);
 
-        Assert.assertEquals("1", arr[0]);
-        Assert.assertEquals("12", arr[1]);
-        Assert.assertEquals("123", arr[2]);
-        Assert.assertEquals("1234", arr[3]);
+        Assertions.assertEquals("a", arr[0]);
+        Assertions.assertEquals("ab", arr[1]);
+        Assertions.assertEquals("abc", arr[2]);
+        Assertions.assertEquals("abcd", arr[3]);
+        Assertions.assertEquals("abcde", arr[4]);
     }
 
     @Test
     public void testToString() {
-        String[] arr = {"1", "2", "3", "4"};
-        //TODO: Have a look at the implementation
-        Assert.assertEquals("[1, 2, 3, 4]", Arrays.toString(arr));
+        String[] arr = {"a", "b", "c", "d", "e"};
+
+        String s = Arrays.toString(arr);
+
+        Assertions.assertEquals("[a, b, c, d, e]", s);
     }
 
     @Test
     public void testHashCode() {
-        String[] arr = {"1", "2", "3", "4"};
-        //TODO: Have a look at the implementation
-        Arrays.hashCode(arr);
+        String[] arr1 = {"a", "b", "c", "d", "e"};
+        String[] arr2 = {"a", "b", "c", "d", "e"};
+        String[] arr3 = {"a", "b", "c", "d", "f"};
+
+        Assertions.assertEquals(Arrays.hashCode(arr1), Arrays.hashCode(arr2));
+        Assertions.assertNotEquals(Arrays.hashCode(arr1), Arrays.hashCode(arr3));
     }
 
     @Test
     public void testDeepToString() {
-        String[][] arr = {{"1", "2"}, {"3", "4"}};
-        //TODO: Have a look at the implementation
-        Assert.assertEquals("[[1, 2], [3, 4]]", Arrays.deepToString(arr));
+        String[] arr = {"a", "b", "c", "d", "e"};
+
+        String s = Arrays.deepToString(arr);
+
+        Assertions.assertEquals("[a, b, c, d, e]", s);
     }
 }

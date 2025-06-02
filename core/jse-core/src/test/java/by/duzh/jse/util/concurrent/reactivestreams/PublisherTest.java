@@ -1,8 +1,8 @@
 package by.duzh.jse.util.concurrent.reactivestreams;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.Flow;
 import java.util.concurrent.SubmissionPublisher;
@@ -10,12 +10,12 @@ import java.util.concurrent.SubmissionPublisher;
 public class PublisherTest {
     private Flow.Publisher<String> publisher;
 
-    @Before
+    @BeforeEach
     public void init() throws Exception {
         publisher = new SubmissionPublisher<>();
     }
 
-    @After
+    @AfterEach
     public void destroy() {
         ((SubmissionPublisher<String>) publisher).close();
     }

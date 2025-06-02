@@ -1,10 +1,9 @@
 package by.duzh.jse.lang.reflect;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.lang.reflect.Proxy;
-
-import static org.junit.Assert.assertEquals;
 
 public class ProxyTest {
     interface FooDao {
@@ -33,6 +32,6 @@ public class ProxyTest {
                 });
 
         String foo = dao.find(123);
-        assertEquals("foo", foo);
+        Assertions.assertEquals("foo", foo);
     }
 }

@@ -1,7 +1,7 @@
 package by.duzh.jse.core;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 public class TextBlocksTest {
 
@@ -11,24 +11,24 @@ public class TextBlocksTest {
                 1
                 2
                 """;
-        Assert.assertEquals("1\n2\n", smallBlock);
+        Assertions.assertEquals("1\n2\n", smallBlock);
 
         smallBlock = """
                 1
                 2
                   """;
-        Assert.assertEquals("1\n2\n", smallBlock);
+        Assertions.assertEquals("1\n2\n", smallBlock);
 
         smallBlock = """
               1
               2
             """;
-        Assert.assertEquals("  1\n  2\n", smallBlock);
+        Assertions.assertEquals("  1\n  2\n", smallBlock);
 
         smallBlock = """
                 1
                 2""";
-        Assert.assertEquals("1\n2", smallBlock);
+        Assertions.assertEquals("1\n2", smallBlock);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class TextBlocksTest {
                 I am stepping through the door...
                 Wait… What???
                 """;
-        Assert.assertEquals(2, text.lines().count());
+        Assertions.assertEquals(2, text.lines().count());
     }
 
     @Test
@@ -48,6 +48,6 @@ public class TextBlocksTest {
                 line2\s
                 line3
                 """;
-        Assert.assertEquals("line1\nline2 \nline3\n", text);
+        Assertions.assertEquals("line1\nline2 \nline3\n", text);
     }
 }

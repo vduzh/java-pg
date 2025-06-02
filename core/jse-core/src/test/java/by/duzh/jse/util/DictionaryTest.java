@@ -1,8 +1,8 @@
 package by.duzh.jse.util;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.*;
 
@@ -11,7 +11,7 @@ import java.util.*;
 public class DictionaryTest {
     private Dictionary<Integer, String> dictionary;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         dictionary = new Hashtable<>();
     }
@@ -19,21 +19,21 @@ public class DictionaryTest {
     @Test
     public void testPut() {
         String s = dictionary.put(1, "one");
-        Assert.assertFalse(dictionary.isEmpty());
+        Assertions.assertFalse(dictionary.isEmpty());
     }
 
     @Test
     public void testIsEmpty() {
-        Assert.assertTrue(dictionary.isEmpty());
+        Assertions.assertTrue(dictionary.isEmpty());
         dictionary.put(1, "one");
-        Assert.assertFalse(dictionary.isEmpty());
+        Assertions.assertFalse(dictionary.isEmpty());
     }
 
     @Test
     public void testGet() {
         dictionary.put(1, "one");
 
-        Assert.assertEquals("one", dictionary.get(1));
+        Assertions.assertEquals("one", dictionary.get(1));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class DictionaryTest {
 
         while (keys.hasMoreElements()) {
             int key = keys.nextElement();
-            Assert.assertTrue(key == 1 || key == 2);
+            Assertions.assertTrue(key == 1 || key == 2);
         }
     }
 
@@ -58,20 +58,20 @@ public class DictionaryTest {
 
         while (elements.hasMoreElements()) {
             String value = elements.nextElement();
-            Assert.assertTrue("one".equals(value) || "two".equals(value));
+            Assertions.assertTrue("one".equals(value) || "two".equals(value));
         }
     }
 
     @Test
     public void testRemove() {
-        Assert.assertNull(dictionary.remove(1));
+        Assertions.assertNull(dictionary.remove(1));
         dictionary.put(1, "one");
-        Assert.assertEquals("one", dictionary.remove(1));
+        Assertions.assertEquals("one", dictionary.remove(1));
     }
 
     @Test
     public void testSize() {
         dictionary.put(1, "one");
-        Assert.assertEquals(1, dictionary.size());
+        Assertions.assertEquals(1, dictionary.size());
     }
 }

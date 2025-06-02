@@ -1,7 +1,7 @@
 package by.duzh.jse.io.reader;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.CharArrayWriter;
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class CharArrayWriterTests {
         }
         // there is no need to close this kind of stream
 
-        Assert.assertEquals(s, writer.toString());
+        Assertions.assertEquals(s, writer.toString());
     }
 
     @Test
@@ -49,6 +49,6 @@ public class CharArrayWriterTests {
             throw new RuntimeException(e);
         }
 
-        Assert.assertEquals(s, os2.toString());
+        Assertions.assertEquals(s, os2.toString());
     }
 }

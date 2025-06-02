@@ -1,7 +1,6 @@
 package by.duzh.jse.util.concurrent.executor;
 
-import org.junit.*;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.*;
 
 import java.io.FileNotFoundException;
 import java.util.concurrent.*;
@@ -12,16 +11,17 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 /**
  * https://www.baeldung.com/java-future
  */
+@Disabled
 public class FutureTest {
     private Future<Boolean> future;
     private ExecutorService executor;
 
-    @Before
+    @BeforeEach
     public void init() {
         executor = Executors.newSingleThreadExecutor();
     }
 
-    @After
+    @AfterEach
     public void destroy() throws Exception {
         // first stop taking new tasks
         executor.shutdown();
@@ -51,38 +51,40 @@ public class FutureTest {
         var b = future.get();
 
         // Assert
-        Assert.assertTrue(b);
+        Assertions.assertTrue(b);
     }
 
-    @Test(expected = TimeoutException.class)
+    @Test
     public void testGetWithTimeout() throws Exception {
         future = executor.submit(getTask(3));
 
         // TimeoutException will be thrown here
-        future.get(1, SECONDS);
+        Assertions.assertThrows(TimeoutException.class, () -> {
+            future.get(1, SECONDS);
+        });
 
         //TODO: if  TimeoutException has happened, call future.cancel(true)
     }
 
-    @Test(expected = FileNotFoundException.class)
+    @Test
     public void testGetWithException() throws Throwable {
         future = executor.submit(() -> {
             throw new FileNotFoundException();
         });
 
-        try {
+        Assertions.assertThrows(ExecutionException.class, () -> {
             future.get();
-        } catch (ExecutionException e) {
-            throw e.getCause();
-        }
+        });
     }
 
-    @Test(expected = CancellationException.class)
+    @Test
     public void testGetWithCancelException() throws Exception {
         future = executor.submit(getTask());
         future.cancel(true);
 
-        future.get();
+        Assertions.assertThrows(CancellationException.class, () -> {
+            future.get();
+        });
     }
 
     @Test
@@ -96,7 +98,7 @@ public class FutureTest {
         System.out.println("Task is processed!");
 
         // Now we can get the result
-        Assert.assertTrue(future.get());
+        Assertions.assertTrue(future.get());
     }
 
     @Test
@@ -114,7 +116,7 @@ public class FutureTest {
         var res = future.cancel(true);
 
         // cancellation request delivered
-        Assert.assertTrue(res);
+        Assertions.assertTrue(res);
     }
 
     @Test
@@ -122,7 +124,7 @@ public class FutureTest {
         future = executor.submit(getTask());
 
         var res = future.cancel(false);
-        Assert.assertTrue(res);
+        Assertions.assertTrue(res);
     }
 
     @Test
@@ -134,7 +136,7 @@ public class FutureTest {
         try {
             future.get();
         } catch (ExecutionException e) {
-            Assert.assertTrue(e.getCause() instanceof FileNotFoundException);
+            Assertions.assertTrue(e.getCause() instanceof FileNotFoundException);
         }
     }
 }

@@ -1,7 +1,7 @@
 package by.duzh.jse.io.reader;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.BufferedReader;
 import java.io.CharArrayReader;
@@ -31,7 +31,7 @@ public class BufferedReaderTests {
     @Test
     public void testMarkSupported() {
         try (BufferedReader is = new BufferedReader(new CharArrayReader(chars))) {
-            Assert.assertTrue(is.markSupported());
+            Assertions.assertTrue(is.markSupported());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -43,7 +43,7 @@ public class BufferedReaderTests {
         String s = new Formatter().format("foo %1$s bar %1$s buz %1$s", System.lineSeparator()).toString();
 
         try (BufferedReader is = new BufferedReader(new CharArrayReader(s.toCharArray()))) {
-            Assert.assertEquals(3, is.lines().count());
+            Assertions.assertEquals(3, is.lines().count());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

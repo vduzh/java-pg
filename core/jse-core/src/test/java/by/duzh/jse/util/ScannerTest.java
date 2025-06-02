@@ -1,9 +1,9 @@
 package by.duzh.jse.util;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.Scanner;
@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class ScannerTest {
     private Scanner scanner;
 
-    @After
+    @AfterEach
     public void tearDown() {
         if (scanner != null) {
             scanner.close();
@@ -33,22 +33,22 @@ public class ScannerTest {
     public void testHasNextAndNext() {
         scanner = new Scanner("foo true 15 scanning 10,99");
 
-        Assert.assertTrue(scanner.hasNext());
-        Assert.assertEquals("foo", scanner.next());
+        Assertions.assertTrue(scanner.hasNext());
+        Assertions.assertEquals("foo", scanner.next());
 
-        Assert.assertTrue(scanner.hasNextBoolean());
-        Assert.assertTrue(scanner.nextBoolean());
+        Assertions.assertTrue(scanner.hasNextBoolean());
+        Assertions.assertTrue(scanner.nextBoolean());
 
-        Assert.assertTrue(scanner.hasNextInt());
-        Assert.assertEquals(15, scanner.nextInt());
+        Assertions.assertTrue(scanner.hasNextInt());
+        Assertions.assertEquals(15, scanner.nextInt());
 
-        Assert.assertTrue(scanner.hasNext());
-        Assert.assertEquals("scanning", scanner.next());
+        Assertions.assertTrue(scanner.hasNext());
+        Assertions.assertEquals("scanning", scanner.next());
 
-        Assert.assertTrue(scanner.hasNextDouble());
-        Assert.assertEquals(10.99, scanner.nextDouble(), 0);
+        Assertions.assertTrue(scanner.hasNextDouble());
+        Assertions.assertEquals(10.99, scanner.nextDouble(), 0);
 
-        Assert.assertFalse(scanner.hasNext());
+        Assertions.assertFalse(scanner.hasNext());
     }
 
     @Test
@@ -56,9 +56,9 @@ public class ScannerTest {
         scanner = new Scanner("1, 111, Department1");
         scanner.useDelimiter(", *");
 
-        Assert.assertEquals(1, scanner.nextInt());
-        Assert.assertEquals(111, scanner.nextInt());
-        Assert.assertEquals("Department1", scanner.next());
+        Assertions.assertEquals(1, scanner.nextInt());
+        Assertions.assertEquals(111, scanner.nextInt());
+        Assertions.assertEquals("Department1", scanner.next());
     }
 
     @Test
@@ -72,9 +72,9 @@ public class ScannerTest {
             try (Scanner lineScanner = new Scanner(line)) {
                 lineScanner.useDelimiter(", *");
 
-                Assert.assertEquals(i, lineScanner.nextInt());
-                Assert.assertEquals("" + i + i + i, lineScanner.next());
-                Assert.assertEquals("Department" + i, lineScanner.next());
+                Assertions.assertEquals(i, lineScanner.nextInt());
+                Assertions.assertEquals("" + i + i + i, lineScanner.next());
+                Assertions.assertEquals("Department" + i, lineScanner.next());
             }
             i++;
         }
@@ -86,7 +86,7 @@ public class ScannerTest {
 
         if (scanner.findInLine("Orange: ") != null) {
             if (scanner.hasNext()) {
-                Assert.assertEquals(4, scanner.nextInt());
+                Assertions.assertEquals(4, scanner.nextInt());
             }
         }
     }
@@ -96,7 +96,7 @@ public class ScannerTest {
         scanner = new Scanner("Apple: 10 Orange: 4 Lemon: 2");
 
         if (scanner.findWithinHorizon("Orange: ", 18) != null) {
-            Assert.assertEquals(4, scanner.nextInt());
+            Assertions.assertEquals(4, scanner.nextInt());
         }
     }
 
@@ -104,7 +104,7 @@ public class ScannerTest {
     public void testSkip() {
         scanner = new Scanner("Apple: 10 Orange: 4 Lemon: 2");
         try (Scanner scanner2 = scanner.skip(Pattern.compile(".*Orange: "))) {
-            Assert.assertEquals("4 Lemon: 2", scanner2.nextLine());
+            Assertions.assertEquals("4 Lemon: 2", scanner2.nextLine());
         }
     }
 }

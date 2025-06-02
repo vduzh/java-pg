@@ -1,7 +1,7 @@
 package by.duzh.jse.util;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +14,7 @@ public class ListIteratorTest {
     public void testCreateListIterator() {
         iterator = Arrays.asList(1, 2, 3, 4).listIterator();
         for (int i = 1; i <= 4; i++) {
-            Assert.assertEquals(i, iterator.next().intValue());
+            Assertions.assertEquals(i, iterator.next().intValue());
         }
     }
 
@@ -25,7 +25,7 @@ public class ListIteratorTest {
         iterator.previous();
 
         for (int i = 0; i <= 4; i++) {
-            Assert.assertEquals(i, iterator.next().intValue());
+            Assertions.assertEquals(i, iterator.next().intValue());
         }
     }
 
@@ -33,34 +33,34 @@ public class ListIteratorTest {
     public void testHasPrevious() {
         iterator = Arrays.asList(1, 2, 3, 4).listIterator();
 
-        Assert.assertFalse(iterator.hasPrevious());
+        Assertions.assertFalse(iterator.hasPrevious());
 
         iterator.next();
-        Assert.assertTrue(iterator.hasPrevious());
+        Assertions.assertTrue(iterator.hasPrevious());
     }
 
     @Test
     public void testNextIndex() {
         iterator = Arrays.asList(10, 20, 30, 40).listIterator();
 
-        Assert.assertEquals(0, iterator.nextIndex());
+        Assertions.assertEquals(0, iterator.nextIndex());
 
         while(iterator.hasNext()) {
             iterator.next();
         }
-        Assert.assertEquals(4, iterator.nextIndex());
+        Assertions.assertEquals(4, iterator.nextIndex());
     }
 
     @Test
     public void testPreviousIndex() {
         iterator = new ArrayList<>(Arrays.asList(10, 20, 30, 40)).listIterator();
 
-        Assert.assertEquals(-1, iterator.previousIndex());
+        Assertions.assertEquals(-1, iterator.previousIndex());
 
         while(iterator.hasNext()) {
             iterator.next();
         }
-        Assert.assertEquals(3, iterator.previousIndex());
+        Assertions.assertEquals(3, iterator.previousIndex());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class ListIteratorTest {
 
         iterator.next();
         iterator.previous();
-        Assert.assertEquals(20, iterator.previous().intValue());
+        Assertions.assertEquals(20, iterator.previous().intValue());
     }
 
 }

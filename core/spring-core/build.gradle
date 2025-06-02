@@ -1,9 +1,8 @@
-plugins {
-    id 'java'
+/*plugins {
     id 'org.springframework.boot' version '3.3.5'
-}
+}*/
 
-apply plugin: 'io.spring.dependency-management'
+//apply plugin: 'io.spring.dependency-management'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'

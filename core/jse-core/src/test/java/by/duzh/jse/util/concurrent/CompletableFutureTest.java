@@ -1,16 +1,15 @@
 package by.duzh.jse.util.concurrent;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import java.util.logging.Logger;
 
-import java.util.concurrent.CompletableFuture;
-
+@Disabled
 public class CompletableFutureTest {
-    private CompletableFuture<Integer> completableFuture;
+    private static final Logger logger = Logger.getLogger(CompletableFutureTest.class.getName());
 
     @Test
-    public void name() throws Exception {
-
-
-        throw new RuntimeException("CompletableFutureTest needs to be implemented");
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

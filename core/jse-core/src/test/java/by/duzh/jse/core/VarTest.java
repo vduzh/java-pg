@@ -1,7 +1,7 @@
 package by.duzh.jse.core;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ public class VarTest {
     @Test
     public void testJDK10VarWithInitializers() {
         var list = new ArrayList<String>();
-        Assert.assertEquals(ArrayList.class, list.getClass());
+        Assertions.assertEquals(ArrayList.class, list.getClass());
     }
 
     @Test
@@ -30,7 +30,7 @@ public class VarTest {
     @Test
     public void testJDK10VarForLambdaParams() {
         var list = Stream.of("foo", "bar").map((var s) -> s.toUpperCase()).collect(Collectors.toList());
-        Assert.assertEquals(list, Arrays.asList("FOO", "BAR"));
+        Assertions.assertEquals(list, Arrays.asList("FOO", "BAR"));
     }
 
 }

@@ -1,7 +1,7 @@
 package by.duzh.jse.io.file;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -18,7 +18,7 @@ public class FileInputOutputTests {
             do {
                 int i = fis.read();
                 if (i == -1) break;
-                Assert.assertTrue('a' == (char) i || 'b' == (char) i || i == 13 || i == 10);
+                Assertions.assertTrue('a' == (char) i || 'b' == (char) i || i == 13 || i == 10);
             } while (true);
 
         } catch (IOException e) {

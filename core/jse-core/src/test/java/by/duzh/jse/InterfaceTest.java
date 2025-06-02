@@ -1,7 +1,8 @@
 package by.duzh.jse;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import java.util.logging.Logger;
 
 /**
  * Test interface
@@ -75,26 +76,28 @@ abstract class BasicInterfacePartialImpl implements BasicInterface {
 }
 
 public class InterfaceTest {
+    private static final Logger logger = Logger.getLogger(InterfaceTest.class.getName());
+
     @Test
     public void testImplementation() throws Exception {
         BasicInterfaceImpl obj = new BasicInterfaceImpl();
-        Assert.assertEquals(50, obj.handle(5));
+        Assertions.assertEquals(50, obj.handle(5));
     }
 
     @Test
     public void testReference() throws Exception {
         BasicInterface obj = new BasicInterfaceImpl();
-        Assert.assertTrue(obj instanceof BasicInterfaceImpl);
-        Assert.assertEquals(50, obj.handle(5));
+        Assertions.assertTrue(obj instanceof BasicInterfaceImpl);
+        Assertions.assertEquals(50, obj.handle(5));
     }
 
     @Test
     public void testVariables() throws Exception {
-        Assert.assertTrue(BasicInterface.YES);
-        Assert.assertTrue(BasicInterfaceImpl.YES);
+        Assertions.assertTrue(BasicInterface.YES);
+        Assertions.assertTrue(BasicInterfaceImpl.YES);
 
         BasicInterfaceImpl obj = new BasicInterfaceImpl();
-        Assert.assertTrue(obj.YES);
+        Assertions.assertTrue(obj.YES);
     }
 
     @Test
@@ -106,7 +109,7 @@ public class InterfaceTest {
             }
         };
 
-        Assert.assertEquals(5, obj.handle(0));
+        Assertions.assertEquals(5, obj.handle(0));
     }
 
     @Test
@@ -125,8 +128,8 @@ public class InterfaceTest {
         }
 
         Foo foo = new Foo();
-        Assert.assertEquals(1, foo.handle(0));
-        Assert.assertEquals(2, foo.process(0));
+        Assertions.assertEquals(1, foo.handle(0));
+        Assertions.assertEquals(2, foo.process(0));
     }
 
     @Test
@@ -139,13 +142,13 @@ public class InterfaceTest {
         }
 
         Foo obj = new Foo();
-        Assert.assertEquals(5, obj.foo());
+        Assertions.assertEquals(5, obj.foo());
     }
 
     @Test
     public void testDefaultMethod() throws Exception {
         var i = new BasicInterfaceImpl();
-        Assert.assertEquals("foo", i.getDefaultValue());
+        Assertions.assertEquals("foo", i.getDefaultValue());
     }
 
 
@@ -162,7 +165,7 @@ public class InterfaceTest {
     @Test
     public void testPrivateMethod() throws Exception {
         var i = new BasicInterfaceImpl();
-        Assert.assertEquals("FOO", i.callPrivateMethod("foo"));
+        Assertions.assertEquals("FOO", i.callPrivateMethod("foo"));
     }
 
     @Test
@@ -172,8 +175,12 @@ public class InterfaceTest {
             String NO = "no";
         }
 
-        Assert.assertEquals("yes", Constants.YES);
-        Assert.assertEquals("no", Constants.NO);
+        Assertions.assertEquals("yes", Constants.YES);
+        Assertions.assertEquals("no", Constants.NO);
     }
 
+    @Test
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
+    }
 }

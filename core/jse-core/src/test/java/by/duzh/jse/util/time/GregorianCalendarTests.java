@@ -1,8 +1,8 @@
 package by.duzh.jse.util.time;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -13,7 +13,7 @@ import java.util.TimeZone;
 public class GregorianCalendarTests {
     private GregorianCalendar calendar;
 
-    @Before
+    @BeforeEach
     public void init() {
         calendar = new GregorianCalendar();
     }
@@ -41,13 +41,13 @@ public class GregorianCalendarTests {
 
     @Test
     public void testGetCalendarType() {
-        Assert.assertEquals("gregory", calendar.getCalendarType());
+        Assertions.assertEquals("gregory", calendar.getCalendarType());
     }
 
     @Test
     public void testCreateIsLeapYear() {
-        Assert.assertTrue(calendar.isLeapYear(2020));
-        Assert.assertFalse(calendar.isLeapYear(2021));
+        Assertions.assertTrue(calendar.isLeapYear(2020));
+        Assertions.assertFalse(calendar.isLeapYear(2021));
     }
 
     @Test

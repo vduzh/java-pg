@@ -1,8 +1,8 @@
 package by.duzh.jse.net;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -13,27 +13,25 @@ import static java.net.HttpURLConnection.HTTP_OK;
 public class HttpURLConnectionTest {
     private static final String TEST_URL = "http://www.google.com/doodles";
 
-    private HttpURLConnection connection;
-
-    @Before
-    public void init() throws Exception {
-        connection = (HttpURLConnection) new URL(TEST_URL).openConnection();
-    }
-
     @Test
+    @EnabledIfSystemProperty(named = "test.network", matches = "true")
     public void testGet() throws IOException {
+        URL url = new URL("http://www.google.com");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
         connection.setRequestMethod("GET");
+        connection.setRequestProperty("User-Agent", "Mozilla/5.0");
 
         boolean followRedirects = HttpURLConnection.getFollowRedirects();
-        Assert.assertTrue(followRedirects);
+        Assertions.assertTrue(followRedirects);
 
         String requestMethod = connection.getRequestMethod();
-        Assert.assertEquals("GET", requestMethod);
+        Assertions.assertEquals("GET", requestMethod);
 
         int responseCode = connection.getResponseCode();
-        Assert.assertEquals(HTTP_OK, responseCode);
+        Assertions.assertEquals(200, responseCode);
 
         String responseMessage = connection.getResponseMessage();
-        Assert.assertEquals("OK", responseMessage);
+        Assertions.assertEquals("OK", responseMessage);
     }
 }

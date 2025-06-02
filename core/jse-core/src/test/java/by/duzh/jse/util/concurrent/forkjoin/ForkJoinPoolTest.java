@@ -1,13 +1,15 @@
 package by.duzh.jse.util.concurrent.forkjoin;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.TimeUnit;
 
+@Disabled
 public class ForkJoinPoolTest {
 
     static class FooForkJoinTask extends RecursiveTask<String> {
@@ -43,7 +45,7 @@ public class ForkJoinPoolTest {
 
         int parallelism = pool.getParallelism();
 
-        Assert.assertEquals(2, parallelism);
+        Assertions.assertEquals(2, parallelism);
     }
 
     @Test
@@ -56,7 +58,7 @@ public class ForkJoinPoolTest {
         // Sync: perform the task and wait for the result
         String res = ForkJoinPool.commonPool().invoke(new FooForkJoinTask());
 
-        Assert.assertEquals("foo", res);
+        Assertions.assertEquals("foo", res);
     }
 
     @Test

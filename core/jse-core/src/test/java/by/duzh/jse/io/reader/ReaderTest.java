@@ -1,7 +1,7 @@
 package by.duzh.jse.io.reader;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.*;
 
@@ -23,7 +23,7 @@ public class ReaderTest {
             while ((c = reader.read()) != -1) {
                 sb.append((char) c);
             }
-            Assert.assertEquals(TEXT, sb.toString());
+            Assertions.assertEquals(TEXT, sb.toString());
         }
 
         // char buffer
@@ -37,7 +37,7 @@ public class ReaderTest {
                 sb.append(new String(buffer, 0, num));
             }
 
-            Assert.assertEquals(TEXT, sb.toString());
+            Assertions.assertEquals(TEXT, sb.toString());
         }
 
         // chars buffer with offset and length
@@ -57,24 +57,24 @@ public class ReaderTest {
     @Test
     public void testSkip() throws Exception {
         try (Reader reader = new CharArrayReader(chars)) {
-            Assert.assertEquals(5, reader.skip(5));
-            Assert.assertEquals('m', (char) reader.read());
+            Assertions.assertEquals(5, reader.skip(5));
+            Assertions.assertEquals('m', (char) reader.read());
 
-            Assert.assertEquals(6, reader.skip(6));
-            Assert.assertEquals('h', (char) reader.read());
+            Assertions.assertEquals(6, reader.skip(6));
+            Assertions.assertEquals('h', (char) reader.read());
 
-            Assert.assertEquals(TEXT.length() - 5 - 1 - 6 - 1, reader.skip(1000));
+            Assertions.assertEquals(TEXT.length() - 5 - 1 - 6 - 1, reader.skip(1000));
         }
     }
 
     @Test
     public void testMarkSupported() throws Exception {
         try (Reader reader = new FileReader(file)) {
-            Assert.assertFalse(reader.markSupported());
+            Assertions.assertFalse(reader.markSupported());
         }
 
         try (Reader reader = new CharArrayReader(chars)) {
-            Assert.assertTrue(reader.markSupported());
+            Assertions.assertTrue(reader.markSupported());
         }
     }
 
@@ -84,11 +84,11 @@ public class ReaderTest {
             reader.skip(2);
 
             reader.mark(1000);
-            Assert.assertEquals('l', (char) reader.read());
-            Assert.assertEquals('c', (char) reader.read());
+            Assertions.assertEquals('l', (char) reader.read());
+            Assertions.assertEquals('c', (char) reader.read());
 
             reader.reset();
-            Assert.assertEquals('l', (char) reader.read());
+            Assertions.assertEquals('l', (char) reader.read());
         }
     }
 
@@ -96,14 +96,14 @@ public class ReaderTest {
     public void testJDK10TransferTo() throws Exception {
         try (Reader reader = new CharArrayReader(chars); Writer writer = new CharArrayWriter()) {
             reader.transferTo(writer);
-            Assert.assertEquals(TEXT, writer.toString());
+            Assertions.assertEquals(TEXT, writer.toString());
         }
     }
 
     @Test
     public void testJDK11NullReader() throws Exception {
         try (Reader reader = Reader.nullReader()) {
-            Assert.assertEquals(-1, reader.read());
+            Assertions.assertEquals(-1, reader.read());
         }
     }
 }

@@ -1,8 +1,8 @@
 package by.duzh.jse.util.container.map;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.util.*;
@@ -12,7 +12,7 @@ import java.util.*;
 public class PropertiesTest {
     private Properties properties;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         properties = new Properties();
     }
@@ -20,22 +20,22 @@ public class PropertiesTest {
     @Test
     public void testJDK10Create() {
         properties = new Properties(3);
-        Assert.assertEquals(0, properties.size());
+        Assertions.assertEquals(0, properties.size());
     }
 
     @Test
     public void testSetProperty() {
         properties.setProperty("1", "One");
-        Assert.assertEquals(1, properties.size());
+        Assertions.assertEquals(1, properties.size());
     }
 
     @Test
     public void testGetProperty() {
         properties.setProperty("1", "One");
 
-        Assert.assertNull(properties.getProperty("foo"));
-        Assert.assertEquals("bar", properties.getProperty("foo", "bar"));
-        Assert.assertEquals("one", properties.getProperty("1"));
+        Assertions.assertNull(properties.getProperty("foo"));
+        Assertions.assertEquals("bar", properties.getProperty("foo", "bar"));
+        Assertions.assertEquals("One", properties.getProperty("1"));
     }
 
     @Test
@@ -43,11 +43,11 @@ public class PropertiesTest {
         properties.put("1", "one");
         properties.put("2", "two");
 
-        Assert.assertEquals("two", properties.replace("2", "bar"));
-        Assert.assertNull(properties.replace("3", "baz"));
+        Assertions.assertEquals("two", properties.replace("2", "bar"));
+        Assertions.assertNull(properties.replace("3", "baz"));
 
-        Assert.assertTrue(properties.replace("2", "bar", "foo"));
-        Assert.assertFalse(properties.replace("2", "foo1", "ex"));
+        Assertions.assertTrue(properties.replace("2", "bar", "foo"));
+        Assertions.assertFalse(properties.replace("2", "foo1", "ex"));
     }
 
     @Test
@@ -77,9 +77,9 @@ public class PropertiesTest {
 
         properties.load(is);
 
-        Assert.assertEquals(2, properties.size());
-        Assert.assertEquals("one", properties.getProperty("1"));
-        Assert.assertEquals("two", properties.getProperty("2"));
+        Assertions.assertEquals(2, properties.size());
+        Assertions.assertEquals("one", properties.getProperty("1"));
+        Assertions.assertEquals("two", properties.getProperty("2"));
     }
 
     @Test
@@ -89,9 +89,9 @@ public class PropertiesTest {
 
         properties.load(reader);
 
-        Assert.assertEquals(2, properties.size());
-        Assert.assertEquals("one", properties.getProperty("1"));
-        Assert.assertEquals("two", properties.getProperty("2"));
+        Assertions.assertEquals(2, properties.size());
+        Assertions.assertEquals("one", properties.getProperty("1"));
+        Assertions.assertEquals("two", properties.getProperty("2"));
     }
 
     @Test
@@ -106,9 +106,9 @@ public class PropertiesTest {
 
         properties.loadFromXML(new ByteArrayInputStream(sb.toString().getBytes()));
 
-        Assert.assertEquals(2, properties.size());
-        Assert.assertEquals("one", properties.getProperty("1"));
-        Assert.assertEquals("two", properties.getProperty("2"));
+        Assertions.assertEquals(2, properties.size());
+        Assertions.assertEquals("one", properties.getProperty("1"));
+        Assertions.assertEquals("two", properties.getProperty("2"));
     }
 
     @Test
@@ -137,6 +137,6 @@ public class PropertiesTest {
 
         Set<String> names = properties.stringPropertyNames();
 
-        Assert.assertTrue(names.containsAll(Arrays.asList("1", "2")));
+        Assertions.assertTrue(names.containsAll(Arrays.asList("1", "2")));
     }
 }

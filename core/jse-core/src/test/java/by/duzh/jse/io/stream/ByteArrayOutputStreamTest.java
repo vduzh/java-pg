@@ -1,7 +1,7 @@
 package by.duzh.jse.io.stream;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -23,8 +23,8 @@ public class ByteArrayOutputStreamTest {
         os = new ByteArrayOutputStream();
         os.write(TEST_STRING.getBytes());
 
-        Assert.assertEquals(TEST_STRING, os.toString());
-        Assert.assertEquals(TEST_STRING, os.toString(Charset.defaultCharset())); //  JDK10
+        Assertions.assertEquals(TEST_STRING, os.toString());
+        Assertions.assertEquals(TEST_STRING, os.toString(Charset.defaultCharset())); //  JDK10
     }
 
     @Test
@@ -35,7 +35,7 @@ public class ByteArrayOutputStreamTest {
         var os2 = new ByteArrayOutputStream();
         os.writeTo(os2);
 
-        Assert.assertEquals(TEST_STRING, os2.toString());
+        Assertions.assertEquals(TEST_STRING, os2.toString());
     }
 
     @Test
@@ -43,6 +43,6 @@ public class ByteArrayOutputStreamTest {
         os = new ByteArrayOutputStream();
         os.writeBytes(TEST_STRING.getBytes());
 
-        Assert.assertEquals(TEST_STRING, os.toString());
+        Assertions.assertEquals(TEST_STRING, os.toString());
     }
 }

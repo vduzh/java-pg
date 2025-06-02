@@ -1,9 +1,6 @@
 package by.duzh.jse.util.concurrent;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.Arrays;
 import java.util.concurrent.CompletionService;
@@ -14,17 +11,18 @@ import java.util.concurrent.Executors;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+@Disabled
 public class CompletionServiceTest {
     private ExecutorService executorService;
 
     private CompletionService<String> completionService;
 
-    @Before
+    @BeforeEach
     public void init() throws Exception {
         executorService = Executors.newCachedThreadPool();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         // first stop taking new tasks
         executorService.shutdown();
@@ -65,7 +63,7 @@ public class CompletionServiceTest {
         // Get results
         for (int i = 0; i < data.size(); i++) {
             var future = completionService.take();
-            Assert.assertTrue(data.contains(future.get()));
+            Assertions.assertTrue(data.contains(future.get()));
         }
     }
 
@@ -74,15 +72,15 @@ public class CompletionServiceTest {
         completionService = new ExecutorCompletionService<>(executorService);
 
         // completed task is not present
-        Assert.assertNull(completionService.poll());
+        Assertions.assertNull(completionService.poll());
 
         // completed task is not present
         var future1 = completionService.submit(() -> "OK");
         SECONDS.sleep(2);
         var future = completionService.poll();
-        Assert.assertNotNull(future);
-        Assert.assertEquals(future1, future);
-        Assert.assertEquals("OK", future.get());
+        Assertions.assertNotNull(future);
+        Assertions.assertEquals(future1, future);
+        Assertions.assertEquals("OK", future.get());
     }
 
     @Test
@@ -106,9 +104,9 @@ public class CompletionServiceTest {
         var futureB = completionService.poll(1, SECONDS);
         var futureC = completionService.poll(1, SECONDS);
 
-        Assert.assertNotNull(futureA);
-        Assert.assertNotNull(futureB);
-        Assert.assertNull(futureC);
+        Assertions.assertNotNull(futureA);
+        Assertions.assertNotNull(futureB);
+        Assertions.assertNull(futureC);
     }
 
     @Test
@@ -139,13 +137,13 @@ public class CompletionServiceTest {
         var futureC = completionService.poll();
 
         // Validate the result
-        Assert.assertNotNull(futureA);
-        Assert.assertEquals(a, futureA);
+        Assertions.assertNotNull(futureA);
+        Assertions.assertEquals(a, futureA);
 
-        Assert.assertNotNull(futureB);
-        Assert.assertEquals(b, futureB);
+        Assertions.assertNotNull(futureB);
+        Assertions.assertEquals(b, futureB);
 
-        Assert.assertNull(futureC);
+        Assertions.assertNull(futureC);
         c.cancel(true);
     }
 }

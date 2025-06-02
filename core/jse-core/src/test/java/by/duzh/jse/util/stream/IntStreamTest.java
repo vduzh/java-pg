@@ -1,8 +1,8 @@
 package by.duzh.jse.util.stream;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.IntSummaryStatistics;
 import java.util.List;
@@ -17,27 +17,28 @@ public class IntStreamTest {
 
     private final int[] ARRAY_SOURCE = {1, 2, 3};
 
-    @Before
+    @BeforeEach
     public void init() {
         stream = IntStream.of(ARRAY_SOURCE);
     }
 
     @Test
     public void testMin() {
-        OptionalInt min = Stream.of("1", "22", "333").mapToInt(String::length).min();
-        Assert.assertEquals(6, min.getAsInt());
+        OptionalInt min = stream.min();
+        Assertions.assertTrue(min.isPresent());
+        Assertions.assertEquals(1, min.getAsInt());
     }
 
     @Test
     public void testSum() {
         int sum = stream.sum();
-        Assert.assertEquals(6, sum);
+        Assertions.assertEquals(6, sum);
     }
 
     @Test
     public void testAverage() {
         OptionalDouble average = stream.average();
-        Assert.assertEquals(2.0, average.getAsDouble(), 0.01);
+        Assertions.assertEquals(2.0, average.getAsDouble(), 0.01);
     }
 
     @Test
@@ -52,7 +53,7 @@ public class IntStreamTest {
     public void testSummaryStatistics() {
         IntSummaryStatistics statistics = stream.summaryStatistics();
 
-        Assert.assertEquals( 6, statistics.getSum());
-        Assert.assertEquals( 3, statistics.getCount());
+        Assertions.assertEquals( 6, statistics.getSum());
+        Assertions.assertEquals( 3, statistics.getCount());
     }
 }

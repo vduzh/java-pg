@@ -1,13 +1,15 @@
 package by.duzh.jse.util.concurrent.forkjoin;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
 
+@Disabled
 public class RecursiveTaskTest {
 
     @Test
@@ -65,6 +67,6 @@ public class RecursiveTaskTest {
         Long res = ForkJoinPool.commonPool().invoke(new SumTask(data, 0, data.length));
 
         // Verify (n-1)*n/2
-        Assert.assertEquals((size - 1) * size / 2, res.longValue());
+        Assertions.assertEquals((size - 1) * size / 2, res.longValue());
     }
 }

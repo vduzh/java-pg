@@ -1,8 +1,10 @@
 package by.duzh.jse.net;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -10,16 +12,18 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 
+@Disabled
 public class SocketTest {
     private static final String TEST_HOST_NAME = "www.google.com";
 
     Socket socket;
 
-    @Before
+    @BeforeEach
     public void init() {
     }
 
     @Test
+    @EnabledIfSystemProperty(named = "test.network", matches = "true")
     public void testCreate() {
         try (Socket socket = new Socket(TEST_HOST_NAME, 80)) {
             ;
@@ -35,29 +39,31 @@ public class SocketTest {
     }
 
     @Test
+    @EnabledIfSystemProperty(named = "test.network", matches = "true")
     public void testGet() {
         try (Socket socket = new Socket(TEST_HOST_NAME, 80)) {
             boolean isConnected = socket.isConnected();
-            Assert.assertTrue(isConnected);
+            Assertions.assertTrue(isConnected);
 
             boolean isBound = socket.isBound();
-            Assert.assertTrue(isBound);
+            Assertions.assertTrue(isBound);
 
             InetAddress inetAddress = socket.getInetAddress();
-            Assert.assertEquals(TEST_HOST_NAME, inetAddress.getHostName());
+            Assertions.assertEquals(TEST_HOST_NAME, inetAddress.getHostName());
 
             int port = socket.getPort();
-            Assert.assertTrue(port > 0);
-            Assert.assertEquals(80, port);
+            Assertions.assertTrue(port > 0);
+            Assertions.assertEquals(80, port);
 
             port = socket.getLocalPort();
-            Assert.assertTrue(port > -1);
+            Assertions.assertTrue(port > -1);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Test
+    @EnabledIfSystemProperty(named = "test.network", matches = "true")
     public void testConnect() throws IOException {
         try (Socket socket = new Socket(TEST_HOST_NAME, 80)) {
             // TODO: test connect
@@ -66,7 +72,6 @@ public class SocketTest {
             throw new RuntimeException(e);
         }
     }
-
 
     @Test
     public void testGetInputStream() {

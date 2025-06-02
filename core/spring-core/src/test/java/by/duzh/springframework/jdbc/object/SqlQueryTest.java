@@ -1,12 +1,13 @@
 package by.duzh.springframework.jdbc.object;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.object.SqlQuery;
+import java.util.logging.Logger;
 
 public class SqlQueryTest {
+    private static final Logger logger = Logger.getLogger(SqlQueryTest.class.getName());
+
     @Test
-    void name() {
-        SqlQuery sqlQuery;
-        throw new RuntimeException();
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

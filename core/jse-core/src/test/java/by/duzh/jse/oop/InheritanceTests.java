@@ -1,7 +1,7 @@
 package by.duzh.jse.oop;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 class SuperClass {
     public int a = 1;
@@ -68,34 +68,34 @@ public class InheritanceTests {
     public void testCreate() {
         // create a superclass
         SuperClass sup = new SuperClass();
-        Assert.assertEquals(4, sup.getD());
+        Assertions.assertEquals(4, sup.getD());
         sup = new SuperClass(10);
-        Assert.assertEquals(10, sup.getD());
+        Assertions.assertEquals(10, sup.getD());
 
         // create a subclass
         SubClass sub = new SubClass();
-        Assert.assertEquals(4, sub.getD());
-        Assert.assertEquals(6, sub.getF());
+        Assertions.assertEquals(4, sub.getD());
+        Assertions.assertEquals(6, sub.getF());
 
         sub = new SubClass(100);
-        Assert.assertEquals(4, sub.getD());
-        Assert.assertEquals(100, sub.getF());
+        Assertions.assertEquals(4, sub.getD());
+        Assertions.assertEquals(100, sub.getF());
 
         sub = new SubClass(1_000, 2_000);
-        Assert.assertEquals(1_000, sub.getD());
-        Assert.assertEquals(2_000, sub.getF());
+        Assertions.assertEquals(1_000, sub.getD());
+        Assertions.assertEquals(2_000, sub.getF());
     }
 
     @Test
     public void testAccessSuperClassMembers() {
         SubClass subClass = new SubClass();
 
-        Assert.assertEquals(1, subClass.a);
-        Assert.assertEquals(2, subClass.b);
-        Assert.assertEquals(3, subClass.c);
+        Assertions.assertEquals(1, subClass.a);
+        Assertions.assertEquals(2, subClass.b);
+        Assertions.assertEquals(3, subClass.c);
 
         // 'd' has private access in 'by.duzh.jse.oop.SuperClass'
-        // Assert.assertEquals(4, subClass.d);
+        // Assertions.assertEquals(4, subClass.d);
     }
 
     @Test
@@ -107,21 +107,21 @@ public class InheritanceTests {
     @Test
     public void testSuperForFields() {
         SuperClass sup = new SuperClass();
-        Assert.assertEquals(7, sup.h);
+        Assertions.assertEquals(7, sup.h);
 
         SubClass sub = new SubClass();
-        Assert.assertEquals(8, sub.h);
+        Assertions.assertEquals(8, sub.h);
 
         sub = new SubClass();
-        Assert.assertEquals(8, sub.h);
+        Assertions.assertEquals(8, sub.h);
     }
 
     @Test
     public void testSuperForMethods() {
         SuperClass sup = new SuperClass();
-        Assert.assertEquals(10, sup.foo());
+        Assertions.assertEquals(10, sup.foo());
 
         SubClass sub = new SubClass();
-        Assert.assertEquals(100, sub.foo());
+        Assertions.assertEquals(100, sub.foo());
     }
 }

@@ -1,8 +1,8 @@
 package by.duzh.jse.nio.file.attribute;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,7 +16,7 @@ import static by.duzh.jse.nio.etc.Params.JAVA_HOME_DIR;
 public class BasicFileAttributesTest {
     private BasicFileAttributes dirAttributes, fileAttributes;
 
-    @Before
+    @BeforeEach
     public void init() throws IOException {
         dirAttributes = Files.readAttributes(Paths.get(JAVA_HOME_DIR), BasicFileAttributes.class);
         fileAttributes = Files.readAttributes(Paths.get(FILE_PATH), BasicFileAttributes.class);
@@ -25,28 +25,28 @@ public class BasicFileAttributesTest {
     @Test
     public void test() {
         FileTime time = fileAttributes.creationTime();
-        Assert.assertNotNull(time);
+        Assertions.assertNotNull(time);
 
         Object fileKey = fileAttributes.fileKey();
-        Assert.assertNull(fileKey);
-        Assert.assertNull(dirAttributes.fileKey());
+        Assertions.assertNull(fileKey);
+        Assertions.assertNull(dirAttributes.fileKey());
 
-        Assert.assertFalse(fileAttributes.isDirectory());
-        Assert.assertTrue(dirAttributes.isDirectory());
+        Assertions.assertFalse(fileAttributes.isDirectory());
+        Assertions.assertTrue(dirAttributes.isDirectory());
 
-        Assert.assertFalse(fileAttributes.isOther());
-        Assert.assertFalse(dirAttributes.isOther());
+        Assertions.assertFalse(fileAttributes.isOther());
+        Assertions.assertFalse(dirAttributes.isOther());
 
-        Assert.assertTrue(fileAttributes.isRegularFile());
-        Assert.assertFalse(dirAttributes.isRegularFile());
+        Assertions.assertTrue(fileAttributes.isRegularFile());
+        Assertions.assertFalse(dirAttributes.isRegularFile());
 
-        Assert.assertFalse(fileAttributes.isSymbolicLink());
-        Assert.assertFalse(dirAttributes.isSymbolicLink());
+        Assertions.assertFalse(fileAttributes.isSymbolicLink());
+        Assertions.assertFalse(dirAttributes.isSymbolicLink());
 
-        Assert.assertNotNull(fileAttributes.lastAccessTime());
-        Assert.assertNotNull(dirAttributes.lastAccessTime());
+        Assertions.assertNotNull(fileAttributes.lastAccessTime());
+        Assertions.assertNotNull(dirAttributes.lastAccessTime());
 
-        Assert.assertNotNull(fileAttributes.lastModifiedTime());
-        Assert.assertNotNull(dirAttributes.lastModifiedTime());
+        Assertions.assertNotNull(fileAttributes.lastModifiedTime());
+        Assertions.assertNotNull(dirAttributes.lastModifiedTime());
     }
 }

@@ -1,8 +1,8 @@
 package by.duzh.jse.util.container.collection;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
 import java.util.PriorityQueue;
@@ -11,7 +11,7 @@ import java.util.Queue;
 public class QueueTest {
     private Queue<Integer> queue;
 
-    @Before
+    @BeforeEach
     public void init() {
         queue = new PriorityQueue<>();
     }
@@ -19,47 +19,47 @@ public class QueueTest {
     @Test
     public void testElement() {
         queue.add(1);
-        Assert.assertEquals(1, queue.element().intValue());
+        Assertions.assertEquals(1, queue.element().intValue());
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testElementError() {
-        queue.element();
+        Assertions.assertThrows(NoSuchElementException.class, () -> queue.element());
     }
 
     @Test
     public void testOffer() {
-        Assert.assertTrue(queue.offer(1));
+        Assertions.assertTrue(queue.offer(1));
     }
 
     @Test
     public void testPeak() {
-        Assert.assertNull(queue.peek());
+        Assertions.assertNull(queue.peek());
 
         queue.add(1);
-        Assert.assertEquals(1, queue.peek().intValue());
+        Assertions.assertEquals(1, queue.peek().intValue());
     }
 
     @Test
     public void testPoll() {
-        Assert.assertNull(queue.poll());
+        Assertions.assertNull(queue.poll());
 
         queue.add(1);
-        Assert.assertEquals(1, queue.poll().intValue());
+        Assertions.assertEquals(1, queue.poll().intValue());
 
-        Assert.assertTrue(queue.isEmpty());
+        Assertions.assertTrue(queue.isEmpty());
     }
 
     @Test
     public void testRemove() {
         queue.add(1);
-        Assert.assertEquals(1, queue.remove().intValue());
+        Assertions.assertEquals(1, queue.remove().intValue());
 
-        Assert.assertTrue(queue.isEmpty());
+        Assertions.assertTrue(queue.isEmpty());
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testRemoveError() {
-        queue.remove();
+        Assertions.assertThrows(NoSuchElementException.class, () -> queue.remove());
     }
 }

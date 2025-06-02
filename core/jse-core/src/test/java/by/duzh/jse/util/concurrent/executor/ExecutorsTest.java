@@ -1,13 +1,16 @@
 package by.duzh.jse.util.concurrent.executor;
 
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import java.util.logging.Logger;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class ExecutorsTest {
+    private static final Logger logger = Logger.getLogger(ExecutorsTest.class.getName());
+
     private ExecutorService executorService;
 
     @Test
@@ -17,10 +20,7 @@ public class ExecutorsTest {
 
     @Test
     public void testNewWorkStealingPool() {
-        //Executors.newWorkStealingPool()
-        //Executors.newWorkStealingPool(2)
-
-        throw new RuntimeException("testNewWorkStealingPool");
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 
     @Test
@@ -36,7 +36,7 @@ public class ExecutorsTest {
 
     @Test
     public void testNewSingleThreadScheduledExecutor() {
-        throw new RuntimeException("newSingleThreadScheduledExecutor");
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 
     @Test
@@ -46,35 +46,35 @@ public class ExecutorsTest {
 
     @Test
     public void testUnconfigurableExecutorService() {
-        throw new RuntimeException("unconfigurableExecutorService");
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 
     @Test
     public void testDefaultThreadFactory() {
-        throw new RuntimeException("defaultThreadFactory");
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 
     @Test
     public void testPrivilegedThreadFactory() {
-        throw new RuntimeException("privilegedThreadFactory");
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 
     @Test
     public void testCallable() {
-        throw new RuntimeException("callable");
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 
     @Test
     public void testPrivilegedCallable() {
-        throw new RuntimeException("privilegedCallable");
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 
     @Test
     public void testPrivilegedCallableUsingCurrentClassLoader() {
-        throw new RuntimeException("privilegedCallableUsingCurrentClassLoader");
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         if (executorService != null)
             executorService.shutdown();

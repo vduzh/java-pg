@@ -1,15 +1,15 @@
 package by.duzh.jse.util.container.map;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
 public class SortedMapTest {
     private SortedMap<Integer, String> map;
 
-    @Before
+    @BeforeEach
     public void init() {
         map = new TreeMap<>();
         map.put(3, "three");
@@ -20,33 +20,33 @@ public class SortedMapTest {
     @Test
     public void testComparatorDefault() {
         Comparator<? super Integer> comparator = map.comparator();
-        Assert.assertNull(comparator);
+        Assertions.assertNull(comparator);
     }
 
     @Test
     public void testComparator() {
         map = new TreeMap<>((a, b) -> b -a);
         Comparator<? super Integer> comparator = map.comparator();
-        Assert.assertNotNull(comparator);
+        Assertions.assertNotNull(comparator);
     }
 
     @Test
     public void testFirstKey() {
-        Assert.assertEquals(1, map.firstKey().intValue());
+        Assertions.assertEquals(1, map.firstKey().intValue());
     }
 
     @Test
     public void testHeadMap() {
         SortedMap<Integer, String> headMap = map.headMap(3);
 
-        Assert.assertEquals(2, headMap.size());
-        Assert.assertEquals("one", headMap.get(1));
-        Assert.assertEquals("two", headMap.get(2));
+        Assertions.assertEquals(2, headMap.size());
+        Assertions.assertEquals("one", headMap.get(1));
+        Assertions.assertEquals("two", headMap.get(2));
     }
 
     @Test
     public void testLastKey() {
-        Assert.assertEquals(3, map.lastKey().intValue());
+        Assertions.assertEquals(3, map.lastKey().intValue());
     }
 
     @Test
@@ -55,18 +55,17 @@ public class SortedMapTest {
 
         SortedMap<Integer, String> subMap = map.subMap(2, 4);
 
-        Assert.assertEquals(2, subMap.size());
-        Assert.assertEquals("two", subMap.get(2));
-        Assert.assertEquals("three", subMap.get(3));
+        Assertions.assertEquals(2, subMap.size());
+        Assertions.assertEquals("two", subMap.get(2));
+        Assertions.assertEquals("three", subMap.get(3));
     }
-
 
     @Test
     public void testTailMap() {
         SortedMap<Integer, String> tailMap = map.tailMap(2);
 
-        Assert.assertEquals(2, tailMap.size());
-        Assert.assertEquals("two", tailMap.get(2));
-        Assert.assertEquals("three", tailMap.get(3));
+        Assertions.assertEquals(2, tailMap.size());
+        Assertions.assertEquals("two", tailMap.get(2));
+        Assertions.assertEquals("three", tailMap.get(3));
     }
 }

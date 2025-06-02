@@ -1,8 +1,8 @@
 package by.duzh.jse.util;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -30,7 +30,7 @@ public class ObservableTest {
 
     private MyObservable observable;
 
-    @Before
+    @BeforeEach
     public void init() {
         observable = new MyObservable();
     }
@@ -42,12 +42,12 @@ public class ObservableTest {
 
     @Test
     public void testCountObservers() {
-        Assert.assertEquals(0, observable.countObservers());
+        Assertions.assertEquals(0, observable.countObservers());
 
         observable.addObserver((observable, obj) -> System.out.println("foo"));
         observable.addObserver((observable, obj) -> System.out.println("bar"));
 
-        Assert.assertEquals(2, observable.countObservers());
+        Assertions.assertEquals(2, observable.countObservers());
     }
 
     @Test
@@ -55,22 +55,22 @@ public class ObservableTest {
         Observer observer = (observable, obj) -> System.out.println("foo");
         observable.addObserver(observer);
 
-        Assert.assertEquals(1, observable.countObservers());
+        Assertions.assertEquals(1, observable.countObservers());
         observable.deleteObserver(observer);
-        Assert.assertEquals(0, observable.countObservers());
+        Assertions.assertEquals(0, observable.countObservers());
     }
 
     @Test
     public void testDeleteObservers() {
-        Assert.assertEquals(0, observable.countObservers());
+        Assertions.assertEquals(0, observable.countObservers());
 
         observable.addObserver((observable, obj) -> System.out.println("foo"));
         observable.addObserver((observable, obj) -> System.out.println("bar"));
 
-        Assert.assertEquals(2, observable.countObservers());
+        Assertions.assertEquals(2, observable.countObservers());
 
         observable.deleteObservers();
-        Assert.assertEquals(0, observable.countObservers());
+        Assertions.assertEquals(0, observable.countObservers());
     }
 
     @Test
@@ -80,11 +80,11 @@ public class ObservableTest {
 
     @Test
     public void testHasChanged() {
-        Assert.assertFalse(observable.hasChanged());
+        Assertions.assertFalse(observable.hasChanged());
 
         observable.doSomething("");
 
-        Assert.assertTrue(observable.hasChanged());
+        Assertions.assertTrue(observable.hasChanged());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ObservableTest {
         observable.doSomething("");
         observable.notifyObservers("foo");
 
-        Assert.assertEquals("foo", observer.getValue());
+        Assertions.assertEquals("foo", observer.getValue());
     }
 
 

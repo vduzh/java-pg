@@ -1,8 +1,8 @@
 package by.duzh.jse.util.stream;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -15,7 +15,7 @@ public class BaseStreamTests {
 
     private BaseStream<Integer, Stream<Integer>> stream;
 
-    @Before
+    @BeforeEach
     public void init() {
         stream = Arrays.stream(ARRAY_SOURCE);
     }
@@ -26,8 +26,8 @@ public class BaseStreamTests {
 
     @Test
     public void testIsParallel() {
-        Assert.assertFalse(stream.isParallel());
-        Assert.assertTrue(stream.parallel().isParallel());
+        Assertions.assertFalse(stream.isParallel());
+        Assertions.assertTrue(stream.parallel().isParallel());
     }
 
     @Test
@@ -45,13 +45,13 @@ public class BaseStreamTests {
     @Test
     public void testParallel() {
         Stream<Integer> parallel = stream.parallel();
-        Assert.assertTrue(parallel.isParallel());
+        Assertions.assertTrue(parallel.isParallel());
     }
 
     @Test
     public void testSequential() {
         Stream<Integer> sequential = stream.parallel().sequential();
-        Assert.assertFalse(sequential.isParallel());
+        Assertions.assertFalse(sequential.isParallel());
     }
 
     @Test

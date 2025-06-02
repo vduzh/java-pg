@@ -1,8 +1,8 @@
 package by.duzh.jse.util.time;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Time;
 import java.util.Arrays;
@@ -16,7 +16,7 @@ public class TimeZoneTest {
 
     private static final String CURRENT_TIMEZONE_ID = "Europe/Minsk";
 
-    @Before
+    @BeforeEach
     public void init() {
         timeZone = TimeZone.getDefault();
     }
@@ -24,73 +24,91 @@ public class TimeZoneTest {
     @Test
     public void testGeID() {
         String id = timeZone.getID();
-        Assert.assertEquals(CURRENT_TIMEZONE_ID, id);
+        Assertions.assertEquals(CURRENT_TIMEZONE_ID, id);
     }
 
     @Test
     public void testGetAvailableIDs() {
         String[] availableIDs = TimeZone.getAvailableIDs();
-        Assert.assertTrue(Arrays.asList(availableIDs).contains(CURRENT_TIMEZONE_ID));
+        Assertions.assertTrue(availableIDs.length > 0);
+        Assertions.assertTrue(Arrays.asList(availableIDs).contains(CURRENT_TIMEZONE_ID));
 
-        //TODO: the
-        availableIDs = TimeZone.getAvailableIDs(2);
-        // System.out.println(Arrays.asList(availableIDs));
-        Assert.assertTrue(Arrays.asList(availableIDs).contains(CURRENT_TIMEZONE_ID));
+        // Получаем ID для смещения UTC+3
+        availableIDs = TimeZone.getAvailableIDs(3 * 60 * 60 * 1000);
+        Assertions.assertTrue(availableIDs.length > 0);
+        Assertions.assertTrue(Arrays.asList(availableIDs).contains("Europe/Moscow"));
     }
 
     @Test
     public void testGetOffset() {
         int offset = timeZone.getOffset(1, 2020, Calendar.OCTOBER, 27, Calendar.WEDNESDAY, 55);
+        Assertions.assertEquals(timeZone.getRawOffset(), offset);
     }
 
     @Test
     public void testGetRawOffset() {
         int offset = timeZone.getRawOffset();
+        Assertions.assertEquals(3 * 60 * 60 * 1000, offset); // UTC+3 для Europe/Minsk
     }
 
     @Test
     public void testGetTimeZone() {
         TimeZone timeZone = TimeZone.getTimeZone(CURRENT_TIMEZONE_ID);
+        Assertions.assertEquals(CURRENT_TIMEZONE_ID, timeZone.getID());
+        Assertions.assertEquals(3 * 60 * 60 * 1000, timeZone.getRawOffset());
     }
 
     @Test
     public void testInDaylightTime() {
-        boolean b = timeZone.inDaylightTime(new Date());
+        boolean isDST = timeZone.inDaylightTime(new Date());
+        Assertions.assertFalse(isDST); // Europe/Minsk не использует DST с 2011 года
     }
 
     @Test
     public void testSetDefault() {
-        TimeZone newTimeZone = TimeZone.getTimeZone("Europe/Berlin");
-        TimeZone.setDefault(newTimeZone);
+        TimeZone originalTimeZone = TimeZone.getDefault();
+        try {
+            TimeZone newTimeZone = TimeZone.getTimeZone("Europe/Berlin");
+            TimeZone.setDefault(newTimeZone);
+            Assertions.assertEquals("Europe/Berlin", TimeZone.getDefault().getID());
+        } finally {
+            TimeZone.setDefault(originalTimeZone);
+        }
     }
 
     @Test
     public void testSetId() {
-        //TODO: not clear how to use it
-        //timeZone.setID();
+        String originalId = timeZone.getID();
+        timeZone.setID("Europe/London");
+        Assertions.assertEquals("Europe/London", timeZone.getID());
+        timeZone.setID(originalId);
     }
 
     @Test
     public void testSetRawOffset() {
-        //TODO: not clear how to use it
-        //timeZone.setRawOffset();
+        int originalOffset = timeZone.getRawOffset();
+        timeZone.setRawOffset(2 * 60 * 60 * 1000); // UTC+2
+        Assertions.assertEquals(2 * 60 * 60 * 1000, timeZone.getRawOffset());
+        timeZone.setRawOffset(originalOffset);
     }
 
     @Test
     public void testToZoneId() {
-        //TODO: write tests
-        timeZone.toZoneId();
+        java.time.ZoneId zoneId = timeZone.toZoneId();
+        Assertions.assertEquals(CURRENT_TIMEZONE_ID, zoneId.getId());
     }
 
     @Test
     public void testUseDaylightTime() {
-        //TODO: write tests
-        timeZone.useDaylightTime();
+        boolean usesDST = timeZone.useDaylightTime();
+        Assertions.assertFalse(usesDST); // Europe/Minsk не использует DST с 2011 года
     }
 
     @Test
     public void testClone() {
-        timeZone.clone();
+        TimeZone clonedTimeZone = (TimeZone) timeZone.clone();
+        Assertions.assertEquals(timeZone.getID(), clonedTimeZone.getID());
+        Assertions.assertEquals(timeZone.getRawOffset(), clonedTimeZone.getRawOffset());
     }
 
 }

@@ -1,7 +1,7 @@
 package by.duzh.jse.core;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 public class SwitchTest {
 
@@ -28,9 +28,9 @@ public class SwitchTest {
 
     @Test
     public void testSwitch() throws Exception {
-        Assert.assertEquals("FIRST", _testSwitch(2));
-        Assert.assertEquals("SECOND", _testSwitch(5));
-        Assert.assertEquals("UNKNOWN", _testSwitch(10));
+        Assertions.assertEquals("FIRST", _testSwitch(2));
+        Assertions.assertEquals("SECOND", _testSwitch(5));
+        Assertions.assertEquals("UNKNOWN", _testSwitch(10));
     }
 
     private String _testJDK12SwitchExpression(int value) {
@@ -46,9 +46,9 @@ public class SwitchTest {
 
     @Test
     public void testJDK12SwitchExpression() throws Exception {
-        Assert.assertEquals("FIRST", _testJDK12SwitchExpression(2));
-        Assert.assertEquals("SECOND", _testJDK12SwitchExpression(5));
-        Assert.assertEquals("UNKNOWN", _testJDK12SwitchExpression(10));
+        Assertions.assertEquals("FIRST", _testJDK12SwitchExpression(2));
+        Assertions.assertEquals("SECOND", _testJDK12SwitchExpression(5));
+        Assertions.assertEquals("UNKNOWN", _testJDK12SwitchExpression(10));
     }
 
     private String _testJDK13Switch(int value) {
@@ -61,9 +61,9 @@ public class SwitchTest {
 
     @Test
     public void testJDK13Switch() throws Exception {
-        Assert.assertEquals("FIRST", _testJDK13Switch(2));
-        Assert.assertEquals("SECOND", _testJDK13Switch(5));
-        Assert.assertEquals("UNKNOWN", _testJDK13Switch(10));
+        Assertions.assertEquals("FIRST", _testJDK13Switch(2));
+        Assertions.assertEquals("SECOND", _testJDK13Switch(5));
+        Assertions.assertEquals("UNKNOWN", _testJDK13Switch(10));
     }
 
     private String _testJDK13SwitchWithYield(int value) {
@@ -84,8 +84,8 @@ public class SwitchTest {
 
     @Test
     public void testJDK13SwitchWithYield() throws Exception {
-        Assert.assertEquals("FIRST", _testJDK13SwitchWithYield(2));
-        Assert.assertEquals("SECOND", _testJDK13SwitchWithYield(5));
-        Assert.assertEquals("UNKNOWN", _testJDK13SwitchWithYield(10));
+        Assertions.assertEquals("FIRST", _testJDK13SwitchWithYield(2));
+        Assertions.assertEquals("SECOND", _testJDK13SwitchWithYield(5));
+        Assertions.assertEquals("UNKNOWN", _testJDK13SwitchWithYield(10));
     }
 }

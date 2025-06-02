@@ -1,8 +1,8 @@
 package by.duzh.jse.util.container.map;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
@@ -11,7 +11,7 @@ import java.util.*;
 public class HashTableTest {
     private Hashtable<Integer, String> hashtable;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         hashtable = new Hashtable<>();
     }
@@ -23,7 +23,7 @@ public class HashTableTest {
         map.put(2, "2");
 
         hashtable = new Hashtable<>(map);
-        Assert.assertEquals(2, hashtable.size());
+        Assertions.assertEquals(2, hashtable.size());
     }
 
     @Test
@@ -32,40 +32,42 @@ public class HashTableTest {
 
         hashtable.clear();
 
-        Assert.assertTrue(hashtable.isEmpty());
+        Assertions.assertTrue(hashtable.isEmpty());
     }
 
     @Test
     public void testContains() {
-        Assert.assertFalse(hashtable.contains("one"));
+        Assertions.assertFalse(hashtable.contains("one"));
         hashtable.put(1, "one");
-        Assert.assertTrue(hashtable.contains("one"));
+        Assertions.assertTrue(hashtable.contains("one"));
     }
 
     @Test
     public void testContainsKey() {
-        Assert.assertFalse(hashtable.containsKey(1));
+        Assertions.assertFalse(hashtable.containsKey(1));
         hashtable.put(1, "one");
-        Assert.assertTrue(hashtable.containsKey(1));
+        Assertions.assertTrue(hashtable.containsKey(1));
     }
 
     @Test
     public void testContainsValue() {
-        Assert.assertFalse(hashtable.containsValue("one"));
+        Assertions.assertFalse(hashtable.containsValue("one"));
         hashtable.put(1, "one");
-        Assert.assertTrue(hashtable.containsValue("one"));
+        Assertions.assertTrue(hashtable.containsValue("one"));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testPut() {
         hashtable.put(1, "one");
-        hashtable.put(null, null);
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            hashtable.put(null, null);
+        });
     }
 
     @Test
     public void testGet() {
         hashtable.put(1, "one");
-        Assert.assertEquals("one", hashtable.get(1));
+        Assertions.assertEquals("one", hashtable.get(1));
     }
 
     @Test
@@ -73,7 +75,7 @@ public class HashTableTest {
         hashtable.put(1, "one");
         String s = hashtable.remove(1);
 
-        Assert.assertEquals("one", s);
-        Assert.assertTrue(hashtable.isEmpty());
+        Assertions.assertEquals("one", s);
+        Assertions.assertTrue(hashtable.isEmpty());
     }
 }

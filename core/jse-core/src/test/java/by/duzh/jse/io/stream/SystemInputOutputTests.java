@@ -1,7 +1,7 @@
 package by.duzh.jse.io.stream;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.*;
 
@@ -15,7 +15,7 @@ public class SystemInputOutputTests {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             int value;
             while ((value = reader.read()) != -1) {
-                Assert.assertTrue('t' == value || 'e' == value);
+                Assertions.assertTrue('t' == value || 'e' == value);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -32,7 +32,7 @@ public class SystemInputOutputTests {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             String s;
             while ((s = reader.readLine()) != null) {
-                Assert.assertTrue("first".equals(s) || "line".equals(s));
+                Assertions.assertTrue("first".equals(s) || "line".equals(s));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,7 +49,7 @@ public class SystemInputOutputTests {
         System.setOut(new PrintStream(os));
 
         System.out.print("test");
-        Assert.assertEquals("test", os.toString());
+        Assertions.assertEquals("test", os.toString());
 
         System.setOut(writer);
     }

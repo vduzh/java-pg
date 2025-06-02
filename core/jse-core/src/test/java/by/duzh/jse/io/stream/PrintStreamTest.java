@@ -1,7 +1,7 @@
 package by.duzh.jse.io.stream;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -33,7 +33,7 @@ public class PrintStreamTest {
         try (ByteArrayOutputStream os = new ByteArrayOutputStream(); PrintStream ps = new PrintStream(os)) {
             ps.println(s);
             ps.println(s);
-            Assert.assertEquals(s + ls + s + ls, new String(os.toByteArray()));
+            Assertions.assertEquals(s + ls + s + ls, new String(os.toByteArray()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -45,7 +45,7 @@ public class PrintStreamTest {
         try (ByteArrayOutputStream os = new ByteArrayOutputStream(); PrintStream ps = new PrintStream(os)) {
             ps.print(s);
             ps.print(s);
-            Assert.assertEquals(s + s, new String(os.toByteArray()));
+            Assertions.assertEquals(s + s, new String(os.toByteArray()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -56,7 +56,7 @@ public class PrintStreamTest {
         try (ByteArrayOutputStream os = new ByteArrayOutputStream(); PrintStream ps = new PrintStream(os)) {
             ps.printf("%s World!", "Hello");
             ps.printf("%s World!", "Bye");
-            Assert.assertEquals("Hello World!Bye World!", new String(os.toByteArray()));
+            Assertions.assertEquals("Hello World!Bye World!", new String(os.toByteArray()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

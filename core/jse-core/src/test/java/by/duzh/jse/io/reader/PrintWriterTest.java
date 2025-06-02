@@ -1,7 +1,7 @@
 package by.duzh.jse.io.reader;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.CharArrayWriter;
@@ -31,7 +31,7 @@ public class PrintWriterTest {
         printWriter.println(s);
         printWriter.println(s);
 
-        Assert.assertEquals(s + ls + s + ls, new String(writer.toCharArray()));
+        Assertions.assertEquals(s + ls + s + ls, new String(writer.toCharArray()));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class PrintWriterTest {
         printWriter.print(s);
         printWriter.print(s);
 
-        Assert.assertEquals(s + s, new String(writer.toCharArray()));
+        Assertions.assertEquals(s + s, new String(writer.toCharArray()));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class PrintWriterTest {
         PrintWriter printWriter = new PrintWriter(writer);
         printWriter.printf("%s World!", "Hello");
         printWriter.printf("%s World!", "Bye");
-        Assert.assertEquals("Hello World!Bye World!", new String(writer.toCharArray()));
+        Assertions.assertEquals("Hello World!Bye World!", new String(writer.toCharArray()));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class PrintWriterTest {
         CharArrayWriter writer = new CharArrayWriter();
         PrintWriter printWriter = new PrintWriter(writer);
         PrintWriter printWriter1 = printWriter.format("%s World!", "Hello");
-        Assert.assertEquals(printWriter, printWriter1);
-        Assert.assertEquals("Hello World!", new String(writer.toCharArray()));
+        Assertions.assertEquals(printWriter, printWriter1);
+        Assertions.assertEquals("Hello World!", new String(writer.toCharArray()));
     }
 }

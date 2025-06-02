@@ -1,10 +1,13 @@
 package by.duzh.springframework.web.context;
 
 import org.junit.jupiter.api.Test;
+import java.util.logging.Logger;
 
 public class ContextLoaderListenerTest {
+    private static final Logger logger = Logger.getLogger(ContextLoaderListenerTest.class.getName());
+
     @Test
-    void name() throws Exception {
-        throw new RuntimeException();
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

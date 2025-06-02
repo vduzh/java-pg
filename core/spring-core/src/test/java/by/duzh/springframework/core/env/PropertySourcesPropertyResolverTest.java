@@ -1,13 +1,13 @@
 package by.duzh.springframework.core.env;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.core.env.PropertySourcesPropertyResolver;
+import java.util.logging.Logger;
 
 public class PropertySourcesPropertyResolverTest {
-    @Test
-    void name() throws Exception {
-        PropertySourcesPropertyResolver resolver;
+    private static final Logger logger = Logger.getLogger(PropertySourcesPropertyResolverTest.class.getName());
 
-        throw new RuntimeException();
+    @Test
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

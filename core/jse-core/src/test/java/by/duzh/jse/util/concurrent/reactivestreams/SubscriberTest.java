@@ -1,8 +1,8 @@
 package by.duzh.jse.util.concurrent.reactivestreams;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 import java.util.Queue;
@@ -18,12 +18,12 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class SubscriberTest {
     private SubmissionPublisher<Long> publisher;
 
-    @Before
+    @BeforeEach
     public void init() throws Exception {
         publisher = new SubmissionPublisher<>();
     }
 
-    @After
+    @AfterEach
     public void destroy() throws Exception {
         publisher.close();
     }

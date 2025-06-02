@@ -1,7 +1,7 @@
 package by.duzh.jse;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class ArrayTests {
     @Test
@@ -9,30 +9,30 @@ public class ArrayTests {
         // init with default values
         // for classes
         Object[] objects = new Object[1];
-        Assert.assertNull(objects[0]);
+        Assertions.assertNull(objects[0]);
 
         // for primitives
         int[] numbers = new int[2];
-        Assert.assertEquals(0, numbers[0]);
-        Assert.assertEquals(0, numbers[1]);
+        Assertions.assertEquals(0, numbers[0]);
+        Assertions.assertEquals(0, numbers[1]);
 
         // init each element
         numbers = new int[1];
         numbers[0] = 1;
-        Assert.assertEquals(1, numbers[0]);
+        Assertions.assertEquals(1, numbers[0]);
 
         numbers = new int[]{10};
-        Assert.assertEquals(10, numbers[0]);
+        Assertions.assertEquals(10, numbers[0]);
 
         // init while creating
         int[] second = {100};
-        Assert.assertEquals(100, second[0]);
+        Assertions.assertEquals(100, second[0]);
     }
 
     @Test
     public void testMembers() throws Exception {
         int[] numbers = {1, 2, 3, 4, 5};
-        Assert.assertEquals(5, numbers.length);
+        Assertions.assertEquals(5, numbers.length);
     }
 
     @Test

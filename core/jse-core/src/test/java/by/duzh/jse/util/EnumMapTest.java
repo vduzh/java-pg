@@ -1,8 +1,8 @@
 package by.duzh.jse.util;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.EnumMap;
 import java.util.Iterator;
@@ -21,7 +21,7 @@ public class EnumMapTest {
 
     private EnumMap<TestEnum, String> map = new EnumMap<>(TestEnum.class);
 
-    @Before
+    @BeforeEach
     public void init() {
         map.put(TestEnum.TWO, "two");
         map.put(TestEnum.ONE, "one");
@@ -30,7 +30,7 @@ public class EnumMapTest {
 
     @Test
     public void testOrder() {
-        Assert.assertEquals("one", map.get(TestEnum.ONE));
-        Assert.assertEquals("three", map.get(TestEnum.THREE));
+        Assertions.assertEquals("one", map.get(TestEnum.ONE));
+        Assertions.assertEquals("three", map.get(TestEnum.THREE));
     }
 }

@@ -1,8 +1,8 @@
 package by.duzh.jse.nio.file;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -13,7 +13,7 @@ import static by.duzh.jse.nio.etc.Params.*;
 public class PathTest {
     private Path path;
 
-    @Before
+    @BeforeEach
     public void init() {
         path = Paths.get(JAVA_HOME_DIR, FILE_NAME);
     }
@@ -27,59 +27,59 @@ public class PathTest {
     @Test
     public void toFile() {
         File file = path.toFile();
-        Assert.assertEquals(file.getAbsolutePath(), path.toString());
+        Assertions.assertEquals(file.getAbsolutePath(), path.toString());
     }
 
     @Test
     public void testGetFileName() {
-        Assert.assertEquals("LICENSE", path.getFileName().toString());
+        Assertions.assertEquals("release", path.getFileName().toString());
     }
 
     @Test
     public void testGetNameCount() {
         path = Paths.get("/Java/jdk/jre/LICENSE");
 
-        Assert.assertEquals(4, path.getNameCount());
+        Assertions.assertEquals(4, path.getNameCount());
     }
 
     @Test
     public void testGetNameByIndex() {
         path = Paths.get("/Java/jdk/jre/LICENSE");
 
-        Assert.assertEquals("Java", path.getName(0).toString());
-        Assert.assertEquals("jdk", path.getName(1).toString());
-        Assert.assertEquals("jre", path.getName(2).toString());
-        Assert.assertEquals("LICENSE", path.getName(3).toString());
+        Assertions.assertEquals("Java", path.getName(0).toString());
+        Assertions.assertEquals("jdk", path.getName(1).toString());
+        Assertions.assertEquals("jre", path.getName(2).toString());
+        Assertions.assertEquals("LICENSE", path.getName(3).toString());
     }
 
     @Test
     public void testGetEndsWith() {
-        Assert.assertTrue(path.endsWith("LICENSE"));
-        Assert.assertTrue(path.endsWith(Paths.get("LICENSE")));
+        Assertions.assertTrue(path.endsWith("release"));
+        Assertions.assertTrue(path.endsWith(Paths.get("release")));
 
-        Assert.assertFalse(path.endsWith("SE"));
-        Assert.assertFalse(path.endsWith(Paths.get("SE")));
+        Assertions.assertFalse(path.endsWith("SE"));
+        Assertions.assertFalse(path.endsWith(Paths.get("SE")));
     }
 
     @Test
     public void testGetParent() {
         path = Paths.get("/Java/jdk/jre/LICENSE");
 
-        Assert.assertEquals("jre", path.getParent().getFileName().toString());
+        Assertions.assertEquals("jre", path.getParent().getFileName().toString());
     }
 
     @Test
     public void testGetRoot() {
         path = Paths.get("/Java/jdk/jre/LICENSE");
-        Assert.assertEquals("jre", path.getParent().getFileName().toString());
+        Assertions.assertEquals("jre", path.getParent().getFileName().toString());
     }
 
     @Test
     public void testIsAbsolute() {
-        Assert.assertTrue(path.isAbsolute());
+        Assertions.assertTrue(path.isAbsolute());
 
         path = Paths.get("/Java/jdk/jre/LICENSE");
-        Assert.assertFalse(path.isAbsolute());
+        Assertions.assertFalse(path.isAbsolute());
     }
 
     @Test
@@ -96,27 +96,27 @@ public class PathTest {
         // Absolute path
         Path path1 = Paths.get("/Java/jdk/jre/LICENSE");
         Path resolvedPath = path1.resolve(path);
-        Assert.assertEquals(path, resolvedPath);
+        Assertions.assertEquals(path, resolvedPath);
 
         // Relative path
         path1 = Paths.get(JAVA_HOME_DIR);
         resolvedPath = path1.resolve(Paths.get(FILE_NAME));
-        Assert.assertEquals(path, resolvedPath);
+        Assertions.assertEquals(path, resolvedPath);
     }
 
     @Test
     public void testGetStartsWith() {
         path = Paths.get("Java/jdk/jre/LICENSE");
 
-        Assert.assertTrue(path.startsWith("Java"));
-        Assert.assertTrue(path.startsWith(Paths.get("Java")));
+        Assertions.assertTrue(path.startsWith("Java"));
+        Assertions.assertTrue(path.startsWith(Paths.get("Java")));
 
-        Assert.assertFalse(path.startsWith("Ja"));
-        Assert.assertFalse(path.startsWith(Paths.get("Ja")));
+        Assertions.assertFalse(path.startsWith("Ja"));
+        Assertions.assertFalse(path.startsWith(Paths.get("Ja")));
     }
 
     @Test
     public void testToString() {
-        Assert.assertEquals(FILE_PATH, path.toString());
+        Assertions.assertEquals(FILE_PATH, path.toString());
     }
 }

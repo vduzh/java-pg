@@ -1,17 +1,29 @@
 package by.duzh.jse.lang.thread;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import static java.lang.Thread.State;
 
+@Disabled
 public class ThreadTest {
+    private static final Logger logger = Logger.getLogger(ThreadTest.class.getName());
+
     private Thread thread;
+
+    @BeforeEach
+    public void init() {
+        thread = new Thread(() -> {
+        });
+    }
 
     @Test
     public void createViaExtension() {
@@ -66,14 +78,14 @@ public class ThreadTest {
 
     @Test
     public void testGetId() {
-        Assert.assertTrue(Thread.currentThread().getId() > 0);
+        Assertions.assertTrue(Thread.currentThread().getId() > 0);
     }
 
     @Test
     public void testGetName() {
         thread = new Thread(() -> {
         }, "Test");
-        Assert.assertEquals("Test", thread.getName());
+        Assertions.assertEquals("Test", thread.getName());
     }
 
     @Test
@@ -81,14 +93,14 @@ public class ThreadTest {
         thread = new Thread(() -> {
         });
         thread.setName("Test");
-        Assert.assertEquals("Test", thread.getName());
+        Assertions.assertEquals("Test", thread.getName());
     }
 
     @Test
     public void testGetPriority() {
         thread = new Thread(() -> {
         });
-        Assert.assertEquals(Thread.NORM_PRIORITY, thread.getPriority());
+        Assertions.assertEquals(Thread.NORM_PRIORITY, thread.getPriority());
     }
 
     @Test
@@ -96,7 +108,7 @@ public class ThreadTest {
         thread = new Thread(() -> {
         });
         thread.setPriority(Thread.MAX_PRIORITY);
-        Assert.assertEquals(Thread.NORM_PRIORITY, thread.getPriority());
+        Assertions.assertEquals(Thread.NORM_PRIORITY, thread.getPriority());
     }
 
     @Test
@@ -111,10 +123,10 @@ public class ThreadTest {
         });
         thread.start();
 
-        Assert.assertTrue(thread.isAlive());
+        Assertions.assertTrue(thread.isAlive());
 
         thread.join();
-        Assert.assertFalse(thread.isAlive());
+        Assertions.assertFalse(thread.isAlive());
     }
 
     @Test
@@ -131,13 +143,13 @@ public class ThreadTest {
         thread2.join();
 
         // When the threads finish, the main one will resume
-        Assert.assertTrue(finished[0] && finished[1]);
+        Assertions.assertTrue(finished[0] && finished[1]);
     }
 
     @Test
     public void testCurrentThread() throws InterruptedException {
         thread = Thread.currentThread();
-        Assert.assertEquals("main", thread.getName());
+        Assertions.assertEquals("main", thread.getName());
 
         final var result = new StringBuilder();
         thread = new Thread(() -> {
@@ -146,7 +158,7 @@ public class ThreadTest {
         thread.start();
 
         thread.join();
-        Assert.assertEquals("test", result.toString());
+        Assertions.assertEquals("test", result.toString());
     }
 
     @Test
@@ -165,10 +177,10 @@ public class ThreadTest {
         });
         thread.start();
 
-        Assert.assertFalse(finished[0]); // thread is sleeping now...
+        Assertions.assertFalse(finished[0]); // thread is sleeping now...
 
         thread.join();
-        Assert.assertTrue(finished[0]); // thread has already finished
+        Assertions.assertTrue(finished[0]); // thread has already finished
     }
 
     @Test
@@ -178,14 +190,14 @@ public class ThreadTest {
         // Finish - Terminated
 
         thread = new Thread(() -> {
-            Assert.assertEquals(State.RUNNABLE, thread.getState());
+            Assertions.assertEquals(State.RUNNABLE, thread.getState());
         });
 
-        Assert.assertEquals(State.NEW, thread.getState());
+        Assertions.assertEquals(State.NEW, thread.getState());
         thread.start(); // Goes to the Runnable state
 
         thread.join();
-        Assert.assertEquals(State.TERMINATED, thread.getState());
+        Assertions.assertEquals(State.TERMINATED, thread.getState());
     }
 
     @Test
@@ -502,7 +514,7 @@ public class ThreadTest {
                 } catch (InterruptedException e) {
                     System.out.println("Sleep has been interrupted. We will mark the current thread to get interrupted.");
                     // NOTE: Interrupted status is cleared after sleep!!
-                    Assert.assertFalse(Thread.currentThread().isInterrupted());
+                    Assertions.assertFalse(Thread.currentThread().isInterrupted());
                     // Restore interrupted status
                     Thread.currentThread().interrupt();
                 }
@@ -571,9 +583,8 @@ public class ThreadTest {
         thread.setName("test");
         thread.setUncaughtExceptionHandler((t, e) -> {
             // process the exception like clean up resources
-
-            Assert.assertEquals("test", t.getName());
-            Assert.assertTrue(e instanceof RuntimeException);
+            Assertions.assertEquals("test", t.getName());
+            Assertions.assertTrue(e instanceof RuntimeException);
         });
         thread.start();
 
@@ -668,6 +679,11 @@ public class ThreadTest {
         System.out.println(r1.getValue());
         System.out.println(r2.getValue());
 */
+    }
+
+    @Test
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 
 }

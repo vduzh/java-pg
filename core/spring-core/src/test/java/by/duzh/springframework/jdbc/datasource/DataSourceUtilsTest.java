@@ -1,13 +1,13 @@
 package by.duzh.springframework.jdbc.datasource;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.datasource.DataSourceUtils;
+import java.util.logging.Logger;
 
 public class DataSourceUtilsTest {
-    @Test
-    void name() {
-        //DataSourceUtils
+    private static final Logger logger = Logger.getLogger(DataSourceUtilsTest.class.getName());
 
-        throw new RuntimeException();
+    @Test
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

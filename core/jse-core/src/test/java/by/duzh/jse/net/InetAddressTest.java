@@ -1,8 +1,8 @@
 package by.duzh.jse.net;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -12,7 +12,7 @@ public class InetAddressTest {
     private static final String TEST_HOST_NAME = "www.google.com";
     private InetAddress address;
 
-    @Before
+    @BeforeEach
     public void init() throws UnknownHostException {
         address = InetAddress.getByName(TEST_HOST_NAME);
     }
@@ -26,7 +26,7 @@ public class InetAddressTest {
         //System.out.println(address);
 
         InetAddress[] addresses = InetAddress.getAllByName(TEST_HOST_NAME);
-        Assert.assertTrue(addresses.length > 0);
+        Assertions.assertTrue(addresses.length > 0);
 
         //address = InetAddress.getByAddress("172.217.18.100");
         //System.out.println(address);
@@ -37,16 +37,16 @@ public class InetAddressTest {
         for (byte b : address.getAddress()) {
             // transfer to init and get unsigned value
             int i = b & 0xff;
-            Assert.assertTrue(i >= 0 && i <= 256);
+            Assertions.assertTrue(i >= 0 && i <= 256);
         }
 
         String hostAddress = address.getHostAddress(); // 172.217.18.100
         Pattern pattern = Pattern.compile("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$");
-        Assert.assertTrue(pattern.matcher(hostAddress).find());
+        Assertions.assertTrue(pattern.matcher(hostAddress).find());
 
-        Assert.assertEquals(TEST_HOST_NAME, address.getHostName());
+        Assertions.assertEquals(TEST_HOST_NAME, address.getHostName());
 
-        Assert.assertFalse(address.isMulticastAddress());
+        Assertions.assertFalse(address.isMulticastAddress());
 
         // etc...
     }

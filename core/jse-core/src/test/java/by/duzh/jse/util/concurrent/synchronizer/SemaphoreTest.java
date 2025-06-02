@@ -1,18 +1,20 @@
 package by.duzh.jse.util.concurrent.synchronizer;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.concurrent.*;
+import java.util.logging.Logger;
 
 // NOTE: Semaphore(1) == Lock!!!
 public class SemaphoreTest {
     // synchronizer
     private Semaphore semaphore;
+    private static final Logger logger = Logger.getLogger(SemaphoreTest.class.getName());
 
-    @Before
+    @BeforeEach
     public void init() {
         semaphore = new Semaphore(1);
     }
@@ -127,7 +129,7 @@ public class SemaphoreTest {
             executor.shutdown();
         }
 
-        Assert.assertEquals(100, counter.value);
+        Assertions.assertEquals(100, counter.value);
     }
 
     @Test
@@ -213,5 +215,23 @@ public class SemaphoreTest {
 
         executor.shutdown();
         executor.awaitTermination(10, TimeUnit.SECONDS);
+    }
+
+    @Test
+    public void testAcquireUninterruptibly() {
+        try {
+            semaphore.acquireUninterruptibly();
+        } catch (Exception e) {
+            logger.warning("WARNING!!! Test is not implemented yet!");
+        }
+    }
+
+    @Test
+    public void testTryAcquire() {
+        try {
+            semaphore.tryAcquire();
+        } catch (Exception e) {
+            logger.warning("WARNING!!! Test is not implemented yet!");
+        }
     }
 }

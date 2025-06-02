@@ -1,7 +1,7 @@
 package by.duzh.jse.nio.file;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
@@ -11,6 +11,6 @@ public class FileSystemsTest {
     @Test
     public void test() {
         FileSystem fs = FileSystems.getDefault();
-        Assert.assertNotNull(fs);
+        Assertions.assertNotNull(fs);
     }
 }

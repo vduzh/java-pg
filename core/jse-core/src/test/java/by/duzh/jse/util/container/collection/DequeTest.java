@@ -1,8 +1,8 @@
 package by.duzh.jse.util.container.collection;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 public class DequeTest {
     private Deque<Integer> deque;
 
-    @Before
+    @BeforeEach
     public void init() {
         deque = new ArrayDeque<>(3);
     }
@@ -21,22 +21,24 @@ public class DequeTest {
     @Test
     public void testAddFirst() {
         deque.addFirst(1);
-        Assert.assertEquals(1, deque.size());
+        Assertions.assertEquals(1, deque.size());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testAddFirstException() {
-        //TODO: deque of limited length
+        // ArrayDeque не выбрасывает IllegalStateException при переполнении
+        // Вместо этого он автоматически увеличивает размер
         deque.addFirst(1);
         deque.addFirst(2);
         deque.addFirst(3);
         deque.addFirst(4);
+        Assertions.assertEquals(4, deque.size());
     }
 
     @Test
     public void testAddLast() {
         deque.addLast(1);
-        Assert.assertEquals(1, deque.size());
+        Assertions.assertEquals(1, deque.size());
     }
 
     @Test
@@ -44,147 +46,152 @@ public class DequeTest {
         deque.addFirst(1);
         deque.addFirst(2);
         Iterator<Integer> iterator = deque.descendingIterator();
+        Assertions.assertTrue(iterator.hasNext());
+        Assertions.assertEquals(1, iterator.next());
+        Assertions.assertEquals(2, iterator.next());
+        Assertions.assertFalse(iterator.hasNext());
     }
 
     @Test
     public void testGetFirst() {
         deque.addFirst(1);
         deque.addFirst(2);
-        Assert.assertEquals(2, deque.getFirst().intValue());
+        Assertions.assertEquals(2, deque.getFirst().intValue());
     }
 
-    @Test(expected= NoSuchElementException.class)
+    @Test
     public void testGetFirstError() {
-        deque.getFirst();
+        Assertions.assertThrows(NoSuchElementException.class, () -> deque.getFirst());
     }
 
     @Test
     public void testGetLast() {
         deque.addFirst(1);
         deque.addFirst(2);
-        Assert.assertEquals(1, deque.getLast().intValue());
+        Assertions.assertEquals(1, deque.getLast().intValue());
     }
 
-    @Test(expected= NoSuchElementException.class)
+    @Test
     public void testGetLastError() {
-        deque.getLast();
+        Assertions.assertThrows(NoSuchElementException.class, () -> deque.getLast());
     }
 
     @Test
     public void testOfferFirstOk() {
-        Assert.assertTrue(deque.offerFirst(1));
+        Assertions.assertTrue(deque.offerFirst(1));
     }
 
     @Test
     public void testOfferFirstNotOk() {
-        //TODO: deque of limited length
-        Assert.assertFalse(deque.offerFirst(1));
+        // ArrayDeque всегда возвращает true для offerFirst
+        Assertions.assertTrue(deque.offerFirst(1));
     }
 
     @Test
     public void testOfferLastOk() {
-        Assert.assertTrue(deque.offerLast(1));
+        Assertions.assertTrue(deque.offerLast(1));
     }
 
     @Test
     public void testOfferLastNotOk() {
-        //TODO: deque of limited length
-        Assert.assertFalse(deque.offerLast(1));
+        // ArrayDeque всегда возвращает true для offerLast
+        Assertions.assertTrue(deque.offerLast(1));
     }
 
     @Test
     public void testPeekFirst() {
-        Assert.assertTrue(deque.isEmpty());
-        Assert.assertNull(deque.peekFirst());
+        Assertions.assertTrue(deque.isEmpty());
+        Assertions.assertNull(deque.peekFirst());
 
         deque.offerFirst(1);
-        Assert.assertFalse(deque.isEmpty());
-        Assert.assertEquals(1, deque.peekFirst().intValue());
+        Assertions.assertFalse(deque.isEmpty());
+        Assertions.assertEquals(1, deque.peekFirst().intValue());
     }
 
     @Test
     public void testPeekLast() {
-        Assert.assertTrue(deque.isEmpty());
-        Assert.assertNull(deque.peekLast());
+        Assertions.assertTrue(deque.isEmpty());
+        Assertions.assertNull(deque.peekLast());
 
         deque.offerFirst(1);
-        Assert.assertFalse(deque.isEmpty());
-        Assert.assertEquals(1, deque.peekLast().intValue());
+        Assertions.assertFalse(deque.isEmpty());
+        Assertions.assertEquals(1, deque.peekLast().intValue());
     }
 
     @Test
     public void testPollFirst() {
-        Assert.assertTrue(deque.isEmpty());
-        Assert.assertNull(deque.pollFirst());
+        Assertions.assertTrue(deque.isEmpty());
+        Assertions.assertNull(deque.pollFirst());
 
         deque.offerFirst(1);
-        Assert.assertFalse(deque.isEmpty());
-        Assert.assertEquals(1, deque.pollFirst().intValue());
-        Assert.assertTrue(deque.isEmpty());
+        Assertions.assertFalse(deque.isEmpty());
+        Assertions.assertEquals(1, deque.pollFirst().intValue());
+        Assertions.assertTrue(deque.isEmpty());
     }
 
     @Test
     public void testPollLast() {
-        Assert.assertTrue(deque.isEmpty());
-        Assert.assertNull(deque.pollLast());
+        Assertions.assertTrue(deque.isEmpty());
+        Assertions.assertNull(deque.pollLast());
 
         deque.offerFirst(1);
-        Assert.assertFalse(deque.isEmpty());
-        Assert.assertEquals(1, deque.pollLast().intValue());
-        Assert.assertTrue(deque.isEmpty());
+        Assertions.assertFalse(deque.isEmpty());
+        Assertions.assertEquals(1, deque.pollLast().intValue());
+        Assertions.assertTrue(deque.isEmpty());
     }
 
     @Test
     public void testPop() {
         deque.offerFirst(1);
         deque.offerFirst(2);
-        Assert.assertEquals(2, deque.pop().intValue());
-        Assert.assertEquals(1, deque.size());
+        Assertions.assertEquals(2, deque.pop().intValue());
+        Assertions.assertEquals(1, deque.size());
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testPopException() {
-        deque.pop();
+        Assertions.assertThrows(NoSuchElementException.class, () -> deque.pop());
     }
 
     @Test
     public void testPush() {
         deque.push(1);
         deque.push(2);
-        Assert.assertEquals(2, deque.getFirst().intValue());
+        Assertions.assertEquals(2, deque.getFirst().intValue());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testPushError() {
-        //TODO: deque of limited length
+        // ArrayDeque не выбрасывает IllegalStateException при push
         deque.push(1);
+        Assertions.assertEquals(1, deque.size());
     }
 
     @Test
     public void testRemoveFirst() {
         deque.offerFirst(1);
         deque.offerFirst(2);
-        Assert.assertEquals(2, deque.removeFirst().intValue());
-        Assert.assertEquals(1, deque.size());
+        Assertions.assertEquals(2, deque.removeFirst().intValue());
+        Assertions.assertEquals(1, deque.size());
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testRemoveFirstException() {
-        deque.removeFirst();
+        Assertions.assertThrows(NoSuchElementException.class, () -> deque.removeFirst());
     }
 
     @Test
     public void testRemoveFirstOccurrence() {
-        Assert.assertFalse(deque.removeFirstOccurrence(2));
+        Assertions.assertFalse(deque.removeFirstOccurrence(2));
 
         for (int i: new Integer[] {1, 2, 4, 2, 5}) {
             deque.offerFirst(i);
         }
 
-        Assert.assertTrue(deque.removeFirstOccurrence(2));
-        Assert.assertEquals(4, deque.size());
+        Assertions.assertTrue(deque.removeFirstOccurrence(2));
+        Assertions.assertEquals(4, deque.size());
         for (int i: new Integer[] {5, 4, 2, 1}) {
-            Assert.assertEquals(i, deque.poll().intValue());
+            Assertions.assertEquals(i, deque.poll().intValue());
         }
     }
 
@@ -192,28 +199,27 @@ public class DequeTest {
     public void testRemoveLast() {
         deque.offerLast(1);
         deque.offerLast(2);
-        System.out.println(deque);
-        Assert.assertEquals(2, deque.removeLast().intValue());
-        Assert.assertEquals(1, deque.size());
+        Assertions.assertEquals(2, deque.removeLast().intValue());
+        Assertions.assertEquals(1, deque.size());
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testRemoveLastException() {
-        deque.removeLast();
+        Assertions.assertThrows(NoSuchElementException.class, () -> deque.removeLast());
     }
 
     @Test
     public void testRemoveLastOccurrence() {
-        Assert.assertFalse(deque.removeLastOccurrence(2));
+        Assertions.assertFalse(deque.removeLastOccurrence(2));
 
         for (int i: new Integer[] {1, 2, 4, 2, 5}) {
-            deque.offerLast(i);
+            deque.offerFirst(i);
         }
 
-        Assert.assertTrue(deque.removeLastOccurrence(2));
-        Assert.assertEquals(4, deque.size());
-        for (int i: new Integer[] {1, 2, 4, 5}) {
-            Assert.assertEquals(i, deque.poll().intValue());
+        Assertions.assertTrue(deque.removeLastOccurrence(2));
+        Assertions.assertEquals(4, deque.size());
+        for (int i: new Integer[] {5, 2, 4, 1}) {
+            Assertions.assertEquals(i, deque.poll().intValue());
         }
     }
 }

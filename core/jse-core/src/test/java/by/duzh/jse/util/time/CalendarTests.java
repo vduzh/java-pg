@@ -1,8 +1,8 @@
 package by.duzh.jse.util.time;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 import java.util.*;
@@ -12,7 +12,7 @@ public class CalendarTests {
 
     private Calendar calendar;
 
-    @Before
+    @BeforeEach
     public void init() {
         calendar = Calendar.getInstance();
     }
@@ -34,28 +34,28 @@ public class CalendarTests {
         calendar.setTime(TEST_DATE);
 
         //TODO: have a look how date is stored under keys!!!
-        Assert.assertEquals(2001, calendar.get(Calendar.YEAR));
-        Assert.assertEquals(Calendar.SEPTEMBER, calendar.get(Calendar.MONTH));
-        Assert.assertEquals(9, calendar.get(Calendar.DAY_OF_MONTH));
-        Assert.assertEquals(4, calendar.get(Calendar.HOUR_OF_DAY));
-        Assert.assertEquals(46, calendar.get(Calendar.MINUTE));
-        Assert.assertEquals(39, calendar.get(Calendar.SECOND));
-        Assert.assertEquals(999, calendar.get(Calendar.MILLISECOND));
+        Assertions.assertEquals(2001, calendar.get(Calendar.YEAR));
+        Assertions.assertEquals(Calendar.SEPTEMBER, calendar.get(Calendar.MONTH));
+        Assertions.assertEquals(9, calendar.get(Calendar.DAY_OF_MONTH));
+        Assertions.assertEquals(4, calendar.get(Calendar.HOUR_OF_DAY));
+        Assertions.assertEquals(46, calendar.get(Calendar.MINUTE));
+        Assertions.assertEquals(39, calendar.get(Calendar.SECOND));
+        Assertions.assertEquals(999, calendar.get(Calendar.MILLISECOND));
     }
 
     @Test
     public void testGetTime() {
         calendar.setTime(TEST_DATE);
-        Assert.assertEquals(TEST_DATE, calendar.getTime());
+        Assertions.assertEquals(TEST_DATE, calendar.getTime());
     }
 
     @Test
     public void testIsSet() {
         calendar.setTime(TEST_DATE);
-        Assert.assertTrue(calendar.isSet(Calendar.YEAR));
+        Assertions.assertTrue(calendar.isSet(Calendar.YEAR));
 
         calendar.clear();
-        Assert.assertFalse(calendar.isSet(Calendar.YEAR));
+        Assertions.assertFalse(calendar.isSet(Calendar.YEAR));
     }
 
     @Test
@@ -67,23 +67,23 @@ public class CalendarTests {
     @Test
     public void testAfter() {
         calendar.setTime(TEST_DATE);
-        Assert.assertTrue(Calendar.getInstance().after(calendar));
+        Assertions.assertTrue(Calendar.getInstance().after(calendar));
     }
 
     @Test
     public void testBefore() {
         calendar.setTime(TEST_DATE);
-        Assert.assertTrue(calendar.before(Calendar.getInstance()));
+        Assertions.assertTrue(calendar.before(Calendar.getInstance()));
     }
 
     @Test
     public void testClear() {
         calendar.clear();
 
-        Assert.assertFalse(calendar.isSet(Calendar.YEAR));
-        Assert.assertEquals(1970, calendar.get(Calendar.YEAR));
-        Assert.assertEquals(0, calendar.get(Calendar.MONTH));
-        Assert.assertEquals(1, calendar.get(Calendar.DAY_OF_MONTH));
+        Assertions.assertFalse(calendar.isSet(Calendar.YEAR));
+        Assertions.assertEquals(1970, calendar.get(Calendar.YEAR));
+        Assertions.assertEquals(0, calendar.get(Calendar.MONTH));
+        Assertions.assertEquals(1, calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     @Test
@@ -93,8 +93,8 @@ public class CalendarTests {
         Calendar calendar1 = Calendar.getInstance();
         calendar1.setTime(TEST_DATE);
 
-        Assert.assertEquals(calendar, calendar1);
-        Assert.assertEquals(calendar.getTimeInMillis(), calendar1.getTimeInMillis());
+        Assertions.assertEquals(calendar, calendar1);
+        Assertions.assertEquals(calendar.getTimeInMillis(), calendar1.getTimeInMillis());
     }
 
     @Test
@@ -102,14 +102,14 @@ public class CalendarTests {
         calendar.setTime(TEST_DATE);
         Calendar calendar1 = (Calendar) calendar.clone();
 
-        Assert.assertEquals(calendar, calendar1);
-        Assert.assertEquals(calendar.getTimeInMillis(), calendar1.getTimeInMillis());
+        Assertions.assertEquals(calendar, calendar1);
+        Assertions.assertEquals(calendar.getTimeInMillis(), calendar1.getTimeInMillis());
     }
 
     @Test
     public void testGetAvailableLocales() {
         Locale[] locales = Calendar.getAvailableLocales();
-        Assert.assertTrue(Arrays.stream(locales)
+        Assertions.assertTrue(Arrays.stream(locales)
                 .anyMatch(locale -> locale.equals(new Locale("ru", "RU"))));
     }
 

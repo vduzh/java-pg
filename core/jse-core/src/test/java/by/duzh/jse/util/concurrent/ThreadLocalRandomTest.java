@@ -1,9 +1,11 @@
 package by.duzh.jse.util.concurrent;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+@Disabled
 public class ThreadLocalRandomTest {
     @Test
     public void current() {

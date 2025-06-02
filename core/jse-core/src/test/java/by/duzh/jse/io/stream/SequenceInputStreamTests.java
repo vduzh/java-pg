@@ -1,7 +1,7 @@
 package by.duzh.jse.io.stream;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.*;
 import java.util.Enumeration;
@@ -36,7 +36,7 @@ public class SequenceInputStreamTests {
             while ((i = is.read()) != -1) {
                 sb.append((char)i);
             }
-            Assert.assertEquals("Hello World!", sb.toString());
+            Assertions.assertEquals("Hello World!", sb.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,7 +53,7 @@ public class SequenceInputStreamTests {
             while ((i = is.read()) != -1) {
                 sb.append((char)i);
             }
-            Assert.assertEquals("Hello World!", sb.toString());
+            Assertions.assertEquals("Hello World!", sb.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -62,7 +62,7 @@ public class SequenceInputStreamTests {
     @Test
     public void testMarkSupported() {
         try (BufferedInputStream is = new BufferedInputStream(new ByteArrayInputStream(bytes))) {
-            Assert.assertTrue(is.markSupported());
+            Assertions.assertTrue(is.markSupported());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

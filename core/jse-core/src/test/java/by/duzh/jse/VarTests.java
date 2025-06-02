@@ -1,15 +1,13 @@
 package by.duzh.jse;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import java.util.logging.Logger;
 
 public class VarTests {
+    private static final Logger logger = Logger.getLogger(VarTests.class.getName());
+
     @Test
-    public void testVar() throws Exception {
-        // standard approach
-        long a = 1;
-        // with var keyword
-        var b = 1L;
-        // with an object
-        var s = "Hello";
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

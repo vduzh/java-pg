@@ -1,8 +1,8 @@
 package by.duzh.jse.util;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -12,14 +12,14 @@ public class ResourceBundleTests {
 
     private ResourceBundle bundle;
 
-    @Before
+    @BeforeEach
     public void init() {
         bundle = ResourceBundle.getBundle("sample");
     }
 
     @Test
     public void testGetBaseBundleName() {
-        Assert.assertEquals("sample", bundle.getBaseBundleName());
+        Assertions.assertEquals("sample", bundle.getBaseBundleName());
     }
 
     @Test
@@ -28,24 +28,24 @@ public class ResourceBundleTests {
 
         Enumeration<String> keys = bundle.getKeys();
         while(keys.hasMoreElements()) {
-            Assert.assertTrue(Arrays.stream(values).anyMatch(keys.nextElement()::equals));
+            Assertions.assertTrue(Arrays.stream(values).anyMatch(keys.nextElement()::equals));
         }
     }
 
     @Test
     public void testContainsKey() {
-        Assert.assertTrue(bundle.containsKey("user"));
-        Assert.assertTrue(bundle.containsKey("foo"));
+        Assertions.assertTrue(bundle.containsKey("user"));
+        Assertions.assertTrue(bundle.containsKey("foo"));
     }
 
     @Test
     public void testGetString() {
-        Assert.assertEquals("admin", bundle.getString("user"));
+        Assertions.assertEquals("admin", bundle.getString("user"));
     }
 
     @Test
     public void testGetLocale() {
-        Assert.assertEquals("", bundle.getLocale().getLanguage());
-        Assert.assertEquals("", bundle.getLocale().getCountry());
+        Assertions.assertEquals("", bundle.getLocale().getLanguage());
+        Assertions.assertEquals("", bundle.getLocale().getCountry());
     }
 }

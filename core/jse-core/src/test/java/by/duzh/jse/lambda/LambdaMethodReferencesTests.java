@@ -1,7 +1,7 @@
 package by.duzh.jse.lambda;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 
 class CustomStringUtils {
@@ -30,7 +30,7 @@ public class LambdaMethodReferencesTests {
     @Test
     public void testReferenceToStaticMethod() throws Exception {
         String result = LambdaAsArgumentDemo.stringOperation(CustomStringUtils::lowerCase, "Test");
-        Assert.assertEquals("test", result);
+        Assertions.assertEquals("test", result);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class LambdaMethodReferencesTests {
         CustomStringUtils utils = new CustomStringUtils();
 
         String result = LambdaAsArgumentDemo.stringOperation(utils::upperCase, "test");
-        Assert.assertEquals("TEST", result);
+        Assertions.assertEquals("TEST", result);
     }
 
     @Test
@@ -61,11 +61,11 @@ public class LambdaMethodReferencesTests {
 
         CustomFunctional<String> objStr = CustomArrayOps::countMatching;
         int res = objStr.func(new String[]{"1", "2", "1", "3", "3"}, "1");
-        Assert.assertEquals(2, res);
+        Assertions.assertEquals(2, res);
 
         CustomFunctional<Integer> objInt = CustomArrayOps::countMatching;
         res = objInt.func(new Integer[]{1, 2, 1, 3, 3, 4, 5, 3, 7, 8, 3}, 3);
-        Assert.assertEquals(4, res);
+        Assertions.assertEquals(4, res);
 
     }
 

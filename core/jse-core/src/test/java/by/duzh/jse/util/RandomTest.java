@@ -1,8 +1,8 @@
 package by.duzh.jse.util;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
@@ -12,7 +12,7 @@ import java.util.Random;
 public class RandomTest {
     private Random random;
 
-    @Before
+    @BeforeEach
     public void init() {
         random = new Random();
     }
@@ -61,13 +61,12 @@ public class RandomTest {
     public void testJDK8Ints() {
         OptionalInt optional = random.ints().findFirst();
 
-        Assert.assertEquals(10, random.ints(10).count());
-        Assert.assertEquals(10, random.ints(10, 10, 20).count());
+        Assertions.assertEquals(10, random.ints(10).count());
+        Assertions.assertEquals(10, random.ints(10, 10, 20).count());
     }
 
     @Test
     public void testJDK8Longs() {
         OptionalLong optional = random.longs().findFirst();
     }
-
 }

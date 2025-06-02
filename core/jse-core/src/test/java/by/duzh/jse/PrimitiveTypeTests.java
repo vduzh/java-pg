@@ -1,9 +1,10 @@
 package by.duzh.jse;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class PrimitiveTypeTests {
+
     @Test
     public void testIntegers() throws Exception {
         // from -128 to 127
@@ -42,9 +43,14 @@ public class PrimitiveTypeTests {
     @Test
     public void testBoolean() throws Exception {
         boolean t = true;
-        Assert.assertTrue(t);
+        Assertions.assertTrue(t);
 
         boolean f = false;
-        Assert.assertFalse(f);
+        Assertions.assertFalse(f);
+    }
+
+    @Test
+    public void test() {
+        System.out.println("Test not implemented: PrimitiveTypeTests");
     }
 }

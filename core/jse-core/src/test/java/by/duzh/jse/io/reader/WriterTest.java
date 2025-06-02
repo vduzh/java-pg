@@ -1,7 +1,7 @@
 package by.duzh.jse.io.reader;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.CharArrayWriter;
 import java.io.Reader;
@@ -34,14 +34,14 @@ public class WriterTest {
         // char
         try (Writer writer = new CharArrayWriter()) {
             Writer writer2 = writer.append('a');
-            Assert.assertEquals(writer, writer2);
+            Assertions.assertEquals(writer, writer2);
         }
 
         // CharSequence
         try (Writer writer = new CharArrayWriter()) {
             CharSequence charSequence = "foo";
             Writer writer2 = writer.append(charSequence);
-            Assert.assertEquals(writer, writer2);
+            Assertions.assertEquals(writer, writer2);
         }
     }
 

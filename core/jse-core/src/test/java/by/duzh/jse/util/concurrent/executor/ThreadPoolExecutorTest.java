@@ -1,7 +1,7 @@
 package by.duzh.jse.util.concurrent.executor;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionException;
@@ -14,7 +14,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class ThreadPoolExecutorTest {
 
-    @Test(expected = RejectedExecutionException.class)
+    @Test
     public void testSetRejectedDefaultAbortExecutionHandler() throws Exception {
         var executor = new ThreadPoolExecutor(2, 2, 0L, MILLISECONDS, new LinkedBlockingQueue<Runnable>(2));
 
@@ -31,7 +31,9 @@ public class ThreadPoolExecutorTest {
         }
 
         // - 1 task can not be placed to the queue as it is full -> RejectedExecutionException
-        executor.execute(() -> {
+        Assertions.assertThrows(RejectedExecutionException.class, () -> {
+            executor.execute(() -> {
+            });
         });
 
         executor.shutdown();
@@ -61,7 +63,7 @@ public class ThreadPoolExecutorTest {
         executor.awaitTermination(5, SECONDS);
 
         // the 5-th task has been discharged
-        Assert.assertEquals(4, count.intValue());
+        Assertions.assertEquals(4, count.intValue());
     }
 
     @Test
@@ -71,10 +73,9 @@ public class ThreadPoolExecutorTest {
 
         AtomicInteger count = new AtomicInteger(0);
         for (int i = 1; i <= 5; i++) {
-            int j = i;
-            // exception will be thrown here fot the 5-th task
+            final int taskId = i;
             executor.execute(() -> {
-                count.addAndGet(j);
+                count.addAndGet(taskId);
                 try {
                     SECONDS.sleep(2);
                 } catch (InterruptedException e) {
@@ -88,7 +89,11 @@ public class ThreadPoolExecutorTest {
         executor.shutdown();
         executor.awaitTermination(5, SECONDS);
 
-        Assert.assertEquals(9, count.intValue());
+        // При использовании DiscardOldestPolicy, старейшая задача в очереди отбрасывается
+        // и заменяется новой. В данном случае, задачи 1 и 2 выполняются в потоках,
+        // задачи 3 и 4 находятся в очереди, а задача 5 заменяет задачу 3.
+        // Итого: 1 + 2 + 4 + 5 = 12
+        Assertions.assertEquals(12, count.intValue());
     }
 
     @Test

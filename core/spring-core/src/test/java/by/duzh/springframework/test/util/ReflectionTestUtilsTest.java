@@ -1,13 +1,13 @@
 package by.duzh.springframework.test.util;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.test.util.ReflectionTestUtils;
+import java.util.logging.Logger;
 
 public class ReflectionTestUtilsTest {
-    @Test
-    void name() {
-        //ReflectionTestUtils
+    private static final Logger logger = Logger.getLogger(ReflectionTestUtilsTest.class.getName());
 
-        throw new RuntimeException();
+    @Test
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }

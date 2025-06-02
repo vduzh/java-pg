@@ -1,8 +1,8 @@
 package by.duzh.jse.lang.runtime;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.File;
 import java.util.UUID;
@@ -10,7 +10,7 @@ import java.util.UUID;
 public class ProcessBuilderTest {
     private ProcessBuilder builder;
 
-    @Before
+    @BeforeEach
     public void init() {
         builder = new ProcessBuilder().command("java", "--help");
     }
@@ -35,7 +35,7 @@ public class ProcessBuilderTest {
 
         process.waitFor();
 
-        Assert.assertTrue(new File(name).length() > 0);
+        Assertions.assertTrue(new File(name).length() > 0);
     }
 
     @Test

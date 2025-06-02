@@ -1,7 +1,7 @@
 package by.duzh.jse.util.time;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,7 +18,7 @@ public class TimerTaskTest {
 
     private MyTimerTask timerTask;
 
-    @Before
+    @BeforeEach
     public void init() {
         timer = new Timer();
         timerTask = new MyTimerTask();

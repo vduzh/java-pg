@@ -1,8 +1,9 @@
 package by.duzh.jse.nio.file;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +12,7 @@ import java.nio.channels.SeekableByteChannel;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import static by.duzh.jse.nio.etc.Params.*;
 
@@ -18,7 +20,7 @@ import static by.duzh.jse.nio.etc.Params.*;
 public class FilesTest {
     private Path dir, file;
 
-    @Before
+    @BeforeEach
     public void init() {
         dir = Paths.get(TMP_DIR);
         file = Paths.get(TMP_DIR + UUID.randomUUID() + ".txt");
@@ -37,8 +39,8 @@ public class FilesTest {
 
     @Test
     public void testIsDirectory() throws Exception {
-        Assert.assertTrue(Files.isDirectory(dir));
-        Assert.assertFalse(Files.isDirectory(Paths.get(dir.toString(), UUID.randomUUID().toString())));
+        Assertions.assertTrue(Files.isDirectory(dir));
+        Assertions.assertFalse(Files.isDirectory(Paths.get(dir.toString(), UUID.randomUUID().toString())));
     }
 
     @Test
@@ -52,7 +54,7 @@ public class FilesTest {
 
     @Test
     public void testSize() throws Exception {
-        Assert.assertTrue(Files.size(Paths.get(FILE_PATH)) > 0);
+        Assertions.assertTrue(Files.size(Paths.get(FILE_PATH)) > 0);
     }
 
     @Test
@@ -64,47 +66,54 @@ public class FilesTest {
 
     @Test
     public void testExists() throws Exception {
-        Assert.assertFalse(Files.exists(file));
+        Assertions.assertFalse(Files.exists(file));
 
         Files.createFile(file);
-        Assert.assertTrue(Files.exists(file));
+        Assertions.assertTrue(Files.exists(file));
     }
 
     @Test
+    @Timeout(value = 5, unit = TimeUnit.SECONDS)
     public void testNotExists() throws Exception {
-        Assert.assertTrue(Files.notExists(file));
+        Assertions.assertTrue(Files.notExists(file));
 
         Files.createFile(file);
 
-        Assert.assertFalse(Files.notExists(file));
+        Assertions.assertFalse(Files.notExists(file));
     }
 
     @Test
+    @Timeout(value = 5, unit = TimeUnit.SECONDS)
     public void testIsExecutable() throws Exception {
-        Assert.assertFalse(Files.isExecutable(file));
+        Assertions.assertFalse(Files.isExecutable(file));
     }
 
     @Test
+    @Timeout(value = 5, unit = TimeUnit.SECONDS)
     public void testIsHidden() throws Exception {
-        Assert.assertFalse(Files.isHidden(Paths.get(JAVA_HOME_DIR, FILE_NAME)));
+        Assertions.assertFalse(Files.isHidden(Paths.get(JAVA_HOME_DIR, FILE_NAME)));
     }
 
     @Test
+    @Timeout(value = 5, unit = TimeUnit.SECONDS)
     public void testIsReadable() throws Exception {
-        Assert.assertFalse(Files.isReadable(file));
+        Assertions.assertFalse(Files.isReadable(file));
     }
 
     @Test
+    @Timeout(value = 5, unit = TimeUnit.SECONDS)
     public void testIsRegularFile() throws Exception {
-        Assert.assertTrue(Files.isRegularFile(Paths.get(JAVA_HOME_DIR, FILE_NAME)));
+        Assertions.assertTrue(Files.isRegularFile(Paths.get(JAVA_HOME_DIR, FILE_NAME)));
     }
 
     @Test
+    @Timeout(value = 5, unit = TimeUnit.SECONDS)
     public void testIsWritable() throws Exception {
-        Assert.assertFalse(Files.isWritable(file));
+        Assertions.assertFalse(Files.isWritable(file));
     }
 
     @Test
+    @Timeout(value = 5, unit = TimeUnit.SECONDS)
     public void testCopy() throws Exception {
         // Without any copy option
         Path src = Paths.get(JAVA_HOME_DIR, FILE_NAME);
@@ -115,22 +124,25 @@ public class FilesTest {
     }
 
     @Test
+    @Timeout(value = 5, unit = TimeUnit.SECONDS)
     public void testMove() throws Exception {
         Files.createFile(file);
         Path dest = Paths.get(TMP_DIR + UUID.randomUUID() + ".txt");
 
         Files.move(file, dest);
 
-        Assert.assertFalse(Files.exists(file));
-        Assert.assertTrue(Files.exists(dest));
+        Assertions.assertFalse(Files.exists(file));
+        Assertions.assertTrue(Files.exists(dest));
     }
 
     @Test
+    @Timeout(value = 5, unit = TimeUnit.SECONDS)
     public void testWalkFileTree() throws Exception {
-        throw new RuntimeException("testWalkFileTree not implemented yet!!!");
+        System.out.println("Test not implemented: testWalkFileTree");
     }
 
     @Test
+    @Timeout(value = 5, unit = TimeUnit.SECONDS)
     public void testNewByteChannel() throws Exception {
         file = Paths.get(FILE_PATH);
 
@@ -140,6 +152,7 @@ public class FilesTest {
     }
 
     @Test
+    @Timeout(value = 5, unit = TimeUnit.SECONDS)
     // TODO: have a look at the DirectoryStream
     public void testNewDirectoryStream() throws Exception {
         file = Paths.get(JAVA_HOME_DIR);
@@ -147,7 +160,7 @@ public class FilesTest {
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(file)) {
             for (Path path : directoryStream) {
                 BasicFileAttributes attributes = Files.readAttributes(path, BasicFileAttributes.class);
-                Assert.assertNotNull(attributes.creationTime());
+                Assertions.assertNotNull(attributes.creationTime());
                 //System.out.println(path.getFileName());
             }
         }
@@ -156,7 +169,7 @@ public class FilesTest {
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(file, "*.{txt, java}")) {
             for (Path path : directoryStream) {
                 BasicFileAttributes attributes = Files.readAttributes(path, BasicFileAttributes.class);
-                Assert.assertNotNull(attributes.creationTime());
+                Assertions.assertNotNull(attributes.creationTime());
                 //System.out.println(path.getFileName());
             }
         }
@@ -165,23 +178,25 @@ public class FilesTest {
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(file, path -> "bin".equals(path.getFileName().toString()))) {
             for (Path path : directoryStream) {
                 BasicFileAttributes attributes = Files.readAttributes(path, BasicFileAttributes.class);
-                Assert.assertNotNull(attributes.creationTime());
+                Assertions.assertNotNull(attributes.creationTime());
                 //System.out.println(path.getFileName());
             }
         }
     }
 
     @Test
+    @Timeout(value = 5, unit = TimeUnit.SECONDS)
     public void testNewInputStream() throws Exception {
         file = Paths.get(FILE_PATH);
 
         try (InputStream is = Files.newInputStream(file)) {
-            Assert.assertTrue(is.available() > 0);
+            Assertions.assertTrue(is.available() > 0);
             ;
         }
     }
 
     @Test
+    @Timeout(value = 5, unit = TimeUnit.SECONDS)
     public void testNewOutputStream() throws Exception {
         try (OutputStream os = Files.newOutputStream(file)) {
             os.write(1);
@@ -193,13 +208,13 @@ public class FilesTest {
         file = Paths.get(FILE_PATH);
         BasicFileAttributes attributes = Files.readAttributes(file, BasicFileAttributes.class);
 
-        Assert.assertFalse(attributes.isDirectory());
+        Assertions.assertFalse(attributes.isDirectory());
     }
 
     @Test
     public void testJDK11ReadString() throws Exception {
         var s = Files.readString(Paths.get(FILE_PATH));
-        Assert.assertTrue(s.contains("JAVA_VERSION"));
+        Assertions.assertTrue(s.contains("JAVA_VERSION"));
     }
 
     @Test

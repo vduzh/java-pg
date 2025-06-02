@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.core.convert.support.GenericConversionService;
+import java.util.logging.Logger;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,6 +14,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GenericConverterTest {
+    private static final Logger logger = Logger.getLogger(GenericConverterTest.class.getName());
 
     /**
      * @see ArrayToCollectionConverter
@@ -42,5 +44,10 @@ public class GenericConverterTest {
 
         assertEquals(123, foo.getId());
         assertEquals("name-123", foo.getName());
+    }
+
+    @Test
+    public void test() {
+        logger.warning("WARNING!!! Test is not implemented yet!");
     }
 }
