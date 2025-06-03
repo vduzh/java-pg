@@ -11,7 +11,7 @@ public class BarDtoTest {
 
     @Test
     void shouldCreateNewDto() {
-        var foo = new FooDto(null, TEST_NAME);
+        var foo = new BarDto(null, TEST_NAME);
 
         assertThat(foo.id()).isNull();
         assertThat(foo.name()).isEqualTo(TEST_NAME);
@@ -19,7 +19,7 @@ public class BarDtoTest {
 
     @Test
     void shouldCreateNewDtoWithId() {
-        var foo = new FooDto(TEST_ID, TEST_NAME);
+        var foo = new BarDto(TEST_ID, TEST_NAME);
 
         assertThat(foo.id()).isEqualTo(TEST_ID);
         assertThat(foo.name()).isEqualTo(TEST_NAME);

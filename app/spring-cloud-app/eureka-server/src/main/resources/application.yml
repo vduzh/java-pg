@@ -3,12 +3,16 @@ spring:
     name: eureka-server
 server:
   port: 8761
+
 eureka:
+  instance:
+    #hostname: eureka-server-1 # Имя хоста для этого экземпляра Eureka Server
+    hostname: localhost
   client:
     register-with-eureka: false # no need to register itself
     fetch-registry: false
-    #service-url:
-    #  defaultZone: http://localhost:8761/eureka
+    #serviceUrl:
+    #defaultZone: http://eureka-server-2:8762/eureka/ # Регистрируемся в другом сервере
 logging:
   level:
     com.netflix.eureka: OFF

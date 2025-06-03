@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: bar-service
+server:
+  #port: 0 # will be set automatically
+  port: 8082
+
+eureka:
+  client:
+    serviceUrl:
+      # in local dev environment
+      defaultZone: http://localhost:8761/eureka
+      # in prod environment
+      #defaultZone: http://eureka-server-1.yourdomain.com:8761/eureka/,http://eureka-server-2.yourdomain.com:8761/eureka/
+
+logging:
+  level:
+    org.springframework.boot.actuate: DEBUG
+    org.springframework.web: DEBUG
