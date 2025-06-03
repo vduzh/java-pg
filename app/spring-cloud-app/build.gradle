@@ -1,3 +1,11 @@
-//plugins {
-//    id 'java'
-//}
+subprojects {
+    apply plugin: libs.plugins.springBoot.get().pluginId
+
+    group = 'by.duzh.pg.app.spring.cloud'
+
+    dependencies {
+        implementation platform(libs.spring.cloud.dependencies)
+
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+}
