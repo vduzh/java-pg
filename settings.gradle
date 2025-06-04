@@ -19,7 +19,8 @@ include 'core:junit5-core', 'core:mockito-core'
 //include 'core:spring-data-jpa-core'
 
 include 'app:spring-cloud-app'
-include 'app:spring-cloud-app:eureka-server', 'app:spring-cloud-app:foo-service', 'app:spring-cloud-app:bar-service'
+include 'app:spring-cloud-app:eureka-server', 'app:spring-cloud-app:api-gateway'
+include 'app:spring-cloud-app:foo-service', 'app:spring-cloud-app:bar-service'
 
 // Если подпроект находится не прямо в корне, а, например, в папке 'modules':
 // include 'modules:auth', 'modules:billing'
