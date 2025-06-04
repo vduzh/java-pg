@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("bar")
+@RequestMapping("bars")
 public class BarController {
 
     private static final BarDto[] BAR_DATA = {

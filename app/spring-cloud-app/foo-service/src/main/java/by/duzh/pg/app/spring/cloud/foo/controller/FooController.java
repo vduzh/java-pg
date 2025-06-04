@@ -10,13 +10,18 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("foo")
+@RequestMapping("/foos")
 public class FooController {
 
     private static final FooDto[] FOO_DATA = {
             new FooDto(1, "Foo 1"),
             new FooDto(2, "Foo 2")
     };
+
+    @GetMapping("/test")
+    public String test() {
+        return getClass() + "is working...";
+    }
 
     @GetMapping
     public List<FooDto> getAll() {
