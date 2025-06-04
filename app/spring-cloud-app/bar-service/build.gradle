@@ -1,9 +1,16 @@
+plugins {
+    alias(libs.plugins.lombok)
+}
+
 dependencies {
     implementation project(':lib:dto:bar'), project(':lib:dto:foo')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
-
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+    // Предпочтительно используете Spring Cloud OpenFeign для вызовов сервисов
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 }

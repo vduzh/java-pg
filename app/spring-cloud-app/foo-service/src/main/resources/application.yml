@@ -3,10 +3,14 @@ spring:
     name: foo-service
 
 server:
-  #port: 8081
   port: 0 # will be set automatically
+  #port: 8080
 
 eureka:
+  instance:
+    #hostname: localhost
+    # чтобы каждый экземпляр имел уникальный идентификатор
+    instance-id: ${spring.application.name}:${random.value}
   client:
     serviceUrl:
       # in local dev environment
@@ -14,8 +18,21 @@ eureka:
       # in prod environment
       #defaultZone: http://eureka-server-1.yourdomain.com:8761/eureka/,http://eureka-server-2.yourdomain.com:8761/eureka/
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
 logging:
   level:
+    root: INFO # Базовый уровень для всего приложения
     org.springframework.boot.actuate: DEBUG
     org.springframework.web: DEBUG
-
+    com.netflix.eureka: DEBUG # Установить уровень DEBUG для логирования Eureka Client
+    com.netflix.discovery: DEBUG # Установить уровень DEBUG для логирования Discovery
+    org.springframework.cloud.netflix.eureka: DEBUG # Для специфичных логов Spring Cloud Netflix Eureka
+    # org.springframework.cloud: DEBUG # Можно включить, если нужно больше логов от Spring Cloud в целом

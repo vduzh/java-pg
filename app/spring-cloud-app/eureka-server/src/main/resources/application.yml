@@ -13,7 +13,21 @@ eureka:
     fetch-registry: false
     #serviceUrl:
     #defaultZone: http://eureka-server-2:8762/eureka/ # Регистрируемся в другом сервере
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+
 logging:
   level:
-    com.netflix.eureka: OFF
-    com.netflix.discovery: OFF
+    root: INFO # Базовый уровень для всего приложения
+    com.netflix.eureka: DEBUG # Установить уровень DEBUG для логирования Eureka Server
+    com.netflix.discovery: DEBUG # Установить уровень DEBUG для логирования Discovery
+    org.springframework.cloud.netflix.eureka: DEBUG # Для специфичных логов Spring Cloud Netflix Eureka
+    # org.springframework.cloud: DEBUG # Можно включить, если нужно больше логов от Spring Cloud в целом

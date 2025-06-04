@@ -1,17 +1,19 @@
 package by.duzh.pg.app.spring.cloud.bar.controller;
 
+import by.duzh.pg.app.spring.cloud.bar.client.FooClient;
 import by.vduzh.pg.dto.bar.BarDto;
 import by.vduzh.pg.dto.foo.FooDto;
-import org.springframework.core.ParameterizedTypeReference;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("bars")
 public class BarController {
@@ -21,19 +23,25 @@ public class BarController {
             new BarDto(2, "Bar 2")
     };
 
-    private final WebClient.Builder webClientBuilder;
+    private final String instanceId;
+    private final FooClient fooClient;
 
-    public BarController(WebClient.Builder webClientBuilder) {
-        this.webClientBuilder = webClientBuilder;
+    public BarController(FooClient fooClient, @Value("${eureka.instance.instance-id}") String instanceId) {
+        this.fooClient = fooClient;
+        this.instanceId = instanceId;
     }
 
     @GetMapping
     public List<BarDto> getAll() {
+        logInstance();
+
         return List.of(BAR_DATA);
     }
 
     @GetMapping("/{id}")
     public BarDto getBar(@PathVariable int id) {
+        logInstance();
+
         return Arrays.stream(BAR_DATA)
                 .filter(fooDto -> fooDto.id() == id)
                 .findFirst()
@@ -45,14 +53,13 @@ public class BarController {
      * Spring Cloud LoadBalancer, which is integrated with Eureka, will find an available instance
      * and process a request.
      */
-    @GetMapping("/foo")
+    @GetMapping("/foos")
     public List<FooDto> getAllFoo() {
-        return webClientBuilder.build()
-                .get()
-                .uri("http://foo-service/foo")
-                .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<FooDto>>() {
-                })
-                .block();
+        logInstance();
+        return fooClient.getAll();
+    }
+
+    private void logInstance() {
+        log.info("Current instance: {}", instanceId);
     }
 }
