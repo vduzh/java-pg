@@ -2,8 +2,8 @@ spring:
   application:
     name: bar-service
 server:
-  #port: 0 # will be set automatically
-  port: 8082
+  #port: 8082
+  port: 0 # will be set automatically
 
 eureka:
   client:
