@@ -42,6 +42,8 @@ management:
   endpoint:
     health:
       show-details: always
+    gateway:
+      access: unrestricted
 
 logging:
   level:
