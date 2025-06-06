@@ -1,7 +1,22 @@
 spring:
   application:
+    # Имя сервиса, по которому Config Server найдет конфигурацию
     name: foo-service
+  config:
+    # Явно указываем, что хотим использовать Config Server
+    import: 'optional:configserver:'
+  cloud:
+    config:
+      discovery:
+        enabled: true # Включить обнаружение Config Server через Eureka
+        service-id: github-config-server # Имя Config Server в Eureka
+        #uri: http://localhost:8888 # Если не используете Eureka для Config Server
+      #profile: dev # Активный профиль (dev, prod и т.д.)
+      profile: prod
 
+#
+# Все остальные локальные настройки, которые не зависят от Config Server, также могут быть здесь.
+#
 server:
   port: 0 # will be set automatically
   #port: 8080

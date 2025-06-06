@@ -5,8 +5,9 @@ subprojects {
 
     dependencies {
         implementation platform(libs.spring.cloud.dependencies)
+        // Для мониторинга
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        // Для разработки
         implementation 'org.springframework.boot:spring-boot-devtools'
-
-        testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
 }
