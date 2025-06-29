@@ -22,6 +22,8 @@ include 'app:spring-cloud-app'
 include 'app:spring-cloud-app:eureka-server', 'app:spring-cloud-app:api-gateway', 'app:spring-cloud-app:github-config-server'
 include 'app:spring-cloud-app:foo-service', 'app:spring-cloud-app:bar-service'
 
+include 'app:spring-cloud-pet-app'
+
 // Если подпроект находится не прямо в корне, а, например, в папке 'modules':
 // include 'modules:auth', 'modules:billing'
 // project(':modules:auth').projectDir = file('modules/auth')
