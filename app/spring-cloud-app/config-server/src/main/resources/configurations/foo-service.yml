@@ -1,0 +1,4 @@
+foo:
+  title: This is Foo Microservice at the DEFAULT env
+  db:
+    url: "jdbc:postgresql://${app.db.host}:5432/foo-db"

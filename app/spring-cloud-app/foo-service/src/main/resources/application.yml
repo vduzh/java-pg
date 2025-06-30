@@ -1,46 +1,36 @@
+#
+# Все остальные локальные настройки, которые не зависят от Config Server, также могут быть здесь.
+#
+server.port: 0 # will be set automatically
+
 spring:
-  application:
-    # Имя сервиса, по которому Config Server найдет конфигурацию
-    name: foo-service
-  config:
-    # Явно указываем, что хотим использовать Config Server
-    import: 'optional:configserver:'
+  # Имя сервиса, по которому Config Server найдет конфигурацию
+  application.name: foo-service
+  # Явно указываем, что хотим использовать Config Server
+  config.import: 'optional:configserver:'
   cloud:
     config:
       discovery:
         enabled: true # Включить обнаружение Config Server через Eureka
-        service-id: github-config-server # Имя Config Server в Eureka
+        service-id: config-server # Имя Config Server в Eureka
         #uri: http://localhost:8888 # Если не используете Eureka для Config Server
-      #profile: dev # Активный профиль (dev, prod и т.д.)
-      profile: prod
-
-#
-# Все остальные локальные настройки, которые не зависят от Config Server, также могут быть здесь.
-#
-server:
-  port: 0 # will be set automatically
-  #port: 8080
+      # Говорит для какого профиля нужны настройки
+      profile: prod # Активный профиль (dev, prod и т.д.)
 
 eureka:
+  #hostname: localhost
+  # чтобы каждый экземпляр имел уникальный идентификатор
   instance:
-    #hostname: localhost
-    # чтобы каждый экземпляр имел уникальный идентификатор
     instance-id: ${spring.application.name}:${random.value}
   client:
     serviceUrl:
-      # in local dev environment
-      defaultZone: http://localhost:8761/eureka
-      # in prod environment
+      # In prod environment
       #defaultZone: http://eureka-server-1.yourdomain.com:8761/eureka/,http://eureka-server-2.yourdomain.com:8761/eureka/
+      defaultZone: http://localhost:8761/eureka # in local dev environment
 
 management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    health:
-      show-details: always
+  endpoints.web.exposure.include: '*'
+  endpoint.health.show-details: always
 
 logging:
   level:

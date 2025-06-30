@@ -10,16 +10,24 @@ pluginManagement {
 rootProject.name = 'java-pg'
 
 include 'core', 'lib', 'app'
+
 include 'lib:dto'
 include 'lib:dto:foo', 'lib:dto:bar'
+include 'lib:dto:customer'
+
+// Entities
+include 'lib:entity'
+include 'lib:entity:customer'
+
 include 'core:jse-core'
 include 'core:junit5-core', 'core:mockito-core'
+
 //include 'core:spring-core', 'core:spring-boot-core'
 //include 'core:hibernate-core'
 //include 'core:spring-data-jpa-core'
 
 include 'app:spring-cloud-app'
-include 'app:spring-cloud-app:eureka-server', 'app:spring-cloud-app:api-gateway', 'app:spring-cloud-app:github-config-server'
+include 'app:spring-cloud-app:eureka-server', 'app:spring-cloud-app:api-gateway', 'app:spring-cloud-app:config-server'
 include 'app:spring-cloud-app:foo-service', 'app:spring-cloud-app:bar-service'
 
 include 'app:spring-cloud-pet-app'

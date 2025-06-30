@@ -1,27 +1,25 @@
-spring:
-  application:
-    name: eureka-server
-server:
-  port: 8761
+###
+# Этот сервис первичен - остальные от него уже зависят
+#
+server.port: 8761 # Порт по умолчанию для Eureka Server
+
+# app id
+spring.application.name: eureka-server
 
 eureka:
-  instance:
-    #hostname: eureka-server-1 # Имя хоста для этого экземпляра Eureka Server
-    hostname: localhost
+  #hostname: eureka-server-1 # Имя хоста для этого экземпляра Eureka Server
+  instance.hostname: localhost
   client:
     register-with-eureka: false # no need to register itself
-    fetch-registry: false
-    #serviceUrl:
-    #defaultZone: http://eureka-server-2:8762/eureka/ # Регистрируемся в другом сервере
+    fetch-registry: false # no need to look for the registry
+    serviceUrl:
+     #defaultZone: http://eureka-server-2:8762/eureka/ # Где будет регистрироваться (в другом сервере)
+     defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
 
 management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    health:
-      show-details: always
+  endpoints.web.exposure.include: '*'
+  endpoint.health.show-details: always
 
 logging:
   level:

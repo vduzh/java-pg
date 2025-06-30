@@ -1,49 +1,38 @@
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/ # Регистрируемся в Eureka
-
-server:
-  port: 8765
+server.port: 8765
 
 spring:
-  application:
-    name: api-gateway
-  cloud:
-    gateway:
-      server:
-        webflux:
-          discovery:
-            locator:
-              # Автоматически создает маршруты для сервисов, зарегистрированных в Eureka
-              enabled: true
-              # Преобразовывать Service ID в нижний регистр для маршрутизации
-              lower-case-service-id: true
-          routes:
-            # Маршрут для foo-service
-            - id: foo-service-route # unique name
-              uri: lb://foo-service # URI to pass request if it meets the predicates
-              predicates:
-                - Path=/api/v1/foo/** # /api/v1/foo -> foo-service/
-              filters:
-                - StripPrefix=3 # foo/** goes to foo-service
-            - id: bar-service-route
-              uri: lb://bar-service
-              predicates:
-                - Path=/api/v1/bar/**
-              filters:
-                - StripPrefix=3
+  application.name: api-gateway
+  cloud.gateway.server.webflux:
+    discovery:
+      locator:
+        # Автоматически создает маршруты для сервисов, зарегистрированных в Eureka
+        enabled: true
+        # Преобразовывать Service ID в нижний регистр для маршрутизации
+        lower-case-service-id: true
+    routes:
+      # Маршрут для foo-service
+      - id: foo-service-route # unique name
+        uri: lb://foo-service # URI to pass request if it meets the predicates
+        predicates:
+          - Path=/api/v1/foo/** # /api/v1/foo -> foo-service/
+        filters:
+          - StripPrefix=3 # foo/** goes to foo-service
+      # Маршрут для bar-service
+      - id: bar-service-route
+        uri: lb://bar-service
+        predicates:
+          - Path=/api/v1/bar/**
+        filters:
+          - StripPrefix=3
+
+eureka:
+  client.serviceUrl.defaultZone: http://localhost:8761/eureka/ # Регистрируемся в Eureka
 
 management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+  endpoints.web.exposure.include: '*'
   endpoint:
-    health:
-      show-details: always
-    gateway:
-      access: unrestricted
+    health.show-details: always
+    gateway.access: unrestricted
 
 logging:
   level:

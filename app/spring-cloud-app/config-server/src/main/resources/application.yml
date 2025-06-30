@@ -1,0 +1,38 @@
+server.port: 8888 # Порт по умолчанию для Config Server
+
+spring:
+  application.name: config-server
+  cloud.config.server:
+    git:
+      uri: https://github.com/vduzh/spring-cloud-app-config.git
+      search-paths:
+        - configurations
+
+eureka: # Если используете Eureka
+  client:
+    serviceUrl.defaultZone: http://localhost:8761/eureka/ # URL вашего Eureka Server
+  instance.hostname: localhost
+
+management:
+  endpoints.web.exposure.include: '*'
+  endpoint.health.show-details: always
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.config.server: DEBUG # Логи Config Server
+    org.springframework.cloud.config.server.git: DEBUG # Логи, связанные с Git
+    org.eclipse.jgit: DEBUG # Логи самой библиотеки JGit, которая используется для работы с Git
+    com.netflix.eureka: DEBUG # Если Config Server регистрируется в Eureka
+    com.netflix.discovery: DEBUG # Если Config Server регистрируется в Eureka
+    org.springframework.cloud.netflix.eureka: DEBUG # Если Config Server регистрируется в Eureka
+
+---
+# Dev profile configuration
+spring:
+  config.activate.on-profile: native
+  cloud.config.server:
+    # Можно явно отключить git для dev
+    git.uri: ""
+    native:
+      search-locations: classpath:/configurations # file:/path/to/your/config/files or file:./configs

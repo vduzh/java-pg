@@ -1,0 +1,21 @@
+# Обычно глобальные настройки, применяемые ко всем приложениям, если они не переопределены
+# - Общие настройки логирования
+# - Общие настройки для Eureka Server
+# - Настройки для общих компонентов, используемых всеми сервисами (например, брокеры сообщений, централизованные системы логирования)
+# - Базовые настройки Spring Boot Actuator.
+# - и т.д.
+
+app:
+  source: native
+  title: This is Spring Cloud Application at the DEFAULT env
+  timeout: 5000
+  db:
+    host: localhost
+    user: postgres
+    password: postgres  
+
+server:
+  error:
+    # добавляем текст ошибки в Response
+    include-message: always
+

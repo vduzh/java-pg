@@ -1,0 +1,6 @@
+app:
+  title: This is Spring Cloud Application at the PRODUCTION env
+  timeout: 10000
+  db:
+    host: postgres-server
+    password: postgres12345

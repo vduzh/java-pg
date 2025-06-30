@@ -1,13 +1,16 @@
 package by.duzh.pg.app.spring.cloud.foo.controller;
 
-import by.vduzh.pg.dto.foo.FooDto;
+import by.vduzh.pg.foo.dto.FooDto;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -16,7 +19,8 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/foos")
+@RequestMapping("/foos") // "/api/v1/foos"
+//@RequiredArgsConstructor
 public class FooController {
 
     @Autowired
@@ -36,6 +40,7 @@ public class FooController {
     public Map<String, Object> info() {
         var res = new LinkedHashMap<String, Object>();
 
+        res.put("app.source", env.getProperty("app.source"));
         res.put("app.title", env.getProperty("app.title"));
         res.put("app.timeout", env.getProperty("app.timeout"));
         res.put("app.db.host", env.getProperty("app.db.host"));
@@ -58,6 +63,6 @@ public class FooController {
         return Arrays.stream(FOO_DATA)
                 .filter(fooDto -> fooDto.id() == id)
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Foo not found with id: " + id));
     }
 }

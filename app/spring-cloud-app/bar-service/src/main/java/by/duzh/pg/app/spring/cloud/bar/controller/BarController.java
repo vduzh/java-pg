@@ -1,8 +1,8 @@
 package by.duzh.pg.app.spring.cloud.bar.controller;
 
-import by.duzh.pg.app.spring.cloud.bar.client.FooClient;
-import by.vduzh.pg.dto.bar.BarDto;
-import by.vduzh.pg.dto.foo.FooDto;
+import by.duzh.pg.app.spring.cloud.bar.client.feign.FooClient;
+import by.vduzh.pg.bar.dto.BarDto;
+import by.vduzh.pg.foo.dto.FooDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +26,14 @@ public class BarController {
     private final String instanceId;
     private final FooClient fooClient;
 
-    public BarController(FooClient fooClient, @Value("${eureka.instance.instance-id}") String instanceId) {
+    public BarController(FooClient fooClient,
+                         @Value("${eureka.instance.instance-id}") String instanceId) {
         this.fooClient = fooClient;
         this.instanceId = instanceId;
+    }
+
+    private void logInstance() {
+        log.info("Current instance: {}", instanceId);
     }
 
     @GetMapping
@@ -59,7 +64,9 @@ public class BarController {
         return fooClient.getAll();
     }
 
-    private void logInstance() {
-        log.info("Current instance: {}", instanceId);
+    @GetMapping("/foos/{id}")
+    public FooDto getAllFoo(@PathVariable int id) {
+        logInstance();
+        return fooClient.getFoo(id);
     }
 }

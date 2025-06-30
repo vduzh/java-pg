@@ -1,9 +1,8 @@
-spring:
-  application:
-    name: bar-service
 server:
   port: 0 # will be set automatically
   #port: 8081
+
+spring.application.name: bar-service
 
 eureka:
   instance:
@@ -18,13 +17,8 @@ eureka:
       #defaultZone: http://eureka-server-1.yourdomain.com:8761/eureka/,http://eureka-server-2.yourdomain.com:8761/eureka/
 
 management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    health:
-      show-details: always
+  endpoints.web.exposure.include: '*'
+  endpoint.health.show-details: always
 
 logging:
   level:
