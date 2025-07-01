@@ -19,3 +19,16 @@ server:
     # добавляем текст ошибки в Response
     include-message: always
 
+# Default params are used which are the same...
+#spring:
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+
+logging:
+  level:
+    root: INFO # Базовый уровень для всего приложения
+    org.springframework.cloud.stream.messaging: TRACE
+

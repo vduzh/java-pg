@@ -9,15 +9,18 @@ pluginManagement {
 // root project
 rootProject.name = 'java-pg'
 
+// Modules
 include 'core', 'lib', 'app'
-
+// DTO's
 include 'lib:dto'
-include 'lib:dto:foo', 'lib:dto:bar'
-include 'lib:dto:customer'
-
+include 'lib:dto:foo', 'lib:dto:bar', 'lib:dto:customer'
 // Entities
 include 'lib:entity'
-include 'lib:entity:customer'
+//include 'lib:entity:customer'
+// Events
+//include 'lib:event'
+//include 'lib:event:foo'
+include 'lib:event', 'lib:event:xfoo'
 
 include 'core:jse-core'
 include 'core:junit5-core', 'core:mockito-core'

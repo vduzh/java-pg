@@ -14,8 +14,23 @@ spring:
         enabled: true # Включить обнаружение Config Server через Eureka
         service-id: config-server # Имя Config Server в Eureka
         #uri: http://localhost:8888 # Если не используете Eureka для Config Server
-      # Говорит для какого профиля нужны настройки
-      profile: prod # Активный профиль (dev, prod и т.д.)
+      # Говорит для каких профилей нужны настройки
+      profile: prod
+    stream:
+      bindings:
+        # Выходной канал для отправителя (sender)
+        sendMessage-out-0:
+          # foo channel in Cloud Stream maps to the 'foo-exchange' RabbitMQ exchange
+          destination: foo-events # Имя Exchange RabbitMQ, куда будут отправляться сообщения
+          #group: foo-group
+          content-type: application/json
+      rabbit:
+        bindings:
+          sendMessage-out-0:
+            producer:
+              # Или можно использовать fixed-routing-key: my.specific.key
+              routingKeyExpression: 'headers["routingKey"]' # Или другое выражение для определения routing key
+              exchange-type: topic
 
 eureka:
   #hostname: localhost

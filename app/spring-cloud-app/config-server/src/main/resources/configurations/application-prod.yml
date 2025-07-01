@@ -4,3 +4,8 @@ app:
   db:
     host: postgres-server
     password: postgres12345
+
+#spring:
+#  rabbitmq:
+#    host: rabbitmq-host
+#    password: xxx

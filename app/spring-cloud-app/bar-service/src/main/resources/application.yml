@@ -2,7 +2,35 @@ server:
   port: 0 # will be set automatically
   #port: 8081
 
-spring.application.name: bar-service
+spring:
+  # Имя сервиса, по которому Config Server найдет конфигурацию
+  application.name: bar-service
+  # Явно указываем, что хотим использовать Config Server
+  config.import: 'optional:configserver:'
+  cloud:
+    config:
+      discovery:
+        enabled: true # Включить обнаружение Config Server через Eureka
+        service-id: config-server # Имя Config Server в Eureka
+        #uri: http://localhost:8888 # Если не используете Eureka для Config Server
+      # Говорит для каких профилей нужны настройки
+      profile: rabbit,prod
+    stream:
+      bindings:
+        processMessage-in-0:
+          destination: foo-events
+          content-type: application/json
+          group: foo-processing-group
+      rabbit:
+        bindings:
+          processMessage-in-0:
+            consumer:
+              binding-routing-key: "foo.*"
+              exchange-type: topic
+              auto-bind-dlq: true
+              republish-to-dlq: true
+              concurrency: 5 # количество параллельных consumer'ов
+              max-attempts: 3
 
 eureka:
   instance:

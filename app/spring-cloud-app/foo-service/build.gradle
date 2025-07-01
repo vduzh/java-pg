@@ -4,8 +4,14 @@ plugins {
 
 dependencies {
 	implementation project(':lib:dto:foo')
+	//implementation project(':lib:entity:customer')
+	implementation project(':lib:event:xfoo')
+
+//	implementation project(':lib:event:foo')
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	// Зависимость RabbitMQ
+	implementation 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
 }

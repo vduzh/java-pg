@@ -2,11 +2,28 @@ server.port: 8888 # Порт по умолчанию для Config Server
 
 spring:
   application.name: config-server
-  cloud.config.server:
-    git:
-      uri: https://github.com/vduzh/spring-cloud-app-config.git
-      search-paths:
-        - configurations
+  cloud:
+    config.server:
+      git:
+        uri: https://github.com/vduzh/spring-cloud-app-config.git
+        search-paths:
+          - configurations
+  stream:
+    bindings:
+      processMessage-in-0:
+        destination: foo-events
+        content-type: application/json
+        group: foo-processing-service
+
+    rabbit:
+      bindings:
+        processMessage-in-0:
+          consumer:
+            binding-routing-key: "foo.*"
+            exchange-type: topic
+            auto-bind-dlq: true
+            republish-to-dlq: true
+            max-attempts: 3
 
 eureka: # Если используете Eureka
   client:

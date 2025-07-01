@@ -1,0 +1,59 @@
+package by.duzh.pg.app.spring.cloud.bar;
+
+import by.vduzh.pg.customer.event.FooEvent;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHeaders;
+
+import java.util.function.Consumer;
+
+@Configuration
+@Slf4j
+public class StreamConfig {
+
+    @Bean
+    public Consumer<Message<FooEvent>> processMessage() {
+        return message -> {
+            try {
+                FooEvent event = message.getPayload();
+                MessageHeaders headers = message.getHeaders();
+
+                log.info("Received message: {}", event);
+                log.info("Headers: {}", headers);
+
+                // Обработка в зависимости от типа события
+                switch (event.getAction()) {
+                    case "FOO_CREATED":
+                        handleFooCreated(event);
+                        break;
+                    case "FOO_UPDATED":
+                        handleFooUpdated(event);
+                        break;
+                    default:
+                        log.warn("Unknown action: {}", event.getAction());
+                }
+
+            } catch (Exception e) {
+                log.error("Error processing message: {}", message, e);
+                throw e; // Для повторной обработки
+            }
+        };
+    }
+
+    private void handleFooCreated(FooEvent event) {
+//        log.info("Processing foo creation: fooId={}, email={}",
+//                event.getFooId(), event.getEmail());
+        log.info("Processing foo creation");
+        // Здесь ваша бизнес-логика
+    }
+
+    private void handleFooUpdated(FooEvent event) {
+//        log.info("Processing foo update: fooId={}, email={}",
+//                event.getFooId(), event.getEmail());
+        log.info("Processing foo creation");
+
+        // Здесь ваша бизнес-логика
+    }
+}
