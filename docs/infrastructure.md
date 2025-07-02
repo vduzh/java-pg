@@ -9,7 +9,7 @@
 
 # Kafka
 
-- `http://localhost:8080/` - админ консоль
+- `http://localhost:9080/` - админ консоль
 - `docker exec -it kafka kafka-topics --list --bootstrap-server localhost:9092` - список топиков
 - `docker exec -it kafka kafka-console-consumer --bootstrap-server localhost:9092  --topic foo-events --from-beginning` - запустить клиента выполняющего чтение сообщений
 

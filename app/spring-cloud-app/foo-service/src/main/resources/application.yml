@@ -34,7 +34,7 @@ spring:
           binder: kafka
       binders:
         rabbit:
-          type: kafka
+          type: rabbit
           environment:
             spring:
               rabbitmq:
