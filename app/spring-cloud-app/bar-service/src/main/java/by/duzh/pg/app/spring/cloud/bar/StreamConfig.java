@@ -14,8 +14,9 @@ import java.util.function.Consumer;
 public class StreamConfig {
 
     @Bean
-    public Consumer<Message<FooEvent>> processMessage() {
+    public Consumer<Message<FooEvent>> processFooEvent() {
         return message -> {
+            // get event and call an appropriate service
             try {
                 FooEvent event = message.getPayload();
                 MessageHeaders headers = message.getHeaders();
@@ -52,7 +53,7 @@ public class StreamConfig {
     private void handleFooUpdated(FooEvent event) {
 //        log.info("Processing foo update: fooId={}, email={}",
 //                event.getFooId(), event.getEmail());
-        log.info("Processing foo creation");
+        log.info("Processing foo modification");
 
         // Здесь ваша бизнес-логика
     }

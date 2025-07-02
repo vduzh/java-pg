@@ -8,12 +8,24 @@ import reactor.core.publisher.Flux;
 
 import java.util.function.Supplier;
 
+/**
+ * Declare channels
+ */
 @Configuration
 public class StreamConfig {
 
+    /**
+     * Defines a functional bean named <code>sendFooEvent</code> in the Spring context.
+     * <p>
+     * This Supplier provides a reactive stream of {@link Message} objects carrying {@link FooEvent} payloads.
+     * <p>
+     * Currently returns an empty stream, as message publishing is delegated to
+     * {@link org.springframework.cloud.stream.function.StreamBridge}.
+     *
+     * @return a Supplier that produces a {@link Flux} of {@link Message}&lt;{@link FooEvent}&gt;
+     */
     @Bean
-    public Supplier<Flux<Message<FooEvent>>> sendMessage() {
-        // Будем использовать StreamBridge для отправки
+    public Supplier<Flux<Message<FooEvent>>> sendFooEvent() {
         return Flux::empty;
     }
 }

@@ -17,13 +17,13 @@ spring:
       profile: rabbit,prod
     stream:
       bindings:
-        processMessage-in-0:
+        processFooEvent-in-0:
           destination: foo-events
-          content-type: application/json
           group: foo-processing-group
+          content-type: application/json
       rabbit:
         bindings:
-          processMessage-in-0:
+          processFooEvent-in-0:
             consumer:
               binding-routing-key: "foo.*"
               exchange-type: topic

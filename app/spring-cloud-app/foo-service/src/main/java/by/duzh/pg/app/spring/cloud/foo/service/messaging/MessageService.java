@@ -15,6 +15,9 @@ public class MessageService {
     private final StreamBridge streamBridge;
 
     public void sendFooEvent(FooEvent event, String routingKey) {
+        log.info("Sending message: {} with routing key: {}", event, routingKey);
+
+        // Build a message containing FooEvent object
         Message<FooEvent> message = MessageBuilder
                 .withPayload(event)
                 .setHeader("routingKey", routingKey)
@@ -22,11 +25,12 @@ public class MessageService {
                 .setHeader("source", "foo-service")
                 .build();
 
-        boolean sent = streamBridge.send("sendMessage-out-0", message);
-
+        // Send a message
+        boolean sent = streamBridge.send("sendFooEvent-out-0", message);
         if (sent) {
             log.info("Successfully sent message: {} with routing key: {}", event, routingKey);
         } else {
+            // TODO: how to handle error???
             log.error("Failed to send message: {}", event);
         }
     }

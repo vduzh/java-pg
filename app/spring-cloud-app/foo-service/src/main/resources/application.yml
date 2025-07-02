@@ -19,14 +19,14 @@ spring:
     stream:
       bindings:
         # Выходной канал для отправителя (sender)
-        sendMessage-out-0:
+        sendFooEvent-out-0:
           # foo channel in Cloud Stream maps to the 'foo-exchange' RabbitMQ exchange
           destination: foo-events # Имя Exchange RabbitMQ, куда будут отправляться сообщения
           #group: foo-group
           content-type: application/json
       rabbit:
         bindings:
-          sendMessage-out-0:
+          sendFooEvent-out-0:
             producer:
               # Или можно использовать fixed-routing-key: my.specific.key
               routingKeyExpression: 'headers["routingKey"]' # Или другое выражение для определения routing key
