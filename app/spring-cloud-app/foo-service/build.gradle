@@ -1,14 +1,16 @@
 plugins {
-	alias(libs.plugins.lombok)
+    alias(libs.plugins.lombok)
 }
 
 dependencies {
-	implementation project(':lib:dto:foo-dto')
-	implementation project(':lib:event:foo-event')
+    implementation project(':lib:dto:foo-dto')
+    implementation project(':lib:event:foo-event')
 
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-	implementation 'org.springframework.cloud:spring-cloud-starter-config'
-	// Зависимость RabbitMQ
-	implementation 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    // Зависимость RabbitMQ
+    implementation 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
+    // Spring for Apache Kafka (для взаимодействия с Kafka)
+    implementation 'org.springframework.cloud:spring-cloud-starter-stream-kafka'
 }

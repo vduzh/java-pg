@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class MessageService {
     private final StreamBridge streamBridge;
 
-    public void sendFooEvent(FooEvent event, String routingKey) {
+    private void sendFooEvent(String name, FooEvent event, String routingKey) {
         log.info("Sending message: {} with routing key: {}", event, routingKey);
 
         // Build a message containing FooEvent object
@@ -26,12 +26,20 @@ public class MessageService {
                 .build();
 
         // Send a message
-        boolean sent = streamBridge.send("sendFooEvent-out-0", message);
+        boolean sent = streamBridge.send(name + "-out-0", message);
         if (sent) {
             log.info("Successfully sent message: {} with routing key: {}", event, routingKey);
         } else {
             // TODO: how to handle error???
             log.error("Failed to send message: {}", event);
         }
+    }
+
+    public void sendFooEventToRabbitMQ(FooEvent event, String routingKey) {
+        sendFooEvent("sendFooEventToRabbitMQ", event, routingKey);
+    }
+
+    public void sendFooEventToKafka(FooEvent event, String routingKey) {
+        sendFooEvent("sendFooEventToKafka", event, routingKey);
     }
 }

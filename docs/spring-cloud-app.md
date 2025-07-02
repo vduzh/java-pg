@@ -35,6 +35,10 @@
   - `source` property contains info where the configuration comes from (native, github)
 - http://localhost:8765/api/v1/foo/foos
 
+### Send messages to brokers 
+- http://localhost:8765/api/v1/foo/foos/sendMessageToRabbitMQ
+- http://localhost:8765/api/v1/foo/foos/sendMessageToKafka
+
 ### TODO:
 
 - create 2 instances and describe

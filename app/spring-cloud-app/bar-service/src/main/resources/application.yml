@@ -15,23 +15,44 @@ spring:
         #uri: http://localhost:8888 # Если не используете Eureka для Config Server
       # Говорит для каких профилей нужны настройки
       profile: rabbit,prod
+    function:
+      definition: processFooEventFromRabbitMQ;processFooEventFromKafka
     stream:
       bindings:
-        processFooEvent-in-0:
+        # Имя бина-потребителя (Consumer) + -in-0 (по умолчанию для входящих)
+        processFooEventFromRabbitMQ-in-0:
           destination: foo-events
           group: foo-processing-group
           content-type: application/json
-      rabbit:
-        bindings:
-          processFooEvent-in-0:
-            consumer:
-              binding-routing-key: "foo.*"
-              exchange-type: topic
-              auto-bind-dlq: true
-              republish-to-dlq: true
-              concurrency: 5 # количество параллельных consumer'ов
-              max-attempts: 3
-
+          binder: rabbit
+        processFooEventFromKafka-in-0:
+          destination: foo-events
+          group: foo-processing-group
+          content-type: application/json
+          binder: kafka
+          consumer:
+            use-native-decoding: false  # Важно!
+      binders:
+        rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                consumer:
+                  binding-routing-key: "foo.*"
+                  exchange-type: topic
+                  auto-bind-dlq: true
+                  republish-to-dlq: true
+                  concurrency: 5 # количество параллельных consumer'ов
+                  max-attempts: 3
+        kafka:
+          type: kafka
+          environment:
+            spring:
+              kafka:
+                bootstrap-servers: localhost:9092
+                consumer:
+                  auto-offset-reset: earliest
 eureka:
   instance:
     #hostname: localhost
@@ -50,10 +71,13 @@ management:
 
 logging:
   level:
-    root: INFO # Базовый уровень для всего приложения
+    # Базовый уровень для всего приложения
+    root: INFO
+    by.duzh: DEBUG
+    org.springframework.cloud.stream.messaging: DEBUG
     org.springframework.boot.actuate: DEBUG
     org.springframework.web: DEBUG
     com.netflix.eureka: DEBUG # Установить уровень DEBUG для логирования Eureka Client
     com.netflix.discovery: DEBUG # Установить уровень DEBUG для логирования Discovery
     org.springframework.cloud.netflix.eureka: DEBUG # Для специфичных логов Spring Cloud Netflix Eureka
-    # org.springframework.cloud: DEBUG # Можно включить, если нужно больше логов от Spring Cloud в целом
+    #org.springframework.cloud: DEBUG # Можно включить, если нужно больше логов от Spring Cloud в целом

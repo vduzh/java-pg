@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 public class StreamConfig {
 
     /**
-     * Defines a functional bean named <code>sendFooEvent</code> in the Spring context.
+     * Defines a functional bean named <code>sendFooEventToRabbitMQ</code> in the Spring context.
      * <p>
      * This Supplier provides a reactive stream of {@link Message} objects carrying {@link FooEvent} payloads.
      * <p>
@@ -25,7 +25,12 @@ public class StreamConfig {
      * @return a Supplier that produces a {@link Flux} of {@link Message}&lt;{@link FooEvent}&gt;
      */
     @Bean
-    public Supplier<Flux<Message<FooEvent>>> sendFooEvent() {
+    public Supplier<Flux<Message<FooEvent>>> sendFooEventToRabbitMQ() {
+        return Flux::empty;
+    }
+
+    @Bean
+    public Supplier<Flux<Message<FooEvent>>> sendFooEventToKafka() {
         return Flux::empty;
     }
 }

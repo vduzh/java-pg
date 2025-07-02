@@ -66,8 +66,8 @@ public class FooController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Foo not found with id: " + id));
     }
 
-    @GetMapping("/sendMessage")
-    public ResponseEntity<String> sendMessage() {
+    @GetMapping("/sendMessageToRabbitMQ")
+    public ResponseEntity<String> sendMessageToRabbitMQ() {
         FooEvent event = FooEvent.builder()
                 .id(UUID.randomUUID().toString())
                 .action("FOO_CREATED")
@@ -76,8 +76,23 @@ public class FooController {
 //                .timestamp(Instant.now())
                 .build();
 
-        messageService.sendFooEvent(event, "foo.updated");
+        messageService.sendFooEventToRabbitMQ(event, "foo.created");
 
-        return ResponseEntity.ok("User update event sent");
+        return ResponseEntity.ok("User create event sent to RabbitMQ");
+    }
+
+    @GetMapping("/sendMessageToKafka")
+    public ResponseEntity<String> sendMessageToKafka() {
+        FooEvent event = FooEvent.builder()
+                .id(UUID.randomUUID().toString())
+                .action("FOO_CREATED")
+                //.userId(request.getUserId())
+//                .email(request.getEmail())
+//                .timestamp(Instant.now())
+                .build();
+
+        messageService.sendFooEventToKafka(event, "foo.created");
+
+        return ResponseEntity.ok("User create event sent to Kafka");
     }
 }

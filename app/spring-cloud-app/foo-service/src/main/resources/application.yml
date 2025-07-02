@@ -16,21 +16,47 @@ spring:
         #uri: http://localhost:8888 # Если не используете Eureka для Config Server
       # Говорит для каких профилей нужны настройки
       profile: prod
+    function:
+      definition: sendFooEventToRabbitMQ;sendFooEventToKafka
     stream:
       bindings:
-        # Выходной канал для отправителя (sender)
-        sendFooEvent-out-0:
+        # Имя бина-потребителя (Consumer) + -in-0 (по умолчанию для входящих)
+        # Выходной канал для отправителя (sender) в RabbitMQ
+        sendFooEventToRabbitMQ-out-0:
           # foo channel in Cloud Stream maps to the 'foo-exchange' RabbitMQ exchange
           destination: foo-events # Имя Exchange RabbitMQ, куда будут отправляться сообщения
-          #group: foo-group
           content-type: application/json
-      rabbit:
-        bindings:
-          sendFooEvent-out-0:
-            producer:
-              # Или можно использовать fixed-routing-key: my.specific.key
-              routingKeyExpression: 'headers["routingKey"]' # Или другое выражение для определения routing key
-              exchange-type: topic
+          binder: rabbit
+        # Выходной канал для отправителя (sender) в Kafka
+        sendFooEventToKafka-out-0: # Имя функции в продюсере
+          destination: foo-events # Имя топика Kafka
+          content-type: application/json
+          binder: kafka
+      binders:
+        rabbit:
+          type: kafka
+          environment:
+            spring:
+              rabbitmq:
+                producer:
+                  # Или можно использовать fixed-routing-key: my.specific.key
+                  # Или другое выражение для определения routing key
+                  routing-key-expression: 'headers["routingKey"]'
+                  exchange-type: topic
+        kafka:
+          type: kafka
+          environment:
+            spring:
+              kafka:
+                bootstrap-servers: localhost:9092
+                # Настройки для Producer
+                producer:
+                  configuration:
+                    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+                    # Используем JSON для сериализации сообщений
+                    value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+                    # Для надежности можно включить ack
+                    # acks: all
 
 eureka:
   #hostname: localhost
@@ -50,6 +76,8 @@ management:
 logging:
   level:
     root: INFO # Базовый уровень для всего приложения
+    by.duzh: DEBUG
+    org.springframework.cloud.stream.messaging: DEBUG
     org.springframework.boot.actuate: DEBUG
     org.springframework.web: DEBUG
     com.netflix.eureka: DEBUG # Установить уровень DEBUG для логирования Eureka Client
