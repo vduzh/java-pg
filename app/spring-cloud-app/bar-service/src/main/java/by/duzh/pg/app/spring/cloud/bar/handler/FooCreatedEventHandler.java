@@ -19,7 +19,7 @@ public class FooCreatedEventHandler implements ActionEventHandler<FooDto, FooEve
         log.debug("Processing FooEvent: action={}", event.getAction());
 
         var foo = event.getPayload();
-        log.debug("Processing Foo: id={}, name={}", foo.id(), foo.name());
+        log.debug("Creating Foo: id={}, name={}", foo.id(), foo.name());
         // Здесь ваша бизнес-логика: add data to the db
     }
 }

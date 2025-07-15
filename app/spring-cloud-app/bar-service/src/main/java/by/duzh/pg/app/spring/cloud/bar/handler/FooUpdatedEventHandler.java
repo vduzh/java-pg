@@ -19,7 +19,7 @@ public class FooUpdatedEventHandler implements ActionEventHandler<FooDto, FooEve
         log.debug("Processing FooEvent: action={}", event.getAction());
 
         var foo = event.getPayload();
-        log.debug("Processing Foo: id={}, name={}", foo.id(), foo.name());
+        log.debug("Updating Foo: id={}, name={}", foo.id(), foo.name());
         // Здесь ваша бизнес-логика: update data in db
     }
 }
