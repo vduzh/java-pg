@@ -20,16 +20,25 @@ spring:
       definition: sendFooEventToRabbitMQ;sendFooEventToKafka
     stream:
       bindings:
-        # Имя бина-потребителя (Consumer) + -in-0 (по умолчанию для входящих)
-        # Выходной канал для отправителя (sender) в RabbitMQ
+        # Functional binding name for RabbitMQ
         sendFooEventToRabbitMQ-out-0:
-          # foo channel in Cloud Stream maps to the 'foo-exchange' RabbitMQ exchange
-          destination: foo-events # Имя Exchange RabbitMQ, куда будут отправляться сообщения
+          # maps to the 'foo-events' RabbitMQ exchange
+          destination: foo-events # RabbitMQ exchange name, куда будут отправляться сообщения
           content-type: application/json
           binder: rabbit
-        # Выходной канал для отправителя (sender) в Kafka
+        # Functional binding name for Kafka
         sendFooEventToKafka-out-0: # Имя функции в продюсере
           destination: foo-events # Имя топика Kafka
+          content-type: application/json
+          binder: kafka
+        # Explicit binding name for RabbitMQ
+        fooEventToRabbitMQOut:
+          destination: foo-events
+          content-type: application/json
+          binder: rabbit
+        # Explicit binding name for Kafka
+        fooEventToKafkaOut:
+          destination: foo-events
           content-type: application/json
           binder: kafka
       binders:

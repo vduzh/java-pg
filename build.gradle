@@ -22,14 +22,18 @@ subprojects {
     apply plugin: 'java-library'
 
     dependencies {
-        // import Spring Boot BOM
+        // JUnit 5 BOM для управления версиями
         implementation platform(libs.spring.boot.dependencies)
+
+        // JUnit 5 BOM для управления версиями
+        testImplementation platform(libs.junit.bom)
 
         // Junit 5 integration
         testImplementation 'org.junit.jupiter:junit-jupiter-api'
         testImplementation 'org.junit.jupiter:junit-jupiter-engine'
+        testImplementation 'org.junit.platform:junit-platform-launcher'
         // AssertJ (для улучшенных утверждений)
-        testImplementation 'org.assertj:assertj-core'
+        testImplementation libs.assertj.core
     }
 
     // Настройка Test задач (test, integrationTest, performanceTest и пр.), общая для всех подпроектов

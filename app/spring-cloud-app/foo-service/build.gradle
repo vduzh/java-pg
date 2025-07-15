@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
     implementation project(':lib:dto:foo-dto')
-    implementation project(':lib:event:foo-event')
+    implementation project(':lib:event:action:foo-action-event')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'

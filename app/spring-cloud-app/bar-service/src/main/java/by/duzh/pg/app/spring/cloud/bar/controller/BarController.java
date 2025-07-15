@@ -2,8 +2,11 @@ package by.duzh.pg.app.spring.cloud.bar.controller;
 
 import by.duzh.pg.app.spring.cloud.bar.client.feign.FooClient;
 import by.vduzh.pg.bar.dto.BarDto;
+import by.vduzh.pg.event.action.dispatcher.ActionEventDispatcher;
 import by.vduzh.pg.foo.dto.FooDto;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

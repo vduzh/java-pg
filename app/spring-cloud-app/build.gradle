@@ -8,6 +8,6 @@ subprojects {
         // for monitoring
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
         // for developoment
-        implementation 'org.springframework.boot:spring-boot-devtools'
+        //implementation 'org.springframework.boot:spring-boot-devtools'
     }
 }

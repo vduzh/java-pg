@@ -2,3 +2,33 @@ foo:
   title: This is Foo Microservice at the DEFAULT env
   db:
     url: "jdbc:postgresql://${app.db.host}:5432/foo-db"
+
+scheduler:
+  rabbitmq:
+    initialDelay: 7000
+    fixedDelay: 7000
+  kafka:
+    initialDelay: 5000
+    fixedDelay: 5000
+
+
+stream:
+  rabbitmq:
+    intervalSeconds: 6
+  kafka:
+    intervalSeconds: 4
+
+scheduler:
+  rabbitmq:
+    initialDelay: 7000
+    fixedDelay: 7000
+  kafka:
+    initialDelay: 5000
+    fixedDelay: 5000
+
+
+stream:
+  rabbitmq:
+    intervalSeconds: 6
+  kafka:
+    intervalSeconds: 4

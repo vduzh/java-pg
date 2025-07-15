@@ -20,7 +20,9 @@ include 'lib:entity'
 // Events
 //include 'lib:event'
 //include 'lib:event:foo'
-include 'lib:event', 'lib:event:foo-event'
+include 'lib:event'
+include 'lib:event:action:action-event-model', 'lib:event:action:action-event-dispatcher'
+include 'lib:event:action:foo-action-event'
 
 include 'core:jse-core'
 include 'core:junit5-core', 'core:mockito-core'

@@ -19,7 +19,7 @@ spring:
       definition: processFooEventFromRabbitMQ;processFooEventFromKafka
     stream:
       bindings:
-        # Имя бина-потребителя (Consumer) + -in-0 (по умолчанию для входящих)
+        # Functional binding name
         processFooEventFromRabbitMQ-in-0:
           destination: foo-events
           group: foo-processing-group
@@ -52,7 +52,7 @@ spring:
               kafka:
                 bootstrap-servers: localhost:9092
                 consumer:
-                  auto-offset-reset: earliest
+                  auto-offset-reset: latest # earliest
 eureka:
   instance:
     #hostname: localhost
@@ -81,3 +81,5 @@ logging:
     com.netflix.discovery: DEBUG # Установить уровень DEBUG для логирования Discovery
     org.springframework.cloud.netflix.eureka: DEBUG # Для специфичных логов Spring Cloud Netflix Eureka
     #org.springframework.cloud: DEBUG # Можно включить, если нужно больше логов от Spring Cloud в целом
+    org.springframework.messaging.converter: DEBUG
+    org.springframework.kafka.support.converter: DEBUG

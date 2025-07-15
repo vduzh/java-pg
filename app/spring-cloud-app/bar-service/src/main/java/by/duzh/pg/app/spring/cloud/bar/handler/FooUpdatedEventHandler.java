@@ -1,0 +1,25 @@
+package by.duzh.pg.app.spring.cloud.bar.handler;
+
+import by.vduzh.pg.event.action.dispatcher.ActionEventHandler;
+import by.vduzh.pg.foo.dto.FooDto;
+import by.vduzh.pg.foo.event.action.FooEvent;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+@Slf4j
+@Component
+public class FooUpdatedEventHandler implements ActionEventHandler<FooDto, FooEvent> {
+    @Override
+    public boolean supports(String action) {
+        return action.equals("foo.updated");
+    }
+
+    @Override
+    public void handle(FooEvent event) {
+        log.debug("Processing FooEvent: action={}", event.getAction());
+
+        var foo = event.getPayload();
+        log.debug("Processing Foo: id={}, name={}", foo.id(), foo.name());
+        // Здесь ваша бизнес-логика: update data in db
+    }
+}

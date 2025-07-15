@@ -1,28 +1,26 @@
 package by.duzh.pg.app.spring.cloud.foo.controller;
 
-import by.duzh.pg.app.spring.cloud.foo.service.messaging.MessageService;
-import by.vduzh.pg.customer.event.FooEvent;
 import by.vduzh.pg.foo.dto.FooDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
 @RequestMapping("/foos") // "/api/v1/foos"
 @RequiredArgsConstructor
 public class FooController {
-
-    private final MessageService messageService;
 
     final private Environment env;
 
@@ -64,35 +62,5 @@ public class FooController {
                 .filter(fooDto -> fooDto.id() == id)
                 .findFirst()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Foo not found with id: " + id));
-    }
-
-    @GetMapping("/sendMessageToRabbitMQ")
-    public ResponseEntity<String> sendMessageToRabbitMQ() {
-        FooEvent event = FooEvent.builder()
-                .id(UUID.randomUUID().toString())
-                .action("FOO_CREATED")
-                //.userId(request.getUserId())
-//                .email(request.getEmail())
-//                .timestamp(Instant.now())
-                .build();
-
-        messageService.sendFooEventToRabbitMQ(event, "foo.created");
-
-        return ResponseEntity.ok("User create event sent to RabbitMQ");
-    }
-
-    @GetMapping("/sendMessageToKafka")
-    public ResponseEntity<String> sendMessageToKafka() {
-        FooEvent event = FooEvent.builder()
-                .id(UUID.randomUUID().toString())
-                .action("FOO_CREATED")
-                //.userId(request.getUserId())
-//                .email(request.getEmail())
-//                .timestamp(Instant.now())
-                .build();
-
-        messageService.sendFooEventToKafka(event, "foo.created");
-
-        return ResponseEntity.ok("User create event sent to Kafka");
     }
 }

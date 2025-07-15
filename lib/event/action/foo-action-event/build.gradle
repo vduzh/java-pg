@@ -1,0 +1,4 @@
+dependencies {
+    api project(':lib:dto:foo-dto')
+    api project(':lib:event:action:action-event-model')
+}

@@ -1,0 +1,6 @@
+dependencies {
+    api project(':lib:event:action:action-event-model')
+    implementation 'org.springframework.boot:spring-boot-starter'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

@@ -1,11 +1,10 @@
 package by.duzh.pg.app.spring.cloud.foo.service.messaging;
 
-import by.vduzh.pg.customer.event.FooEvent;
+import by.duzh.pg.app.spring.cloud.foo.helper.MessageHelper;
+import by.vduzh.pg.foo.event.action.FooEvent;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.function.StreamBridge;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,32 +13,24 @@ import org.springframework.stereotype.Service;
 public class MessageService {
     private final StreamBridge streamBridge;
 
-    private void sendFooEvent(String name, FooEvent event, String routingKey) {
-        log.info("Sending message: {} with routing key: {}", event, routingKey);
+    public void sendFooEventToRabbitMQ(String bindingName, FooEvent event) {
+        sendFooEvent(bindingName, event);
+    }
 
-        // Build a message containing FooEvent object
-        Message<FooEvent> message = MessageBuilder
-                .withPayload(event)
-                .setHeader("routingKey", routingKey)
-//                .setHeader("timestamp", Instant.now())
-                .setHeader("source", "foo-service")
-                .build();
+    public void sendFooEventToKafka(String bindingName, FooEvent event) {
+        sendFooEvent(bindingName, event);
+    }
 
-        // Send a message
-        boolean sent = streamBridge.send(name + "-out-0", message);
+    private void sendFooEvent(String bindingName, FooEvent event) {
+        log.info("Sending message: {} with routing key: {}", event, event.getAction());
+
+        boolean sent = streamBridge.send(bindingName, MessageHelper.buildFooMessage(event));
+
         if (sent) {
-            log.info("Successfully sent message: {} with routing key: {}", event, routingKey);
+            log.info("Successfully sent message: {} with routing key: {}", event, event.getAction());
         } else {
             // TODO: how to handle error???
             log.error("Failed to send message: {}", event);
         }
-    }
-
-    public void sendFooEventToRabbitMQ(FooEvent event, String routingKey) {
-        sendFooEvent("sendFooEventToRabbitMQ", event, routingKey);
-    }
-
-    public void sendFooEventToKafka(FooEvent event, String routingKey) {
-        sendFooEvent("sendFooEventToKafka", event, routingKey);
     }
 }
