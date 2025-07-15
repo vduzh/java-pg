@@ -25,7 +25,7 @@ public class StreamConfig {
     public Consumer<Message<FooEvent>> processFooEventFromRabbitMQ() {
         return message -> {
             log.debug("Precessing message from RabbitMQ: {}", message);
-            processFooEvent(message);
+            processMessage(message);
         };
     }
 
@@ -33,11 +33,11 @@ public class StreamConfig {
     public Consumer<Message<FooEvent>> processFooEventFromKafka() {
         return message -> {
             log.debug("Precessing message from Kafka: {}", message);
-            processFooEvent(message);
+            processMessage(message);
         };
     }
 
-    private void processFooEvent(Message<? extends ActionEvent<?>> message) {
+    private void processMessage(Message<? extends ActionEvent<?>> message) {
         MessageHeaders headers = message.getHeaders();
         log.debug("Headers: {}", headers);
         // process headers if necessary
@@ -46,8 +46,9 @@ public class StreamConfig {
         log.debug("ActionEvent: {}", event);
         // handle action event
         try {
-            dispatcher.dispatch(message.getPayload());
-            log.debug("Event: {} has been processed", event.getAction());
+            ActionEvent<?> actionEvent = message.getPayload();
+            dispatcher.dispatch(actionEvent);
+            log.debug("ActionEvent: {} has been processed", event.getAction());
         } catch (Exception e) {
             log.error("Error processing message: {}", message, e);
             throw e; // Для повторной обработки
