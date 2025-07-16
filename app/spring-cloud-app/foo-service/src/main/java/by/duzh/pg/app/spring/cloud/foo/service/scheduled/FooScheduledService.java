@@ -26,12 +26,8 @@ public class FooScheduledService {
         stopWatch.start();
 
         FooDto payload = new FooDto(333, "Updated Foo from Code to RabbitMQ");
-        var event = FooEvent.builder()
-                .id(UUID.randomUUID().toString())
-                .action("foo.updated")
-                .payload(payload)
-                .build();
-        messageService.sendFooEventToRabbitMQ("fooEventToRabbitMQOut", event);
+        messageService.sendFooEventToRabbitMQ("fooEventToRabbitMQOut",
+                new FooEvent(UUID.randomUUID().toString(), "foo.updated", payload));
 
         stopWatch.stop();
         log.info("Task 'sendMessageToRabbitMQ' completed in {} milliseconds", stopWatch.getTotalTimeMillis());
@@ -46,12 +42,8 @@ public class FooScheduledService {
         stopWatch.start();
 
         FooDto payload = new FooDto(444, "Updated Foo from Code to Kafka");
-        var event = FooEvent.builder()
-                .id(UUID.randomUUID().toString())
-                .action("foo.updated")
-                .payload(payload)
-                .build();
-        messageService.sendFooEventToKafka("fooEventToKafkaOut", event);
+        messageService.sendFooEventToKafka("fooEventToKafkaOut",
+                new FooEvent(UUID.randomUUID().toString(), "foo.updated", payload));
 
         stopWatch.stop();
         log.info("Task 'sendMessageToKafka' completed in {} milliseconds", stopWatch.getTotalTimeMillis());

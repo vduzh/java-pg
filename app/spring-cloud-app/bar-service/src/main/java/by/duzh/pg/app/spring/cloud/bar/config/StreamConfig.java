@@ -21,7 +21,13 @@ public class StreamConfig {
 
     private final ActionEventDispatcher dispatcher;
 
+    /**
+     * Produces a consumer bean is triggered based ion data (events) sent to the destination it is bound to.
+     *
+     * @return a Consumer<Message<FooEvent>> object.
+     */
     @Bean
+    // processUserCreatedEvent, processOrderCreatedEvent
     public Consumer<Message<FooEvent>> processFooEventFromRabbitMQ() {
         return message -> {
             log.debug("Precessing message from RabbitMQ: {}", message);

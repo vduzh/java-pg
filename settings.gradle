@@ -20,6 +20,7 @@ include 'lib:entity'
 // Events
 //include 'lib:event'
 //include 'lib:event:foo'
+include 'lib:document'
 include 'lib:event'
 include 'lib:event:action:action-event-model', 'lib:event:action:action-event-dispatcher'
 include 'lib:event:action:foo-action-event'

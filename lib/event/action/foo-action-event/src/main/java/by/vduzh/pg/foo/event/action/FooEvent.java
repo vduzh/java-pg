@@ -8,4 +8,8 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 public class FooEvent extends ActionEvent<FooDto> {
+
+    public FooEvent(String id, String action, FooDto dto) {
+        super(id, action, dto);
+    }
 }

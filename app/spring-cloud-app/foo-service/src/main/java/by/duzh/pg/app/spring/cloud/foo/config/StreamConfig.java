@@ -31,7 +31,6 @@ public class StreamConfig {
      * <p>
      * This Supplier provides a reactive stream of {@link Message} objects carrying {@link FooEvent} payloads.
      * <p>
-     *
      * @return a Supplier that produces a {@link Flux} of {@link Message}&lt;{@link FooEvent}&gt;
      */
     @Bean

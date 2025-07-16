@@ -7,7 +7,7 @@ import java.util.UUID;
 import java.util.function.*;
 
 public class ConsumerTest {
-    private String[] result = {""};
+    private final String[] result = {""};
 
     @Test
     public void testConsumer() {

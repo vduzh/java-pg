@@ -17,10 +17,12 @@ spring:
       # Говорит для каких профилей нужны настройки
       profile: prod
     function:
+      #autodetect: true - default
+      # functional beans
       definition: sendFooEventToRabbitMQ;sendFooEventToKafka
     stream:
       bindings:
-        # Functional binding name for RabbitMQ
+        # Functional binding name for RabbitMQ - binds the functional bean to the external destination
         sendFooEventToRabbitMQ-out-0:
           # maps to the 'foo-events' RabbitMQ exchange
           destination: foo-events # RabbitMQ exchange name, куда будут отправляться сообщения
