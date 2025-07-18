@@ -43,6 +43,11 @@ spring:
           destination: foo-events
           content-type: application/json
           binder: kafka
+        # Explicit binding name for Kafka
+        incorrectEventTypeOut:
+          destination: incorrect-type-event
+          content-type: application/json
+          binder: kafka
       binders:
         rabbit:
           type: rabbit

@@ -6,7 +6,7 @@ import org.springframework.messaging.support.MessageBuilder;
 
 public class MessageHelper {
 
-    public static <T extends ActionEvent<?>> Message<T> buildFooMessage(T event) {
+    public static <T extends ActionEvent<?>> Message<T> buildMessage(T event) {
         return MessageBuilder.withPayload(event)
 //                .setHeader("routingKey", event.getAction())
 //                .setHeader("timestamp", Instant.now())

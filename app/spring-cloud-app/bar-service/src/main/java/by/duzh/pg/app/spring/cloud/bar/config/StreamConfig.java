@@ -43,6 +43,38 @@ public class StreamConfig {
         };
     }
 
+    /**
+     * String payload comes instead of FooEvent.
+     * </p>
+     *
+     * 3 delivery attempts will happen and error will be logged in.
+     */
+    @Bean
+    public Consumer<Message<FooEvent>> deserializationError() {
+        return message -> {
+            // trigger error just accessing to payload class
+            message.getPayload().getClass();
+        };
+    }
+
+    //    @Bean
+//    public Consumer<Message<FooEvent>> businessLogicError() {
+//        // TODO: send invalid action, foo.unknown
+//        return message -> {
+//            log.debug("businessLogicError expected: {}", message);
+//            processMessage(message);
+//        };
+//    }
+
+    //    @Bean
+//    public Consumer<Message<FooEvent>> brokerError() {
+//        // TODO: don't know how to trigger
+//        return message -> {
+//            log.debug("brokerError expected: {}", message);
+//            processMessage(message);
+//        };
+//    }
+
     private void processMessage(Message<? extends ActionEvent<?>> message) {
         MessageHeaders headers = message.getHeaders();
         log.debug("Headers: {}", headers);

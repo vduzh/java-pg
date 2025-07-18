@@ -43,7 +43,7 @@ public class StreamConfig {
                             .action("foo.created")
                             .payload(payload)
                             .build();
-                    return MessageHelper.buildFooMessage(event);
+                    return MessageHelper.buildMessage(event);
                 });
     }
 
@@ -57,7 +57,7 @@ public class StreamConfig {
                             .action("foo.created")
                             .payload(payload)
                             .build();
-                    return MessageHelper.buildFooMessage(event);
+                    return MessageHelper.buildMessage(event);
                 });
     }
 }

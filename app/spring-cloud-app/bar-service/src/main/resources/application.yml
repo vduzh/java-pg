@@ -16,7 +16,7 @@ spring:
       # Говорит для каких профилей нужны настройки
       profile: rabbit,prod
     function:
-      definition: processFooEventFromRabbitMQ;processFooEventFromKafka
+      definition: processFooEventFromRabbitMQ;processFooEventFromKafka;deserializationError
     stream:
       bindings:
         # Functional binding name
@@ -32,6 +32,19 @@ spring:
           binder: kafka
           consumer:
             use-native-decoding: false  # Важно!
+            maxAttempts: 3 # Сделаем 3 попытки для бизнес-ошибок, и только потом в DLQ переслать
+           #enableDlq: true # Включаем DLQ
+            #dlqName: foo-error-topic-dlt # Явное имя для DLQ топика
+        deserializationError-in-0:
+          destination: incorrect-type-event
+          group: incorrect-type-processing-group
+          content-type: application/json
+          binder: kafka
+          consumer:
+            use-native-decoding: false  # Важно!
+            maxAttempts: 1 # Для ошибок сериализации не надо делать несколько попыток
+            #enableDlq: true # Включаем DLQ для Kafka
+            #dlqName: incorrect-type-topic-dlt # Явное имя для DLQ топика
       binders:
         rabbit:
           type: rabbit
