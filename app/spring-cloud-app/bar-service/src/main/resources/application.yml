@@ -31,7 +31,7 @@ spring:
           content-type: application/json
           binder: kafka
           consumer:
-            use-native-decoding: false  # Важно!
+            #use-native-decoding: false  # Важно!
             maxAttempts: 3 # Сделаем 3 попытки для бизнес-ошибок, и только потом в DLQ переслать
            #enableDlq: true # Включаем DLQ
             #dlqName: foo-error-topic-dlt # Явное имя для DLQ топика
@@ -41,10 +41,13 @@ spring:
           content-type: application/json
           binder: kafka
           consumer:
-            use-native-decoding: false  # Важно!
+            #use-native-decoding: false  # Важно!
             maxAttempts: 1 # Для ошибок сериализации не надо делать несколько попыток
-            #enableDlq: true # Включаем DLQ для Kafka
-            #dlqName: incorrect-type-topic-dlt # Явное имя для DLQ топика
+            enableDlq: true # Включаем DLQ для Kafka
+            #dlqName: incorrect-type-event.DLT  # Явное имя для DLQ топика
+#            dlqProducerProperties:
+#              configuration:
+#                value.serializer: org.apache.kafka.common.serialization.StringSerializer
       binders:
         rabbit:
           type: rabbit
@@ -66,6 +69,11 @@ spring:
                 bootstrap-servers: localhost:9092
                 consumer:
                   auto-offset-reset: latest # earliest
+                # Добавить настройки для DLQ
+#                listener:
+#                  ack-mode: manual_immediate
+#                  # Настройки для DeadLetterPublishingRecoverer
+#                  missing-topics-fatal: false
 eureka:
   instance:
     #hostname: localhost
@@ -88,11 +96,14 @@ logging:
     root: INFO
     by.duzh: DEBUG
     org.springframework.cloud.stream.messaging: DEBUG
-    org.springframework.boot.actuate: DEBUG
-    org.springframework.web: DEBUG
-    com.netflix.eureka: DEBUG # Установить уровень DEBUG для логирования Eureka Client
-    com.netflix.discovery: DEBUG # Установить уровень DEBUG для логирования Discovery
-    org.springframework.cloud.netflix.eureka: DEBUG # Для специфичных логов Spring Cloud Netflix Eureka
-    #org.springframework.cloud: DEBUG # Можно включить, если нужно больше логов от Spring Cloud в целом
+#    org.springframework.boot.actuate: DEBUG
+#    org.springframework.web: DEBUG
+#    com.netflix.eureka: DEBUG # Установить уровень DEBUG для логирования Eureka Client
+#    com.netflix.discovery: DEBUG # Установить уровень DEBUG для логирования Discovery
+#    org.springframework.cloud.netflix.eureka: DEBUG # Для специфичных логов Spring Cloud Netflix Eureka
+#    #org.springframework.cloud: DEBUG # Можно включить, если нужно больше логов от Spring Cloud в целом
     org.springframework.messaging.converter: DEBUG
-    org.springframework.kafka.support.converter: DEBUG
+    org.springframework.kafka: DEBUG
+#    org.springframework.kafka.support.converter: DEBUG
+#    org.springframework.kafka.listener.DeadLetterPublishingRecoverer: TRACE
+#    org.springframework.kafka.listener.ContainerStoppingErrorHandler: TRACE # если он вызывается

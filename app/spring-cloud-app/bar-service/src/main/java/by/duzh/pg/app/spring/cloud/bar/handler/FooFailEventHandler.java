@@ -22,6 +22,6 @@ public class FooFailEventHandler implements ActionEventHandler<FooDto, FooEvent>
         log.debug("Creating Foo: id={}, name={}", foo.id(), foo.name());
 
         // Здесь ваша бизнес-логика: add data to the db
-        throw new RuntimeException("Business logic error happened.");
+        //throw new RuntimeException("Business logic error happened.");
     }
 }

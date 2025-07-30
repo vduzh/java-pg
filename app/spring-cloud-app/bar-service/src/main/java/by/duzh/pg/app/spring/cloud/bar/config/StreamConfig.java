@@ -5,11 +5,21 @@ import by.vduzh.pg.event.action.model.ActionEvent;
 import by.vduzh.pg.foo.event.action.FooEvent;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.stream.binder.kafka.KafkaListenerContainerCustomizer;
+import org.springframework.cloud.stream.binder.kafka.properties.KafkaConsumerProperties;
+import org.springframework.cloud.stream.config.ListenerContainerCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.core.KafkaOperations;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.listener.AbstractMessageListenerContainer;
+import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
+import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.support.ErrorMessage;
+import org.springframework.util.backoff.FixedBackOff;
 
 import java.util.function.Consumer;
 
@@ -43,6 +53,31 @@ public class StreamConfig {
         };
     }
 
+    @Bean
+    public DefaultErrorHandler errorHandler(KafkaTemplate<?, ?> template) {
+        DefaultErrorHandler handler = new DefaultErrorHandler(
+                new DeadLetterPublishingRecoverer(template),
+                new FixedBackOff(1000L, 1)
+        );
+        handler.addRetryableExceptions(Exception.class);
+        return handler;
+    }
+
+//    @Bean
+//    public ListenerContainerCustomizer<AbstractMessageListenerContainer<byte[], byte[]>> customizer(DefaultErrorHandler errorHandler) {
+//        return (container, dest, group) -> {
+//            container.setCommonErrorHandler(errorHandler);
+//        };
+//    }
+
+    @Bean
+    public KafkaListenerContainerCustomizer kafkaListenerContainerCustomizer(
+            DefaultErrorHandler errorHandler) {
+        return (container, type, id) -> {
+            container.setCommonErrorHandler(errorHandler);
+        };
+    }
+
     /**
      * String payload comes instead of FooEvent.
      * </p>
@@ -50,12 +85,24 @@ public class StreamConfig {
      * 3 delivery attempts will happen and error will be logged in.
      */
     @Bean
-    public Consumer<Message<FooEvent>> deserializationError() {
+//    public Consumer<Message<FooEvent>> deserializationError() {
+    public Consumer<Message<String>> deserializationError() {
         return message -> {
+            //log.debug("deserializationError started");
             // trigger error just accessing to payload class
-            message.getPayload().getClass();
+            //message.getPayload().getClass();
+            log.debug("deserializationError payload: {}", message.getPayload());
+
+            throw new RuntimeException("Trigger deserializationError!!");
         };
     }
+
+//    @Bean
+//    public Consumer<ErrorMessage> myErrorHandler() {
+//        return message -> {
+//            log.debug("myErrorHandler started : {}", message);
+//        };
+//    }
 
     //    @Bean
 //    public Consumer<Message<FooEvent>> businessLogicError() {

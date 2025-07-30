@@ -66,11 +66,11 @@ spring:
               kafka:
                 bootstrap-servers: localhost:9092
                 # Настройки для Producer
-                producer:
-                  configuration:
-                    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+                #producer:
+                #  configuration:
+                #    key-serializer: org.apache.kafka.common.serialization.StringSerializer
                     # Используем JSON для сериализации сообщений
-                    value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+                #    value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
                     # Для надежности можно включить ack
                     # acks: all
 

@@ -12,18 +12,19 @@
 - `http://localhost:9080/` - админ консоль
 - Kafka CLI
 
+## Get topics
+
+- `docker exec kafka kafka-topics --list --bootstrap-server localhost:9092`
+
 ## Create topic
 
 - `docker exec kafka kafka-topics --create -bootstrap-server localhost:9092 --topic test-topic - --partitions 1 --replication-factor 1`
+    - `docker exec kafka kafka-topics --create -bootstrap-server localhost:9092 --topic incorrect-type-event.dlq - --partitions 1 --replication-factor 1`
     - `docker exec kafka kafka-topics --create -bootstrap-server localhost:9092 --topic incorrect-type-topic-dlt - --partitions 1 --replication-factor 1`
 
 ## Get topic info
 
 - `docker exec kafka kafka-topics --describe --topic test-topic --bootstrap-server localhost:9092`
-
-## Get topics 
-
-- `docker exec kafka kafka-topics --list --bootstrap-server localhost:9092`
 
 ## Delete topic
 
@@ -33,7 +34,8 @@
 
 ## Публикация сообщения
 - `docker exec -it kafka kafka-console-producer --broker-list localhost:9092 --topic test-topic` - вводить сообщение в консоли и нажать Enter
-  - `docker exec kafka bash -c "echo 'Hello Kafka' | kafka-console-producer --topic test-topic --bootstrap-server localhost:9092"`
+  - `docker exec -it kafka kafka-console-producer --broker-list localhost:9092 --topic incorrect-type-event`
+- `docker exec kafka bash -c "echo 'Hello Kafka' | kafka-console-producer --topic test-topic --bootstrap-server localhost:9092"`
 
 ## Чтение сообщения
 
@@ -42,6 +44,7 @@
 - `docker exec kafka kafka-console-consumer --bootstrap-server localhost:9092  --topic test-topic` - читает с текущего конца топика
 - `docker exec kafka kafka-console-consumer --bootstrap-server localhost:9092  --topic test-topic --from-beginning` - читает с начала топика
   - `docker exec kafka kafka-console-consumer --bootstrap-server localhost:9092  --topic foo-events --from-beginning`
+  - `docker exec kafka kafka-console-consumer --bootstrap-server localhost:9092  --topic incorrect-type-event --from-beginning`
 
 ### С указанием группы
 
