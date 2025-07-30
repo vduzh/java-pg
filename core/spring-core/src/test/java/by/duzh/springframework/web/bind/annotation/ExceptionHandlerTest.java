@@ -164,7 +164,8 @@ public class ExceptionHandlerTest {
         }
 */
 
-        @Override
+        // TODO: ???
+        //@Override
         protected ModelAndView handleBindException(BindException ex, HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
             return new ModelAndView("error", "error", new ErrorResponse("400", "Validation failed", ex.getMessage()));
         }

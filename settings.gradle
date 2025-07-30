@@ -28,7 +28,8 @@ include 'lib:event:action:foo-action-event'
 include 'core:jse-core'
 include 'core:junit5-core', 'core:mockito-core'
 
-//include 'core:spring-core', 'core:spring-boot-core'
+include 'core:spring-core'
+//include 'core:spring-boot-core'
 //include 'core:hibernate-core'
 //include 'core:spring-data-jpa-core'
 
