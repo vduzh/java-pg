@@ -29,7 +29,7 @@ public class BeforeTest {
     public static class TestAspect {
         @Before("execution(void foo())")
         public void beforeAdvice() {
-            System.out.println("TestAspect: beforeAdvice is working...");
+            System.out.println("BeforeTest: beforeAdvice is working...");
         }
     }
 
